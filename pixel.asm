@@ -26,7 +26,7 @@ plot:
 	
 	lda screen_adr
 	sta plot_adr
-	lda screen_adr
+	lda screen_adr+1
 	sta plot_adr+1
 
 	txa

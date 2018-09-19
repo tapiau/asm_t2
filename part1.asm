@@ -21,6 +21,8 @@ part1_0:
 	lda >screen_mem_1
 	sta screen_adr+1
 
+	jsr wait_vsync
+
 	jsr part1_dli
 
 	lda 20         ;czekamy 1 ramke
@@ -77,6 +79,8 @@ part1_dli_loop
 ;	stx COLBG
 ;	stx WSYNC	;WAIT
 
+	jsr wait_vsync
+
 	iny
 	sty part1_y
 	tya
@@ -93,4 +97,4 @@ part1_dli_loop
 	tax
 	pla
 	
-	rts
+	rts 
