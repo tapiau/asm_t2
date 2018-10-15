@@ -1,7 +1,7 @@
 WSYNC = $D40A
 VCOUNT = $D40B
 
-wait_vsync:
+wait_hsync:
 
 	pha
 
@@ -12,12 +12,12 @@ wait_vsync:
 	rts
 
 
-wait_frame:
+wait_vsync:
 	pha
-wait_frame_loop:
+wait_vsync_loop:
 	lda VCOUNT
 	cmp #100
-	bne wait_frame_loop 
+	bne wait_vsync_loop 
 	
 	pla
 	rts

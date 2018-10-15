@@ -4,3 +4,4 @@
 .echo
 bc *
 .onexerun .echo "Launching executable..."
+bp `C:\jac\wudsn\Workspace\Atari800\asm_t2\part1.asm:91`
