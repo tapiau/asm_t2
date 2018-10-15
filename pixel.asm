@@ -14,32 +14,35 @@ screen_adr
 
 ;Y = y, X = x
 plot:
+	// push registers to stack
 	pha
 	txa
 	pha
 	tya
 	pha
 	
+	; check if Y is less than 192
 	tya
 	cmp #192
 	bcs plot_ret
 	
+	; prepare tmp addr
 	lda screen_adr
 	sta plot_adr
 	lda screen_adr+1
 	sta plot_adr+1
 
+	; move pointer by X
 	txa
 	and #%11111000
-	lsr
-	lsr
-	lsr
+	:3 lsr ; Logical Shoft Right - div by 8 
 	adc plot_adr
 	sta plot_adr
 	and #0
 	adc plot_adr+1
 	sta plot_adr+1
 	
+	; move pointer by Y
 	tya
 	and #%00000111
 	:5 asl
@@ -57,15 +60,17 @@ plot:
 	adc plot_adr+1
 	sta plot_adr+1
 	
+	; get byte by pointer
 	txa
 	and #%00000111
 	tax
 	ldy #0
-	lda (plot_adr),y
+	lda (plot_adr),y ; modify byte using bit map
 	ora ora_mask,x
 	sta (plot_adr),y
 	
 plot_ret:
+	; pull from stack to registers
 	pla
 	tay
 	pla

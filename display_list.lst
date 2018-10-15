@@ -1,0 +1,87 @@
+mads 2.0.6 build 58 (28 Jan 17)
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\display_list.asm
+     1 					ICL 'display_list_const.asm'
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\display_list_const.asm
+     1 = 0230			DLIST   = $230
+     2 = 0230			DLISTL  = $230 ; display list pointer low byte
+     3 = 0231			DLISTH  = $231 ;                      high byte
+     4 = D01A			COLBG	= $D01A 
+     5 = D016			COLPF0	= $D016  
+     6 = D017			COLPF1	= $D017  
+     7 = D018			COLPF2	= $D018  
+     8 = D019			COLPF3	= $D019
+     9 = 02C4			COLOR0	= $02C4
+    10 = 02C5			COLOR1	= $02C5
+    11 = 02C6			COLOR2	= $02C6
+    12 = 02C7			COLOR3	= $02C7
+    13 = 02C8			COLOR4 	= $02C8
+    14 = 022F			SDMCTL  = $022F
+    15 = D400			DMACTL  = $D400
+    16 = 0200			VDSLST  = $0200
+    17 = D40E			NMEN	= $D40E
+     2
+     3 					org $3800
+     4
+     5 				; DL for first buffer	
+     6 FFFF> 3800-39D5> 70 70 + antic_1		dta $70,$70,$70              ; 3x8 empty scanlines
+     7 3803 4F 00 00				dta b($4f),a(screen_mem_1)   ; $0f - mode, $40 - addr of 1/3 screen bitmap 
+     8 3806 0F 0F 0F 0F 0F 0F + 		:63 dta b($0f)               ; 63 lines of $0f 
+     9 3845 4F 00 00				dta b($4f),a(screen_mem_1_1) ; $0f - mode, $40 - addr of 2/3 screen bitmap
+    10 3848 0F 0F 0F 0F 0F 0F + 		:63 dta b($0f)	             ; 63 lines of $0f 
+    11 3887 4F 00 00				dta b($4f),a(screen_mem_1_2) ; $0f - mode, $40 - addr of 3/3 screen bitmap
+    12 388A 0F 0F 0F 0F 0F 0F + 		:63 dta b($0f)               ; 63 lines of $0f
+    13 						;dta b($c1),a(antic) przerwanie
+    14 38C9 41 00 38				dta b($41),a(antic_1)        ; jump to DL start
+    15 38CC 70 70 70		antic_2		dta $70,$70,$70              ; 3x8 empty scanlines 
+    16 38CF 4F 00 00				dta b($4f),a(screen_mem_2)   ; $0f - mode, $40 - addr of 1/3 screen bitmap
+    17 38D2 0F 0F 0F 0F 0F 0F + 		:63 dta b($0f)               ; 63 lines of $0f 
+    18 3911 4F 00 00				dta b($4f),a(screen_mem_2_1) ; $0f - mode, $40 - addr of 2/3 screen bitmap
+    19 3914 0F 0F 0F 0F 0F 0F + 		:63 dta b($0f)	             ; 63 lines of $0f 
+    20 3953 4F 00 00				dta b($4f),a(screen_mem_2_2) ; $0f - mode, $40 - addr of 3/3 screen bitmap
+    21 3956 0F 0F 0F 0F 0F 0F + 		:63 dta b($0f)               ; 63 lines of $0f 
+    22 						;dta b($c1),a(antic) przerwanie
+    23 3995 41 CC 38				dta b($41),a(antic_2)        ; jump to DL start 
+    24
+    25 3998			dl_set_mode
+    26 					; set screen width to 32 byte
+    27 3998 A9 FD			lda #$fd
+    28 399A 2D 2F 02			and SDMCTL
+    29 399D 18 69 01			add #1
+    30 39A0 8D 2F 02			sta SDMCTL
+    31 39A3 8D 00 D4			sta DMACTL
+    32
+    33 					; set colors
+    34 39A6 A9 00			lda #0      ; black
+    35 39A8 8D C5 02			sta COLOR1
+    36 39AB A9 0E			lda #14     ; white
+    37 39AD 8D C6 02			sta COLOR2
+    38 39B0 A9 00			lda #0      ; black
+    39 39B2 8D C7 02			sta COLOR3
+    40 39B5 A9 0E			lda #14     ; white
+    41 39B7 8D C8 02			sta COLOR4
+    42 39BA A9 0E			lda #14     ; white
+    43 39BC 8D 1A D0			sta COLBG
+    44
+    45 39BF 60				rts
+    46
+    47 39C0			set_screen_1:
+    48 					; load display list address to register
+    49
+    50 39C0 A9 00 8D 30 02 A9 + 	mwa #antic_1 DLIST
+    51
+    52 				;	lda <antic_1
+    53 				;	sta DLISTL
+    54 				;	lda >antic_1
+    55 				;	sta DLISTH
+    56 					
+    57 39CA 60				rts
+    58
+    59 39CB			set_screen_2:
+    60 					; load display list address to register
+    61 39CB A9 CC			lda <antic_2
+    62 39CD 8D 30 02			sta DLISTL
+    63 39D0 A9 38			lda >antic_2
+    64 39D2 8D 31 02			sta DLISTH
+    65
+    66 39D5 60				rts
+    67 						

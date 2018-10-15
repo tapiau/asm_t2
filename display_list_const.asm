@@ -1,0 +1,17 @@
+DLIST   = $230
+DLISTL  = $230 ; display list pointer low byte
+DLISTH  = $231 ;                      high byte
+COLBG	= $D01A 
+COLPF0	= $D016  
+COLPF1	= $D017  
+COLPF2	= $D018  
+COLPF3	= $D019
+COLOR0	= $02C4
+COLOR1	= $02C5
+COLOR2	= $02C6
+COLOR3	= $02C7
+COLOR4 	= $02C8
+SDMCTL  = $022F
+DMACTL  = $D400
+VDSLST  = $0200 ; display list interrupt vector
+NMEN	= $D40E

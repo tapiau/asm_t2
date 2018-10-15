@@ -1,3 +1,5 @@
+	ICL 'macro.inc'
+
 	org $2000
 
 	.proc main
