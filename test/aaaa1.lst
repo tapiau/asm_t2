@@ -1,0 +1,346 @@
+mads 2.0.6 build 58 (28 Jan 17)
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test\aaaa1.asm
+     1 					ICL 'macro.asm'
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test\macro.asm
+     1 				.MACRO REG_PUSH 
+     2 					pha
+     3 					txa
+     4 					pha
+     5 					tya
+     6 					pha
+     7 				.ENDM
+     8
+     9 				.MACRO REG_PULL
+    10 					pla
+    11 					tay
+    12 					pla
+    13 					tax
+    14 					pla
+    15 				.ENDM
+    16
+     2
+     3 					org $2000
+     4
+     5 					.proc main
+     6 					
+     7 FFFF> 2000-205D> 4C 07 + 	jmp part1
+     8
+     9 					.endp
+    10 					
+    11 2003				ICL 'part1.asm'
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test\part1.asm
+     1 2003 00			part1_x dta 0
+     2 2004 00			part1_y dta 0
+     3 2005 00			part1_d dta 0
+     4
+     5 2006 00			part1_sync: dta 0
+     6
+     7 2007			part1:
+     8 					; set handler for display list interrupt 
+     9 2007 A9 40 8D 00 02 A9 + 	mwa #part1_dli_handler VDSLST
+    10 2011 20 9A 39			jsr dl_set_mode
+    11
+    12 					; enable DL interrupt
+    13 2014 A9 C0			lda #$c0
+    14 2016 8D 0E D4			sta NMIEN
+    15
+    16 2019 20 5F 70			jsr screen_set_write_1
+    17 201C 20 02 70			jsr screen_clear
+    18 201F 20 75 70			jsr screen_set_write_2
+    19 2022 20 2B 70			jsr screen_fill
+    20
+    21 2025			part1_0:
+    22 2025 20 5F 70			jsr screen_set_write_1
+    23 2028 20 02 70			jsr screen_clear
+    24 202B 20 54 70			jsr screen_set_read_1
+    25
+    26 202E 20 75 70			jsr screen_set_write_2
+    27 2031 20 02 70			jsr screen_clear
+    28 2034 20 6A 70			jsr screen_set_read_2
+    29 					
+    30 2037 4C 25 20			jmp part1_0
+    31
+    32
+    33 203A				REG_PULL
+Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test\macro.asm]
+     1 203A 68				pla
+     2 203B A8				tay
+     3 203C 68				pla
+     4 203D AA				tax
+     5 203E 68				pla
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test\part1.asm
+    34
+    35 203F 60				rts
+    36 					
+    37 2040			part1_dli_handler:
+    38 2040				REG_PUSH
+Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test\macro.asm]
+     1 2040 48				pha
+     2 2041 8A				txa
+     3 2042 48				pha
+     4 2043 98				tya
+     5 2044 48				pha
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test\part1.asm
+    39
+    40 				; zmiana koloru ramki
+    41 2045 A9 00			lda #0		
+    42 2047			dli_handler_loop:
+    43 2047 8D 0A D4			sta WSYNC	;WAIT
+    44 204A 8D 1A D0			sta COLBG
+    45 204D 69 01			adc #1
+    46 204F C9 10			cmp #16
+    47 2051 D0 F4			bne dli_handler_loop
+    48
+    49 2053 A9 0E			lda #14
+    50 2055 8D 1A D0			sta COLBG
+    51
+    52 2058				REG_PULL
+Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test\macro.asm]
+     1 2058 68				pla
+     2 2059 A8				tay
+     3 205A 68				pla
+     4 205B AA				tax
+     5 205C 68				pla
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test\part1.asm
+    53 205D 40				rti
+    54 					
+    55 					
+    56 					
+    12 205E				ICL 'screen_mem.asm'
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test\screen_mem.asm
+     1 205E				org $4000
+     2
+     3 4000			screen_mem_1
+     4 4000-707F> 00 00 00 00 + 	:2048 dta $0
+     5 4800			screen_mem_1_1
+     6 4800 00 00 00 00 00 00 + 	:2048 dta $0
+     7 5000			screen_mem_1_2
+     8 5000 00 00 00 00 00 00 + 	:2048 dta $0
+     9 					
+    10 5800			screen_mem_2
+    11 5800 00 00 00 00 00 00 + 	:2048 dta $0
+    12 6000			screen_mem_2_1
+    13 6000 00 00 00 00 00 00 + 	:2048 dta $0
+    14 6800			screen_mem_2_2
+    15 6800 00 00 00 00 00 00 + 	:2048 dta $0
+    16
+    17 7000			screen_adr
+    18 7000 00 00			dta 0,0
+    19
+    20 7002			screen_clear:
+    21 7002				REG_PUSH
+Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test\macro.asm]
+     1 7002 48				pha
+     2 7003 8A				txa
+     3 7004 48				pha
+     4 7005 98				tya
+     5 7006 48				pha
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test\screen_mem.asm
+    22 7007 AD 00 70 8D 1A 70 + 	mwa screen_adr screen_clear_loop_2+1
+    23 7013 A9 00			lda #0
+    24 7015 A2 18			ldx #24
+    25 7017			screen_clear_loop_1
+    26 7017 A0 00			ldy #0	
+    27 7019			screen_clear_loop_2	
+    28 7019 99 00 00			sta $0000,y
+    29 701C C8				iny
+    30 701D D0 FA			bne screen_clear_loop_2
+    31 701F EE 1B 70			inc screen_clear_loop_2+2
+    32 7022 CA				dex
+    33 7023 D0 F4			bne screen_clear_loop_2
+    34 7025				REG_PULL
+Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test\macro.asm]
+     1 7025 68				pla
+     2 7026 A8				tay
+     3 7027 68				pla
+     4 7028 AA				tax
+     5 7029 68				pla
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test\screen_mem.asm
+    35 702A 60				rts	
+    36
+    37 702B			screen_fill:
+    38 702B				REG_PUSH
+Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test\macro.asm]
+     1 702B 48				pha
+     2 702C 8A				txa
+     3 702D 48				pha
+     4 702E 98				tya
+     5 702F 48				pha
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test\screen_mem.asm
+    39 7030 AD 00 70 8D 43 70 + 	mwa screen_adr screen_fill_loop_2+1
+    40 703C A9 FF			lda #255
+    41 703E A2 18			ldx #24
+    42 7040			screen_fill_loop_1
+    43 7040 A0 00			ldy #0	
+    44 7042			screen_fill_loop_2	
+    45 7042 99 00 00			sta $0000,y
+    46 7045 C8				iny
+    47 7046 D0 FA			bne screen_fill_loop_2
+    48 7048 EE 44 70			inc screen_fill_loop_2+2
+    49 704B CA				dex
+    50 704C D0 F4			bne screen_fill_loop_2
+    51 704E				REG_PULL
+Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test\macro.asm]
+     1 704E 68				pla
+     2 704F A8				tay
+     3 7050 68				pla
+     4 7051 AA				tax
+     5 7052 68				pla
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test\screen_mem.asm
+    52 7053 60				rts	
+    53
+    54 					
+    55 7054			screen_set_read_1:
+    56 					; load display list address to register
+    57 7054 A9 00 8D 30 02 A9 + 	mwa #dl_antic_1 DLIST
+    58 705E 60				rts
+    59 705F			screen_set_write_1:
+    60 					; switch working buffer pointer
+    61 705F A9 00 8D 00 70 A9 + 	mwa #screen_mem_2 screen_adr
+    62 7069 60				rts
+    63
+    64 706A			screen_set_read_2:
+    65 					; load display list address to register
+    66 706A A9 CD 8D 30 02 A9 + 	mwa #dl_antic_2 DLIST
+    67 7074 60				rts
+    68 7075			screen_set_write_2:	
+    69 					; switch working buffer pointer
+    70 7075 A9 00 8D 00 70 A9 + 	mwa #screen_mem_1 screen_adr
+    71 707F 60				rts
+    72 					
+    13 7080				ICL 'display_list.asm'
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test\display_list.asm
+     1 7080				ICL 'display_list_const.asm'
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test\display_list_const.asm
+     1 = 0230			DLIST   = $230
+     2 = 0230			DLISTL  = $230 ; display list pointer low byte
+     3 = 0231			DLISTH  = $231 ;                      high byte
+     4 = D01A			COLBG	= $D01A 
+     5 = D016			COLPF0	= $D016  
+     6 = D017			COLPF1	= $D017  
+     7 = D018			COLPF2	= $D018  
+     8 = D019			COLPF3	= $D019
+     9 = 02C4			COLOR0	= $02C4
+    10 = 02C5			COLOR1	= $02C5
+    11 = 02C6			COLOR2	= $02C6
+    12 = 02C7			COLOR3	= $02C7
+    13 = 02C8			COLOR4 	= $02C8
+    14 = 022F			SDMCTL  = $022F
+    15 = D400			DMACTL  = $D400
+    16 = 0200			VDSLST  = $0200 ; display list interrupt vector
+    17 = D40E			NMEN	= $D40E
+    18 = D40E			NMIEN	= $D40E ; bit 7
+    19 = D40A			WSYNC   = $D40A
+    20 = D40B			VCOUNT  = $D40B
+    21
+    22
+    23 				;     SAVMSC $0058,2       (88): pointer to current screen for CIO commands
+    24 				;     RAMTOP $006A        (106): start-of-ROM pointer (MSB only)
+    25 				;     VDSLST $0200,2      (512): DLI vector
+    26 				;     RAMSIZ $02E4        (740): permanent start-of-ROM pointer (MSB only)
+    27 				;     DLISTL $D402      (54274): display list pointer low byte
+    28 				;     DLISTH $D403      (54275):     "    high byte
+    29 				;     HSCROL $D404      (54276): horizontal scroll register
+    30 				;     VSCROL $D405      (54277): vertical scroll register
+    31 				;     NMIEN  $D40E      (54286): NMI enable (DLIs)
+    32 				;     
+    33 				;     
+    34 				;                               Shadow registers
+    35 				;     
+    36 				;     
+    37 				;     SDLSTL $0230        (560): DLISTL
+    38 				;     SDLSTH $0231        (561): DLISTH
+     2
+     3 7080				org $3800
+     4
+     5 				; DL for first buffer	
+     6 3800-39FD> 70 70 70	dl_antic_1	dta $70,$70,$70              ; 3x8 empty scanlines
+     7 3803 F0					dta $F0
+     8 3804 4F 00 40				dta b($4f),a(screen_mem_1)   ; $0f - mode, $40 - addr of 1/3 screen bitmap 
+     9 3807 0F 0F 0F 0F 0F 0F + 		:63 dta b($0f)               ; 63 lines of $0f 
+    10 3846 4F 00 48				dta b($4f),a(screen_mem_1_1) ; $0f - mode, $40 - addr of 2/3 screen bitmap
+    11 3849 0F 0F 0F 0F 0F 0F + 		:63 dta b($0f)	             ; 63 lines of $0f 
+    12 3888 4F 00 50				dta b($4f),a(screen_mem_1_2) ; $0f - mode, $40 - addr of 3/3 screen bitmap
+    13 388B 0F 0F 0F 0F 0F 0F + 		:63 dta b($0f)               ; 63 lines of $0f
+    14 						;dta b($c1),a(dl_antic_1)     ; jump to DL start and trigger interrupt
+    15 38CA 41 00 38				dta b($41),a(dl_antic_1)     ; jump to DL start
+    16 38CD 70 70 70		dl_antic_2	dta $70,$70,$70              ; 3x8 empty scanlines 
+    17 38D0 F0					dta $F0
+    18 38D1 4F 00 58				dta b($4f),a(screen_mem_2)   ; $0f - mode, $40 - addr of 1/3 screen bitmap
+    19 38D4 0F 0F 0F 0F 0F 0F + 		:63 dta b($0f)               ; 63 lines of $0f 
+    20 3913 4F 00 60				dta b($4f),a(screen_mem_2_1) ; $0f - mode, $40 - addr of 2/3 screen bitmap
+    21 3916 0F 0F 0F 0F 0F 0F + 		:63 dta b($0f)	             ; 63 lines of $0f 
+    22 3955 4F 00 68				dta b($4f),a(screen_mem_2_2) ; $0f - mode, $40 - addr of 3/3 screen bitmap
+    23 3958 0F 0F 0F 0F 0F 0F + 		:63 dta b($0f)               ; 63 lines of $0f 
+    24 						;dta b($c1),a(dl_antic_2)     ; jump to DL start and trigger interrupt
+    25 3997 41 CD 38				dta b($41),a(dl_antic_2)     ; jump to DL start 
+    26
+    27 399A			dl_set_mode
+    28 					; set screen width to 32 byte
+    29 399A A9 FD			lda #$fd
+    30 399C 2D 2F 02			and SDMCTL
+    31 399F 18 69 01			add #1
+    32 39A2 8D 2F 02			sta SDMCTL
+    33 39A5 8D 00 D4			sta DMACTL
+    34
+    35 					; set colors
+    36 39A8 A9 00			lda #0      ; black
+    37 39AA 8D C5 02			sta COLOR1
+    38 39AD A9 0E			lda #14     ; white
+    39 39AF 8D C6 02			sta COLOR2
+    40 39B2 A9 00			lda #0      ; black
+    41 39B4 8D C7 02			sta COLOR3
+    42 39B7 A9 0E			lda #14     ; white
+    43 39B9 8D C8 02			sta COLOR4
+    44 39BC A9 0E			lda #14     ; white
+    45 39BE 8D 1A D0			sta COLBG
+    46
+    47 39C1 60				rts
+    48
+    49 39C2			set_screen_1:
+    50 					; load display list address to register
+    51 39C2 A9 00 8D 30 02 A9 + 	mwa #dl_antic_1 DLIST
+    52 					; switch working buffer pointer
+    53 39CC A9 00 8D 00 70 A9 + 	mwa #screen_mem_2 screen_adr
+    54 39D6 60				rts
+    55
+    56 39D7			set_screen_2:
+    57 					; load display list address to register
+    58 39D7 A9 CD 8D 30 02 A9 + 	mwa #dl_antic_2 DLIST
+    59 					; switch working buffer pointer
+    60 39E1 A9 00 8D 00 70 A9 + 	mwa #screen_mem_1 screen_adr
+    61 39EB 60				rts
+    62 						
+    14 39EC				ICL 'wait_vsync.asm'
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test\wait_vsync.asm
+     1
+     2
+     3 39EC			wait_hsync:
+     4
+     5 39EC 48				pha
+     6
+     7 39ED A9 52			lda #$52
+     8 39EF 8D 0A D4			sta WSYNC	;WAIT
+     9 39F2 68				pla
+    10
+    11 39F3 60				rts
+    12
+    13
+    14 39F4			wait_vsync:
+    15 39F4 48				pha
+    16 39F5			wait_vsync_loop:
+    17 39F5 AD 0B D4			lda VCOUNT
+    18 39F8 C9 64			cmp #100
+    19 39FA D0 F9			bne wait_vsync_loop 
+    20 					
+    21 39FC 68				pla
+    22 39FD 60				rts
+    23 					
+    15 39FE				ICL 'math.asm'
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test\math.asm
+     1 39FE				org $1F00
+     2 					
+     3 1F00			math_sin	
+     4 1F00-1F0F> 7F B0 DA F5 + 	dta 127,176,218,245,255,245,218,176,127,78,36,9,0,9,36,78
+    16
+    17 					
