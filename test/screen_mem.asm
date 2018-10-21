@@ -38,7 +38,7 @@ screen_fill:
 	REG_PUSH
 	mwa screen_adr screen_fill_loop_2+1
 	lda #255
-	ldx #24
+	ldx #8
 screen_fill_loop_1
 	ldy #0	
 screen_fill_loop_2	
@@ -58,7 +58,7 @@ screen_set_read_1:
 	rts
 screen_set_write_1:
 	; switch working buffer pointer
-	mwa #screen_mem_2 screen_adr
+	mwa #screen_mem_1 screen_adr
 	rts
 
 screen_set_read_2:
@@ -67,6 +67,6 @@ screen_set_read_2:
 	rts
 screen_set_write_2:	
 	; switch working buffer pointer
-	mwa #screen_mem_1 screen_adr
+	mwa #screen_mem_2 screen_adr
 	rts
 	

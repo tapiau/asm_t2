@@ -9,8 +9,6 @@ ora_mask
 	dta %00001000,%00000100,%00000010,%00000001
 plot_adr  
 	dta 0,0
-screen_adr
-	dta 0,0
 
 ;Y = y, X = x
 plot:

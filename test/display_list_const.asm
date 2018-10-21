@@ -1,6 +1,7 @@
 DLIST   = $230
 DLISTL  = $230 ; display list pointer low byte
 DLISTH  = $231 ;                      high byte
+COLRBK  = $2C8
 COLBG	= $D01A 
 COLPF0	= $D016  
 COLPF1	= $D017  
@@ -18,6 +19,15 @@ NMEN	= $D40E
 NMIEN	= $D40E ; bit 7
 WSYNC   = $D40A
 VCOUNT  = $D40B
+
+
+GR8_PEN   = COLOR1
+GR8_PAPER = COLOR2
+GR8_FRAME = COLOR4 
+
+COLOR_BLACK = $00
+COLOR_WHITE = $0E
+
 
 
 ;     SAVMSC $0058,2       (88): pointer to current screen for CIO commands

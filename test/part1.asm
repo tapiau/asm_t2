@@ -1,6 +1,7 @@
 part1_x dta 0
 part1_y dta 0
 part1_d dta 0
+TMPCLR dta 0
 
 part1_sync: dta 0
 
@@ -15,17 +16,10 @@ part1:
 
 	jsr screen_set_write_1
 	jsr screen_clear
-	jsr screen_set_write_2
 	jsr screen_fill
-
-part1_0:
-	jsr screen_set_write_1
-	jsr screen_clear
 	jsr screen_set_read_1
 
-	jsr screen_set_write_2
-	jsr screen_clear
-	jsr screen_set_read_2
+part1_0:
 	
 	jmp part1_0
 
@@ -38,7 +32,8 @@ part1_dli_handler:
 	REG_PUSH
 
 ; zmiana koloru ramki
-	lda #0		
+	sta WSYNC	;WAIT
+
 dli_handler_loop:
 	sta WSYNC	;WAIT
 	sta COLBG
