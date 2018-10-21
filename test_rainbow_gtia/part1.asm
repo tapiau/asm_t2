@@ -33,6 +33,7 @@ part1:
 
 	jsr screen_set_write_1
 	jsr screen_clear
+	jsr screen_fill_raster
 	jsr screen_fill
 	jsr screen_set_read_1
 
@@ -45,8 +46,14 @@ part1_0:
 
 	rts
 	
+part1_gtia_prior: 
+	dta 0
+	
 part1_dli_handler:
 	REG_PUSH
+
+	lda GPRIOR
+	sta part1_gtia_prior
 
 ; zmiana koloru ramki
 	ldy #$0F;
@@ -55,6 +62,20 @@ dli_handler_loop:
 	stx WSYNC	;WAIT
 	stx DLI_PAPER
 	stx DLI_FRAME
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	nop
+	lda #192
+	sta PRIOR
+	lda part1_gtia_prior
+	nop
+	nop
+	nop
+	sta PRIOR
 	stx WSYNC	;WAIT
 	stx WSYNC	;WAIT
 	dey

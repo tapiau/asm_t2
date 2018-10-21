@@ -1,0 +1,422 @@
+mads 2.0.6 build 58 (28 Jan 17)
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\aaaa1.asm
+     1 					ICL 'macro.asm'
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\macro.asm
+     1 				.MACRO REG_PUSH 
+     2 					pha
+     3 					txa
+     4 					pha
+     5 					tya
+     6 					pha
+     7 				.ENDM
+     8
+     9 				.MACRO REG_PULL
+    10 					pla
+    11 					tay
+    12 					pla
+    13 					tax
+    14 					pla
+    15 				.ENDM
+    16
+     2
+     3 					org $2000
+     4
+     5 					.proc main
+     6 					
+     7 FFFF> 2000-2099> 4C 18 + 	jmp part1
+     8
+     9 					.endp
+    10 					
+    11 2003				ICL 'part1.asm'
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\part1.asm
+     1 2003 00			part1_x dta 0
+     2 2004 00			part1_y dta 0
+     3 2005 00			part1_d dta 0
+     4 2006 00			TMPCLR dta 0
+     5
+     6 2007 00			part1_sync: dta 0
+     7 2008			rainbow:
+     8 2008 B4				dta $B4 ; red
+     9 2009 B4				dta $B4 ; red
+    10 200A B6				dta $B6 ; red
+    11 200B B6				dta $B6 ; red
+    12 200C BA				dta $BA ; red
+    13 200D BA				dta $BA ; red
+    14 200E EE				dta $EE ; red
+    15 200F EE				dta $EE ; red
+    16 2010 EC				dta $EC ; red
+    17 2011 EC				dta $EC ; red
+    18 2012 1C				dta $1C ; red
+    19 2013 1C				dta $1C ; red
+    20 2014 1A				dta $1A ; red
+    21 2015 1A				dta $1A ; red
+    22 2016 24				dta $24 ; red
+    23 2017 24				dta $24 ; red
+    24
+    25 2018			part1:
+    26 					; set handler for display list interrupt 
+    27 2018 A9 43 8D 00 02 A9 + 	mwa #part1_dli_handler VDSLST
+    28 2022 20 98 39			jsr dl_set_mode
+    29
+    30 					; enable DL interrupt
+    31 2025 A9 C0			lda #$c0
+    32 2027 8D 0E D4			sta NMIEN
+    33
+    34 202A 20 88 70			jsr screen_set_write_1
+    35 202D 20 02 70			jsr screen_clear
+    36 2030 20 54 70			jsr screen_fill_raster
+    37 2033 20 2B 70			jsr screen_fill
+    38 2036 20 7D 70			jsr screen_set_read_1
+    39
+    40 2039			part1_0:
+    41 					
+    42 2039 4C 39 20			jmp part1_0
+    43
+    44
+    45 203C				REG_PULL
+Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\macro.asm]
+     1 203C 68				pla
+     2 203D A8				tay
+     3 203E 68				pla
+     4 203F AA				tax
+     5 2040 68				pla
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\part1.asm
+    46
+    47 2041 60				rts
+    48 					
+    49 2042			part1_gtia_prior: 
+    50 2042 00				dta 0
+    51 					
+    52 2043			part1_dli_handler:
+    53 2043				REG_PUSH
+Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\macro.asm]
+     1 2043 48				pha
+     2 2044 8A				txa
+     3 2045 48				pha
+     4 2046 98				tya
+     5 2047 48				pha
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\part1.asm
+    54
+    55 2048 AD 6F 02			lda GPRIOR
+    56 204B 8D 42 20			sta part1_gtia_prior
+    57
+    58 				; zmiana koloru ramki
+    59 204E A0 0F			ldy #$0F;
+    60 2050			dli_handler_loop:
+    61 2050 BE 08 20			ldx rainbow,y
+    62 2053 8E 0A D4			stx WSYNC	;WAIT
+    63 2056 8E 18 D0			stx DLI_PAPER
+    64 2059 8E 1A D0			stx DLI_FRAME
+    65 205C EA				nop
+    66 205D EA				nop
+    67 205E EA				nop
+    68 205F EA				nop
+    69 2060 EA				nop
+    70 2061 EA				nop
+    71 2062 EA				nop
+    72 2063 A9 C0			lda #192
+    73 2065 8D 1B D0			sta PRIOR
+    74 2068 AD 42 20			lda part1_gtia_prior
+    75 206B EA				nop
+    76 206C EA				nop
+    77 206D EA				nop
+    78 206E 8D 1B D0			sta PRIOR
+    79 2071 8E 0A D4			stx WSYNC	;WAIT
+    80 2074 8E 0A D4			stx WSYNC	;WAIT
+    81 2077 88				dey
+    82 2078 D0 D6			bne dli_handler_loop
+    83
+    84 207A 8E 0A D4			stx WSYNC	;WAIT
+    85 207D 8E 18 D0			stx DLI_PAPER
+    86 2080 8E 1A D0			stx DLI_FRAME
+    87 2083 8E 0A D4			stx WSYNC	;WAIT
+    88 2086 8E 0A D4			stx WSYNC	;WAIT
+    89
+    90 2089 8D 0A D4			sta WSYNC	;WAIT
+    91 208C A9 0E			lda #14
+    92 208E 8D 18 D0			sta DLI_PAPER
+    93 2091 8D 1A D0			sta DLI_FRAME
+    94
+    95 2094				REG_PULL
+Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\macro.asm]
+     1 2094 68				pla
+     2 2095 A8				tay
+     3 2096 68				pla
+     4 2097 AA				tax
+     5 2098 68				pla
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\part1.asm
+    96 2099 40				rti
+    97 					
+    98 					
+    99 					
+    12 209A				ICL 'screen_mem.asm'
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\screen_mem.asm
+     1 209A				org $4000
+     2
+     3 4000			screen_mem_1
+     4 4000-70A8> 00 00 00 00 + 	:2048 dta $0
+     5 4800			screen_mem_1_1
+     6 4800 00 00 00 00 00 00 + 	:2048 dta $0
+     7 5000			screen_mem_1_2
+     8 5000 00 00 00 00 00 00 + 	:2048 dta $0
+     9 					
+    10 5800			screen_mem_2
+    11 5800 00 00 00 00 00 00 + 	:2048 dta $0
+    12 6000			screen_mem_2_1
+    13 6000 00 00 00 00 00 00 + 	:2048 dta $0
+    14 6800			screen_mem_2_2
+    15 6800 00 00 00 00 00 00 + 	:2048 dta $0
+    16
+    17 7000			screen_adr
+    18 7000 00 00			dta 0,0
+    19
+    20 7002			screen_clear:
+    21 7002				REG_PUSH
+Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\macro.asm]
+     1 7002 48				pha
+     2 7003 8A				txa
+     3 7004 48				pha
+     4 7005 98				tya
+     5 7006 48				pha
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\screen_mem.asm
+    22 7007 AD 00 70 8D 1A 70 + 	mwa screen_adr screen_clear_loop_2+1
+    23 7013 A9 00			lda #0
+    24 7015 A2 18			ldx #24
+    25 7017			screen_clear_loop_1
+    26 7017 A0 00			ldy #0	
+    27 7019			screen_clear_loop_2	
+    28 7019 99 00 00			sta $0000,y
+    29 701C C8				iny
+    30 701D D0 FA			bne screen_clear_loop_2
+    31 701F EE 1B 70			inc screen_clear_loop_2+2
+    32 7022 CA				dex
+    33 7023 D0 F4			bne screen_clear_loop_2
+    34 7025				REG_PULL
+Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\macro.asm]
+     1 7025 68				pla
+     2 7026 A8				tay
+     3 7027 68				pla
+     4 7028 AA				tax
+     5 7029 68				pla
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\screen_mem.asm
+    35 702A 60				rts	
+    36
+    37 702B			screen_fill:
+    38 702B				REG_PUSH
+Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\macro.asm]
+     1 702B 48				pha
+     2 702C 8A				txa
+     3 702D 48				pha
+     4 702E 98				tya
+     5 702F 48				pha
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\screen_mem.asm
+    39 7030 AD 00 70 8D 43 70 + 	mwa screen_adr screen_fill_loop_2+1
+    40 703C A9 FF			lda #255
+    41 703E A2 08			ldx #8
+    42 7040			screen_fill_loop_1
+    43 7040 A0 00			ldy #0	
+    44 7042			screen_fill_loop_2	
+    45 7042 99 00 00			sta $0000,y
+    46 7045 C8				iny
+    47 7046 D0 FA			bne screen_fill_loop_2
+    48 7048 EE 44 70			inc screen_fill_loop_2+2
+    49 704B CA				dex
+    50 704C D0 F4			bne screen_fill_loop_2
+    51 704E				REG_PULL
+Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\macro.asm]
+     1 704E 68				pla
+     2 704F A8				tay
+     3 7050 68				pla
+     4 7051 AA				tax
+     5 7052 68				pla
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\screen_mem.asm
+    52 7053 60				rts	
+    53
+    54 7054			screen_fill_raster:
+    55 7054				REG_PUSH
+Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\macro.asm]
+     1 7054 48				pha
+     2 7055 8A				txa
+     3 7056 48				pha
+     4 7057 98				tya
+     5 7058 48				pha
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\screen_mem.asm
+    56 7059 AD 00 70 8D 6C 70 + 	mwa screen_adr screen_fill_raster_loop_2+1
+    57 7065 A9 AA			lda #$AA
+    58 7067 A2 18			ldx #24
+    59 7069			screen_fill_raster_loop_1
+    60 7069 A0 00			ldy #0	
+    61 706B			screen_fill_raster_loop_2	
+    62 706B 99 00 00			sta $0000,y
+    63 706E C8				iny
+    64 706F D0 FA			bne screen_fill_raster_loop_2
+    65 7071 EE 6D 70			inc screen_fill_raster_loop_2+2
+    66 7074 CA				dex
+    67 7075 D0 F4			bne screen_fill_raster_loop_2
+    68 7077				REG_PULL
+Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\macro.asm]
+     1 7077 68				pla
+     2 7078 A8				tay
+     3 7079 68				pla
+     4 707A AA				tax
+     5 707B 68				pla
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\screen_mem.asm
+    69 707C 60				rts	
+    70
+    71 					
+    72 707D			screen_set_read_1:
+    73 					; load display list address to register
+    74 707D A9 00 8D 30 02 A9 + 	mwa #dl_antic_1 DLIST
+    75 7087 60				rts
+    76 7088			screen_set_write_1:
+    77 					; switch working buffer pointer
+    78 7088 A9 00 8D 00 70 A9 + 	mwa #screen_mem_1 screen_adr
+    79 7092 60				rts
+    80
+    81 7093			screen_set_read_2:
+    82 					; load display list address to register
+    83 7093 A9 CC 8D 30 02 A9 + 	mwa #dl_antic_2 DLIST
+    84 709D 60				rts
+    85 709E			screen_set_write_2:	
+    86 					; switch working buffer pointer
+    87 709E A9 00 8D 00 70 A9 + 	mwa #screen_mem_2 screen_adr
+    88 70A8 60				rts
+    89 					
+    13 70A9				ICL 'display_list.asm'
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\display_list.asm
+     1 70A9				ICL 'display_list_const.asm'
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\display_list_const.asm
+     1 = 0230			DLIST   = $230
+     2 = 0230			DLISTL  = $230 ; display list pointer low byte
+     3 = 0231			DLISTH  = $231 ;                      high byte
+     4 = 02C8			COLRBK  = $2C8
+     5
+     6 = D016			COLPF0	= $D016  
+     7 = D017			COLPF1	= $D017  
+     8 = D018			COLPF2	= $D018  
+     9 = D019			COLPF3	= $D019
+    10 = D01A			COLBG	= $D01A 
+    11
+    12 = 02C4			COLOR0	= $02C4
+    13 = 02C5			COLOR1	= $02C5
+    14 = 02C6			COLOR2	= $02C6
+    15 = 02C7			COLOR3	= $02C7
+    16 = 02C8			COLOR4 	= $02C8
+    17
+    18 = 022F			SDMCTL  = $022F
+    19 = D400			DMACTL  = $D400
+    20 = 0200			VDSLST  = $0200 ; display list interrupt vector
+    21 = D40E			NMEN	= $D40E
+    22 = D40E			NMIEN	= $D40E ; bit 7
+    23 = D40A			WSYNC   = $D40A
+    24 = D40B			VCOUNT  = $D40B
+    25
+    26 = D01B			PRIOR   = $D01B
+    27 = 026F			GPRIOR  = $026F
+    28
+    29 = 02C5			GR8_PEN   = COLOR1
+    30 = 02C6			GR8_PAPER = COLOR2
+    31 = 02C8			GR8_FRAME = COLOR4 
+    32
+    33 = D017			DLI_PEN   = COLPF1
+    34 = D018			DLI_PAPER = COLPF2
+    35 = D01A			DLI_FRAME = COLBG 
+    36
+    37 = 0000			COLOR_BLACK = $00
+    38 = 000E			COLOR_WHITE = $0E
+    39
+    40
+    41
+    42 				;     SAVMSC $0058,2       (88): pointer to current screen for CIO commands
+    43 				;     RAMTOP $006A        (106): start-of-ROM pointer (MSB only)
+    44 				;     VDSLST $0200,2      (512): DLI vector
+    45 				;     RAMSIZ $02E4        (740): permanent start-of-ROM pointer (MSB only)
+    46 				;     DLISTL $D402      (54274): display list pointer low byte
+    47 				;     DLISTH $D403      (54275):     "    high byte
+    48 				;     HSCROL $D404      (54276): horizontal scroll register
+    49 				;     VSCROL $D405      (54277): vertical scroll register
+    50 				;     NMIEN  $D40E      (54286): NMI enable (DLIs)
+    51 				;     
+    52 				;     
+    53 				;                               Shadow registers
+    54 				;     
+    55 				;     
+    56 				;     SDLSTL $0230        (560): DLISTL
+    57 				;     SDLSTH $0231        (561): DLISTH
+     2
+     3 70A9				org $3800
+     4
+     5 = 0080			DL_DLI = $80
+     6
+     7 				; DL for first buffer	
+     8 3800-39C7> 70 70 70	dl_antic_1	dta $70,$70,$70              ; 3x8 empty scanlines
+     9 3803 4F 00 40				dta b($4f),a(screen_mem_1)   ; $0f - mode, $40 - addr of 1/3 screen bitmap 
+    10 3806 0F 0F 0F 0F 0F 0F + 		:62 dta b($0f)               ; 63 lines of $0f 
+    11 3844 8F					dta b($8f)                   ; 1 line of $0f + DLI 
+    12 3845 4F 00 48				dta b($4f),a(screen_mem_1_1) ; $0f - mode, $40 - addr of 2/3 screen bitmap
+    13 3848 0F 0F 0F 0F 0F 0F + 		:63 dta b($0f)	             ; 63 lines of $0f 
+    14 3887 4F 00 50				dta b($4f),a(screen_mem_1_2) ; $0f - mode, $40 - addr of 3/3 screen bitmap
+    15 388A 0F 0F 0F 0F 0F 0F + 		:63 dta b($0f)               ; 63 lines of $0f
+    16 						;dta b($c1),a(dl_antic_1)     ; jump to DL start and trigger interrupt
+    17 38C9 41 00 38				dta b($41),a(dl_antic_1)     ; jump to DL start
+    18 38CC 70 70 70		dl_antic_2	dta $70,$70,$70              ; 3x8 empty scanlines 
+    19 38CF 4F 00 58				dta b($4f),a(screen_mem_2)   ; $0f - mode, $40 - addr of 1/3 screen bitmap
+    20 38D2 0F 0F 0F 0F 0F 0F + 		:63 dta b($0f)               ; 63 lines of $0f 
+    21 3911 4F 00 60				dta b($4f),a(screen_mem_2_1) ; $0f - mode, $40 - addr of 2/3 screen bitmap
+    22 3914 0F 0F 0F 0F 0F 0F + 		:63 dta b($0f)	             ; 63 lines of $0f 
+    23 3953 4F 00 68				dta b($4f),a(screen_mem_2_2) ; $0f - mode, $40 - addr of 3/3 screen bitmap
+    24 3956 0F 0F 0F 0F 0F 0F + 		:63 dta b($0f)               ; 63 lines of $0f 
+    25 						;dta b($c1),a(dl_antic_2)     ; jump to DL start and trigger interrupt
+    26 3995 41 CC 38				dta b($41),a(dl_antic_2)     ; jump to DL start 
+    27
+    28 3998			dl_set_mode
+    29 					; set screen width to 32 byte
+    30 3998 A9 FD			lda #$fd
+    31 399A 2D 2F 02			and SDMCTL
+    32 399D 18 69 01			add #1
+    33 39A0 8D 2F 02			sta SDMCTL
+    34 39A3 8D 00 D4			sta DMACTL
+    35
+    36 39A6 A9 00			lda #COLOR_BLACK     
+    37 39A8 8D C5 02			sta GR8_PEN
+    38 39AB A9 0E			lda #COLOR_WHITE     
+    39 39AD 8D C6 02			sta GR8_PAPER
+    40 39B0 A9 0E			lda #COLOR_WHITE     
+    41 39B2 8D C8 02			sta GR8_FRAME
+    42
+    43 39B5 60				rts
+    44
+    45 						
+    14 39B6				ICL 'wait_vsync.asm'
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\wait_vsync.asm
+     1
+     2
+     3 39B6			wait_hsync:
+     4
+     5 39B6 48				pha
+     6
+     7 39B7 A9 52			lda #$52
+     8 39B9 8D 0A D4			sta WSYNC	;WAIT
+     9 39BC 68				pla
+    10
+    11 39BD 60				rts
+    12
+    13
+    14 39BE			wait_vsync:
+    15 39BE 48				pha
+    16 39BF			wait_vsync_loop:
+    17 39BF AD 0B D4			lda VCOUNT
+    18 39C2 C9 64			cmp #100
+    19 39C4 D0 F9			bne wait_vsync_loop 
+    20 					
+    21 39C6 68				pla
+    22 39C7 60				rts
+    23 					
+    15 39C8				ICL 'math.asm'
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\math.asm
+     1 39C8				org $1F00
+     2 					
+     3 1F00			math_sin	
+     4 1F00-1F0F> 7F B0 DA F5 + 	dta 127,176,218,245,255,245,218,176,127,78,36,9,0,9,36,78
+    16
+    17 					
