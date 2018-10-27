@@ -1,0 +1,6 @@
+mads 2.0.6 build 58 (28 Jan 17)
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\sinus\math.asm
+     1 					org $1F00
+     2 					
+     3 				math_sin	
+     4 FFFF> 1F00-1F0F> 7F B0 + 	dta 127,176,218,245,255,245,218,176,127,78,36,9,0,9,36,78

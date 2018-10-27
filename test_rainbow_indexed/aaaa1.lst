@@ -259,35 +259,38 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_indexed\display_list
     23 = D40A			WSYNC   = $D40A
     24 = D40B			VCOUNT  = $D40B
     25
-    26 = 02C5			GR8_PEN   = COLOR1
-    27 = 02C6			GR8_PAPER = COLOR2
-    28 = 02C8			GR8_FRAME = COLOR4 
-    29
-    30 = D017			DLI_PEN   = COLPF1
-    31 = D018			DLI_PAPER = COLPF2
-    32 = D01A			DLI_FRAME = COLBG 
-    33
-    34 = 0000			COLOR_BLACK = $00
-    35 = 000E			COLOR_WHITE = $0E
+    26 = D01B			PRIOR   = $D01B
+    27 = 026F			GPRIOR  = $026F
+    28
+    29 = 02C5			GR8_PEN   = COLOR1
+    30 = 02C6			GR8_PAPER = COLOR2
+    31 = 02C8			GR8_FRAME = COLOR4 
+    32
+    33 = D017			DLI_PEN   = COLPF1
+    34 = D018			DLI_PAPER = COLPF2
+    35 = D01A			DLI_FRAME = COLBG 
     36
-    37
-    38
-    39 				;     SAVMSC $0058,2       (88): pointer to current screen for CIO commands
-    40 				;     RAMTOP $006A        (106): start-of-ROM pointer (MSB only)
-    41 				;     VDSLST $0200,2      (512): DLI vector
-    42 				;     RAMSIZ $02E4        (740): permanent start-of-ROM pointer (MSB only)
-    43 				;     DLISTL $D402      (54274): display list pointer low byte
-    44 				;     DLISTH $D403      (54275):     "    high byte
-    45 				;     HSCROL $D404      (54276): horizontal scroll register
-    46 				;     VSCROL $D405      (54277): vertical scroll register
-    47 				;     NMIEN  $D40E      (54286): NMI enable (DLIs)
-    48 				;     
-    49 				;     
-    50 				;                               Shadow registers
+    37 = 0000			COLOR_BLACK = $00
+    38 = 000E			COLOR_WHITE = $0E
+    39
+    40
+    41
+    42 				;     SAVMSC $0058,2       (88): pointer to current screen for CIO commands
+    43 				;     RAMTOP $006A        (106): start-of-ROM pointer (MSB only)
+    44 				;     VDSLST $0200,2      (512): DLI vector
+    45 				;     RAMSIZ $02E4        (740): permanent start-of-ROM pointer (MSB only)
+    46 				;     DLISTL $D402      (54274): display list pointer low byte
+    47 				;     DLISTH $D403      (54275):     "    high byte
+    48 				;     HSCROL $D404      (54276): horizontal scroll register
+    49 				;     VSCROL $D405      (54277): vertical scroll register
+    50 				;     NMIEN  $D40E      (54286): NMI enable (DLIs)
     51 				;     
     52 				;     
-    53 				;     SDLSTL $0230        (560): DLISTL
-    54 				;     SDLSTH $0231        (561): DLISTH
+    53 				;                               Shadow registers
+    54 				;     
+    55 				;     
+    56 				;     SDLSTL $0230        (560): DLISTL
+    57 				;     SDLSTH $0231        (561): DLISTH
      2
      3 7080				org $3800
      4

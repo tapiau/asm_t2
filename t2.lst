@@ -71,8 +71,8 @@ Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\macro.inc]
      5 202C 48				pha
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\part1.asm
     33
-    34 202D A6 92			ldx screen_adr
-    35 202F A4 93			ldy screen_adr+1
+    34 202D A6 00			ldx screen_adr
+    35 202F A4 00			ldy screen_adr+1
     36 2031 20 00 70			jsr screen_clear
     37 					
     38 2034 A5 00			lda 0
@@ -92,7 +92,7 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\part1.asm
     52 2049 AA				tax
     53 204A AC 04 20			ldy part1_y
     54
-    55 204D 20 94 00			jsr plot
+    55 204D 20 92 00			jsr plot
     56
     57 				; zmiana koloru ramki		
     58 				;	stx COLBG
@@ -283,7 +283,7 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\display_list_const.asm
     48 					; load display list address to register
     49 39C0 A9 00 8D 30 02 A9 + 	mwa #dl_antic_1 DLIST
     50 					; switch working buffer pointer
-    51 39CA A9 00 85 92 A9 58 + 	mwa #screen_mem_2 screen_adr
+    51 39CA A9 00 85 00 A9 58 + 	mwa #screen_mem_2 screen_adr
     52 					
     53 39D2 60				rts
     54
@@ -291,7 +291,7 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\display_list_const.asm
     56 					; load display list address to register
     57 39D3 A9 CC 8D 30 02 A9 + 	mwa #dl_antic_2 DLIST
     58 					; switch working buffer pointer
-    59 39DD A9 00 85 92 A9 40 + 	mwa #screen_mem_1 screen_adr
+    59 39DD A9 00 85 00 A9 40 + 	mwa #screen_mem_1 screen_adr
     60
     61 39E5 60				rts
     62 						
@@ -301,111 +301,109 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\pixel.asm
      2 39E6				org $80
      3 					
      4 0080			and_mask 
-     5 0080-00F7> 7F BF DF EF		dta %01111111,%10111111,%11011111,%11101111
+     5 0080-00F5> 7F BF DF EF		dta %01111111,%10111111,%11011111,%11101111
      6 0084 F7 FB FD FE			dta %11110111,%11111011,%11111101,%11111110
      7 0088			ora_mask 
      8 0088 80 40 20 10			dta %10000000,%01000000,%00100000,%00010000
      9 008C 08 04 02 01			dta %00001000,%00000100,%00000010,%00000001
     10 0090			plot_adr  
     11 0090 00 00			dta 0,0
-    12 0092			screen_adr
-    13 0092 00 00			dta 0,0
-    14
-    15 				;Y = y, X = x
-    16 0094			plot:
-    17 					// push registers to stack
+    12
+    13 				;Y = y, X = x
+    14 0092			plot:
+    15 					// push registers to stack
+    16 0092 48				pha
+    17 0093 8A				txa
     18 0094 48				pha
-    19 0095 8A				txa
+    19 0095 98				tya
     20 0096 48				pha
-    21 0097 98				tya
-    22 0098 48				pha
-    23 					
-    24 					; check if Y is less than 192
-    25 0099 98				tya
-    26 009A C9 C0			cmp #192
-    27 009C B0 42			bcs plot_ret
-    28 					
-    29 					; prepare tmp addr
-    30 009E A5 92			lda screen_adr
-    31 00A0 85 90			sta plot_adr
-    32 00A2 A5 93			lda screen_adr+1
-    33 00A4 85 91			sta plot_adr+1
-    34
-    35 					; move pointer by X
-    36 00A6 8A				txa
-    37 00A7 29 F8			and #%11111000
-    38 00A9 4A 4A 4A			:3 lsr ; Logical Shoft Right - div by 8 
-    39 00AC 65 90			adc plot_adr
-    40 00AE 85 90			sta plot_adr
-    41 00B0 29 00			and #0
-    42 00B2 65 91			adc plot_adr+1
-    43 00B4 85 91			sta plot_adr+1
-    44 					
-    45 					; move pointer by Y
-    46 00B6 98				tya
-    47 00B7 29 07			and #%00000111
-    48 00B9 0A 0A 0A 0A 0A		:5 asl
-    49 00BE 18				clc
-    50 00BF 65 90			adc plot_adr
-    51 00C1 85 90			sta plot_adr
-    52 00C3 29 00			and #0
-    53 00C5 65 91			adc plot_adr+1
-    54 00C7 85 91			sta plot_adr+1
-    55 					
-    56 00C9 98				tya
-    57 00CA 29 F8			and #%11111000
-    58 00CC 4A 4A 4A			:3 lsr
-    59 00CF 18				clc
-    60 00D0 65 91			adc plot_adr+1
-    61 00D2 85 91			sta plot_adr+1
-    62 					
-    63 					; get byte by pointer
-    64 00D4 8A				txa
-    65 00D5 29 07			and #%00000111
-    66 00D7 AA				tax
-    67 00D8 A0 00			ldy #0
-    68 00DA B1 90			lda (plot_adr),y ; modify byte using bit map
-    69 00DC 15 88			ora ora_mask,x
-    70 00DE 91 90			sta (plot_adr),y
-    71 					
-    72 00E0			plot_ret:
-    73 					; pull from stack to registers
+    21 					
+    22 					; check if Y is less than 192
+    23 0097 98				tya
+    24 0098 C9 C0			cmp #192
+    25 009A B0 42			bcs plot_ret
+    26 					
+    27 					; prepare tmp addr
+    28 009C A5 00			lda screen_adr
+    29 009E 85 90			sta plot_adr
+    30 00A0 A5 00			lda screen_adr+1
+    31 00A2 85 91			sta plot_adr+1
+    32
+    33 					; move pointer by X
+    34 00A4 8A				txa
+    35 00A5 29 F8			and #%11111000
+    36 00A7 4A 4A 4A			:3 lsr ; Logical Shoft Right - div by 8 
+    37 00AA 65 90			adc plot_adr
+    38 00AC 85 90			sta plot_adr
+    39 00AE 29 00			and #0
+    40 00B0 65 91			adc plot_adr+1
+    41 00B2 85 91			sta plot_adr+1
+    42 					
+    43 					; move pointer by Y
+    44 00B4 98				tya
+    45 00B5 29 07			and #%00000111
+    46 00B7 0A 0A 0A 0A 0A		:5 asl
+    47 00BC 18				clc
+    48 00BD 65 90			adc plot_adr
+    49 00BF 85 90			sta plot_adr
+    50 00C1 29 00			and #0
+    51 00C3 65 91			adc plot_adr+1
+    52 00C5 85 91			sta plot_adr+1
+    53 					
+    54 00C7 98				tya
+    55 00C8 29 F8			and #%11111000
+    56 00CA 4A 4A 4A			:3 lsr
+    57 00CD 18				clc
+    58 00CE 65 91			adc plot_adr+1
+    59 00D0 85 91			sta plot_adr+1
+    60 					
+    61 					; get byte by pointer
+    62 00D2 8A				txa
+    63 00D3 29 07			and #%00000111
+    64 00D5 AA				tax
+    65 00D6 A0 00			ldy #0
+    66 00D8 B1 90			lda (plot_adr),y ; modify byte using bit map
+    67 00DA 15 88			ora ora_mask,x
+    68 00DC 91 90			sta (plot_adr),y
+    69 					
+    70 00DE			plot_ret:
+    71 					; pull from stack to registers
+    72 00DE 68				pla
+    73 00DF A8				tay
     74 00E0 68				pla
-    75 00E1 A8				tay
+    75 00E1 AA				tax
     76 00E2 68				pla
-    77 00E3 AA				tax
-    78 00E4 68				pla
-    79 						
-    80 00E5 60			 	rts
-    17 00E6				ICL 'wait_vsync.asm'
+    77 						
+    78 00E3 60			 	rts
+    17 00E4				ICL 'wait_vsync.asm'
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\wait_vsync.asm
      1 = D40A			WSYNC = $D40A
      2 = D40B			VCOUNT = $D40B
      3
-     4 00E6			wait_hsync:
+     4 00E4			wait_hsync:
      5
-     6 00E6 48				pha
+     6 00E4 48				pha
      7
-     8 00E7 A9 52			lda #$52
-     9 00E9 8D 0A D4			sta WSYNC	;WAIT
-    10 00EC 68				pla
+     8 00E5 A9 52			lda #$52
+     9 00E7 8D 0A D4			sta WSYNC	;WAIT
+    10 00EA 68				pla
     11
-    12 00ED 60				rts
+    12 00EB 60				rts
     13
     14
-    15 00EE			wait_vsync:
-    16 00EE 48				pha
-    17 00EF			wait_vsync_loop:
-    18 00EF AD 0B D4			lda VCOUNT
-    19 00F2 C9 64			cmp #100
-    20 00F4 D0 F9			bne wait_vsync_loop 
+    15 00EC			wait_vsync:
+    16 00EC 48				pha
+    17 00ED			wait_vsync_loop:
+    18 00ED AD 0B D4			lda VCOUNT
+    19 00F0 C9 64			cmp #100
+    20 00F2 D0 F9			bne wait_vsync_loop 
     21 					
-    22 00F6 68				pla
-    23 00F7 60				rts
+    22 00F4 68				pla
+    23 00F5 60				rts
     24 					
-    18 00F8				ICL 'math.asm'
+    18 00F6				ICL 'math.asm'
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\math.asm
-     1 00F8				org $1F00
+     1 00F6				org $1F00
      2 					
      3 1F00			math_sin	
      4 1F00-1F0F> 7F B0 DA F5 + 	dta 127,176,218,245,255,245,218,176,127,78,36,9,0,9,36,78
