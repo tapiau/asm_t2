@@ -16,7 +16,7 @@ part1:
 
 	jsr screen_set_write_1
 	jsr screen_clear
-	jsr screen_fill
+;	jsr screen_fill
 	jsr screen_set_read_1
 
 part1_0:
@@ -30,57 +30,62 @@ part1_0:
 
 	
 part1_dli_handler:
+
+; line:
+; 32 cycle - frame
+; 12+1+1
+
 	REG_PUSH
+	lda #COLOR_black
+	sta DLI_PAPER ; black
 
+	; cycle register
+	inc part1_d
 	ldy part1_d
-	iny
-	sty part1_d
 	ldx math_sin,y
-	txa
-	and #$FE
-	tax
+	:24 sta WSYNC	;WAIT
 	
-; zmiana koloru ramki
-	ldy #$FE;
-dli_handler_loop:
-;	stx WSYNC	;WAIT
+	sta DLI_PAPER ; black
+	:1 sta WSYNC	;WAIT
+	:29 nop
+	dex
+	ldy #57
+dli_handler_loop_1:
 	stx DLI_PAPER
-	stx DLI_FRAME
-	dex
-	dex
-	dey
-	dey
-	
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-	nop
-;	nop
-	
-	bne dli_handler_loop
-
 	sta WSYNC	;WAIT
+	dex
+	:13 nop
+	sta DLI_PAPER ; black
+	:12 nop
+	dey
+	bne dli_handler_loop_1
+
+; odd line
+	sta WSYNC	;WAIT
+	:16 nop
+	sta DLI_PAPER ; black
+	:3 nop
+	stx DLI_PAPER
+	:2 nop
+	dex
+	dex
+	nop
+
+	ldy #57
+dli_handler_loop_2:
+	sta WSYNC	;WAIT
+	:17 nop
+	sta DLI_PAPER ; black
+	:2 nop
+	stx DLI_PAPER
+	:2 nop
+	dex
+	dex
+	dey
+	bne dli_handler_loop_2
+
+
+
 	lda #14
 	sta DLI_PAPER
 	sta DLI_FRAME
