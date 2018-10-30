@@ -1,3 +1,7 @@
+RTCLOCK_2 = $12
+RTCLOCK_1 = $13
+RTCLOCK_0 = $14
+
 DLIST   = $230
 DLISTL  = $230 ; display list pointer low byte
 DLISTH  = $231 ;                      high byte

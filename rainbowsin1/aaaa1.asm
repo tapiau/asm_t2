@@ -13,5 +13,6 @@
 	ICL 'display_list.asm'
 	ICL 'wait_vsync.asm'
 	ICL 'math.asm'
+	ICL 'zero.asm'
 
 	

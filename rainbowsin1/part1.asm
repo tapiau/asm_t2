@@ -40,69 +40,48 @@ part1_dli_handler:
 	lda #COLOR_BLACK
 	sta DLI_PAPER ; black
 
-	; cycle register
-	inc part1_d
-	ldy part1_d
-	:23 sta WSYNC	;WAIT
-	ldx math_sin,y
-	txa 		; 2 cycles
+
+	; bar size
+	lda #2
+	sta bar_size
+
+	:1 sta WSYNC	;WAIT
 	
-	ldy #57
-dli_handler_loop_1:
-	sta WSYNC	;WAIT
-	sta DLI_PAPER	; 4 cycles
-sbc_1:	sbc #$02	; 2 cycles
+	; cycle begin
+	ldx #1
+	:1 sta WSYNC	;WAIT
 
-	dey		; 2 cycles
-	bne dli_handler_loop_1
+;	lda math_sin_16,x
+;	:4 lsr
+;	adc #1
+;	tax
+
+	:20 sta WSYNC	;WAIT
+
+	; init color value
+	ldy RTCLOCK_0
+	lda math_sin,y
+
+	:1 sta WSYNC	;WAIT
 	
-
-; odd line
+	; 192 screen lines
+	ldy #192
+dli_handler_loop_0:
 	sta WSYNC	;WAIT
+	:10 nop
+	sta bar_color
+	lda #255
+	sbc bar_color
 	sta DLI_PAPER	; 4 cycles
-sbc_2:	sbc #$02	; 2 cycles
-
-	ldy #63
-dli_handler_loop_2:
-	sta WSYNC	;WAIT
-	sta DLI_PAPER	; 4 cycles
-sbc_3:	sbc #$02	; 2 cycles
-
+	lda bar_color
+	sta DLI_PAPER
+	dex
+	bne dli_handler_loop_skip
+	ldx bar_size
+	sbc #$02	; 2 cycles
+dli_handler_loop_skip:	
 	dey
-	bne dli_handler_loop_2
-	
-; odd line
-	sta WSYNC	;WAIT
-	sta DLI_PAPER	; 4 cycles
-sbc_4:	sbc #$02	; 2 cycles
-
-	ldy #57
-dli_handler_loop_3:
-	sta WSYNC	;WAIT
-	sta DLI_PAPER	; 4 cycles
-sbc_5:	sbc #$02	; 2 cycles
-
-	dey
-	bne dli_handler_loop_3
-
-; odd line
-	sta WSYNC	;WAIT
-	:14 nop
-	sta DLI_PAPER	; 4 cycles
-sbc_6:	sbc #$02	; 2 cycles
-
-	ldy #18
-dli_handler_loop_4:
-	sta WSYNC	;WAIT
-	:16 nop
-	sta DLI_PAPER	; 4 cycles
-sbc_7:	sbc #$02	; 2 cycles
-
-	dey
-	bne dli_handler_loop_4
-
-	sta WSYNC	;WAIT
-
+	bne dli_handler_loop_0
 
 	lda #14
 	sta DLI_PAPER
@@ -111,14 +90,5 @@ sbc_7:	sbc #$02	; 2 cycles
 	REG_PULL
 	rti
 	
-dli_handler_line:
-	ldy #64
-dli_handler_loop_0:
-	sta WSYNC	;WAIT
-	sta DLI_PAPER	; 4 cycles
-sbc_0:	sbc #$02	; 2 cycles
-
-	dey
-	bne dli_handler_loop_0
 	
 	
