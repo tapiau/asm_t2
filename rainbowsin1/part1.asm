@@ -61,31 +61,49 @@ part1_dli_handler:
 	; init color value
 	ldy RTCLOCK_0
 	lda math_sin,y
+	sta bar_color1
+	tya
+	eor #$ff
+	tay
+	lda math_sin,y
+	sta bar_color2
 
 	:1 sta WSYNC	;WAIT
-	
-	; 192 screen lines
-	ldy #192
-dli_handler_loop_0:
-	sta WSYNC	;WAIT
-	:10 nop
-	sta bar_color
-	lda #255
-	sbc bar_color
-	sta DLI_PAPER	; 4 cycles
-	lda bar_color
-	sta DLI_PAPER
-	dex
-	bne dli_handler_loop_skip
-	ldx bar_size
-	sbc #$02	; 2 cycles
-dli_handler_loop_skip:	
-	dey
-	bne dli_handler_loop_0
 
-	lda #14
-	sta DLI_PAPER
-	sta DLI_FRAME
+	; 192 screen lines
+
+	LINE_NOP_HALF
+
+	LINE_NOP_NORMAL
+
+
+	ldy #55
+dli_handler_loop_0:
+	LINE_NOP_NORMAL
+	bne dli_handler_loop_0
+	
+	LINE_NOP_SHORT
+	
+	ldy #63
+dli_handler_loop_1:
+	LINE_NOP_NORMAL
+	bne dli_handler_loop_1
+
+	LINE_NOP_SHORT
+
+	ldy #63
+dli_handler_loop_2:
+	LINE_NOP_NORMAL
+	bne dli_handler_loop_2
+
+	LINE_NOP_SHORT
+
+	ldy #6
+dli_handler_loop_3:
+	LINE_NOP_NORMAL
+	bne dli_handler_loop_3
+
+	:1 sta WSYNC	;WAIT
 
 	REG_PULL
 	rti
