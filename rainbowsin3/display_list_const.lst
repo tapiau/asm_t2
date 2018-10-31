@@ -1,0 +1,38 @@
+mads 2.0.6 build 58 (28 Jan 17)
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test\display_list_const.asm
+     1 = 0230			DLIST   = $230
+     2 = 0230			DLISTL  = $230 ; display list pointer low byte
+     3 = 0231			DLISTH  = $231 ;                      high byte
+     4 = D01A			COLBG	= $D01A 
+     5 = D016			COLPF0	= $D016  
+     6 = D017			COLPF1	= $D017  
+     7 = D018			COLPF2	= $D018  
+     8 = D019			COLPF3	= $D019
+     9 = 02C4			COLOR0	= $02C4
+    10 = 02C5			COLOR1	= $02C5
+    11 = 02C6			COLOR2	= $02C6
+    12 = 02C7			COLOR3	= $02C7
+    13 = 02C8			COLOR4 	= $02C8
+    14 = 022F			SDMCTL  = $022F
+    15 = D400			DMACTL  = $D400
+    16 = 0200			VDSLST  = $0200 ; display list interrupt vector
+    17 = D40E			NMEN	= $D40E
+    18 = D40E			NMIEN	= $D40E ; bit 7
+    19
+    20
+    21 				;     SAVMSC $0058,2       (88): pointer to current screen for CIO commands
+    22 				;     RAMTOP $006A        (106): start-of-ROM pointer (MSB only)
+    23 				;     VDSLST $0200,2      (512): DLI vector
+    24 				;     RAMSIZ $02E4        (740): permanent start-of-ROM pointer (MSB only)
+    25 				;     DLISTL $D402      (54274): display list pointer low byte
+    26 				;     DLISTH $D403      (54275):     "    high byte
+    27 				;     HSCROL $D404      (54276): horizontal scroll register
+    28 				;     VSCROL $D405      (54277): vertical scroll register
+    29 				;     NMIEN  $D40E      (54286): NMI enable (DLIs)
+    30 				;     
+    31 				;     
+    32 				;                               Shadow registers
+    33 				;     
+    34 				;     
+    35 				;     SDLSTL $0230        (560): DLISTL
+    36 				;     SDLSTH $0231        (561): DLISTH
