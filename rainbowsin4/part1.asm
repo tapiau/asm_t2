@@ -7,6 +7,7 @@ part1_tmpx dta 0
 part1_tmpy dta 0
 part1_sync: dta 0
 
+
 part1:
 	; set handler for display list interrupt 
 	mwa #part1_dli_handler VDSLST
@@ -14,23 +15,62 @@ part1:
 
 	; enable DL interrupt
 	lda #$c0
-	sta NMIEN
+;	sta NMIEN
 
 	jsr screen_set_write_1
-	jsr screen_clear
+;	jsr screen_clear
 ;	jsr screen_fill
 	jsr screen_set_read_1
 
+
 part1_0:
+
+	mwa #image_data part1_image_data_address
+	mwa #screen_mem_1 part1_screen_data_address
+
+	lda #160
+	sta part1_y
+part1_loop_y:
+	ldy #0
+part1_loop_x:
+	lda (part1_image_data_address),y
+	sta (part1_screen_data_address),y
 	
-	jmp part1_0
+	iny
+	cmp #160
+	bne part1_loop_x
+
+	clc
+	lda part1_image_data_address+1
+	adc #160
+	sta part1_image_data_address+1
+	lda part1_image_data_address
+	adc #0
+	sta part1_image_data_address
+
+	clc
+	lda part1_screen_data_address+1
+	adc #160
+	sta part1_screen_data_address+1
+	lda part1_screen_data_address
+	adc #0
+	sta part1_screen_data_address
+
+	lda part1_y
+	sbc #1
+	bne part1_loop_y
+	
+	
+	
+	
+part1_0_idle:
+	jmp part1_0_idle
+	
 
 
 	REG_PULL
 
 	rts
-
-	org $3000
 
 part1_dli_handler:
 
@@ -58,7 +98,7 @@ part1_dli_handler:
 ;	adc #1
 ;	tax
 
-	:20 sta WSYNC	;WAIT
+	:19 sta WSYNC	;WAIT
 
 	; init color value
 	ldy RTCLOCK_0
@@ -81,12 +121,27 @@ part1_dli_handler:
 	LINE_NOP_HALF
 	LINE_NOP_NORMAL
 
-	lda #55
+	lda #56
 dli_handler_loop_0:
 	LINE_NOP_NORMAL
 	sbc #1
 	bne dli_handler_loop_0
 	LINE_NOP_SHORT
+
+	lda #63
+dli_handler_loop_1:
+	LINE_NOP_NORMAL
+	sbc #1
+	bne dli_handler_loop_1
+	LINE_NOP_SHORT
+
+	lda #63
+dli_handler_loop_2:
+	LINE_NOP_NORMAL
+	sbc #1
+	bne dli_handler_loop_2
+	LINE_NOP_SHORT
+
 	
 
 	LINE_WAIT

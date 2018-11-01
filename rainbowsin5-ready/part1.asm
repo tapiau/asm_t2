@@ -7,6 +7,7 @@ part1_tmpx dta 0
 part1_tmpy dta 0
 part1_sync: dta 0
 
+
 part1:
 	; set handler for display list interrupt 
 	mwa #part1_dli_handler VDSLST
@@ -17,20 +18,25 @@ part1:
 	sta NMIEN
 
 	jsr screen_set_write_1
-	jsr screen_clear
+;	jsr screen_clear
 ;	jsr screen_fill
 	jsr screen_set_read_1
+	
+	PM_SHOW
+
 
 part1_0:
+
 	
-	jmp part1_0
-
-
+part1_0_idle:
+	
+	;PM_MOVE
+	
+	jmp part1_0_idle
+	
 	REG_PULL
 
 	rts
-
-	org $3000
 
 part1_dli_handler:
 
@@ -41,6 +47,8 @@ part1_dli_handler:
 	REG_PUSH
 	lda #COLOR_BLACK
 	sta DLI_PAPER ; black
+	lda 1
+	sta COLPM0
 
 
 	; bar size
@@ -58,7 +66,12 @@ part1_dli_handler:
 ;	adc #1
 ;	tax
 
-	:20 sta WSYNC	;WAIT
+	:1 sta WSYNC
+	
+	lda RTCLOCK_1
+	sta 704		; KOLOR
+
+	:18 sta WSYNC	;WAIT
 
 	; init color value
 	ldy RTCLOCK_0
@@ -78,18 +91,41 @@ part1_dli_handler:
 	ldx bar_color1
 	ldy bar_color2
 
-	LINE_NOP_HALF
+	LINE_NOP_NORMAL
 	LINE_NOP_NORMAL
 
-	lda #55
+	lda #57
 dli_handler_loop_0:
 	LINE_NOP_NORMAL
 	sbc #1
 	bne dli_handler_loop_0
+
 	LINE_NOP_SHORT
+
+	lda #63
+dli_handler_loop_1:
+	LINE_NOP_NORMAL
+	sbc #1
+	bne dli_handler_loop_1
+	LINE_NOP_SHORT
+
+	lda #63
+dli_handler_loop_2:
+	LINE_NOP_NORMAL
+	sbc #1
+	bne dli_handler_loop_2
+;	LINE_NOP_SHORT
 	
+	LINE_NOP_LAST
+
+	lda 1
+	sta COLPM0
+	sta COLPM1
+	sta COLPM2
+	sta COLPM3
 
 	LINE_WAIT
+	
 
 	REG_PULL
 	rti

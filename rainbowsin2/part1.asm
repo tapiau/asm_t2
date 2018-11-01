@@ -30,8 +30,6 @@ part1_0:
 
 	rts
 
-	org $3000
-
 part1_dli_handler:
 
 ; line:
@@ -74,22 +72,38 @@ part1_dli_handler:
 
 	; 192 screen lines
 
-
-	ldx bar_color1
-	ldy bar_color2
-
 	LINE_NOP_HALF
+
 	LINE_NOP_NORMAL
 
-	lda #55
+
+	ldy #55
 dli_handler_loop_0:
 	LINE_NOP_NORMAL
-	sbc #1
 	bne dli_handler_loop_0
+	
 	LINE_NOP_SHORT
 	
+	ldy #63
+dli_handler_loop_1:
+	LINE_NOP_NORMAL
+	bne dli_handler_loop_1
 
-	LINE_WAIT
+	LINE_NOP_SHORT
+
+	ldy #63
+dli_handler_loop_2:
+	LINE_NOP_NORMAL
+	bne dli_handler_loop_2
+
+	LINE_NOP_SHORT
+
+	ldy #6
+dli_handler_loop_3:
+	LINE_NOP_NORMAL
+	bne dli_handler_loop_3
+
+	:1 sta WSYNC	;WAIT
 
 	REG_PULL
 	rti

@@ -1,0 +1,788 @@
+mads 2.0.6 build 58 (28 Jan 17)
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\aaaa1.asm
+     1 					ICL 'macro.asm'
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\macro.asm
+     1 				.MACRO REG_PUSH 
+     2 					pha
+     3 					txa
+     4 					pha
+     5 					tya
+     6 					pha
+     7 				.ENDM
+     8
+     9 				.MACRO REG_PULL
+    10 					pla
+    11 					tay
+    12 					pla
+    13 					tax
+    14 					pla
+    15 				.ENDM
+    16
+    17 				.MACRO LINE_NOP_SPACE_1
+    18 					nop
+    19 					nop
+    20 					nop
+    21 					nop
+    22 					nop
+    23 					nop
+    24 					nop
+    25 					nop
+    26 					nop
+    27 					nop
+    28 				
+    29 					nop
+    30 					nop
+    31 				.ENDM
+    32
+    33 				.MACRO LINE_NOP_SPACE_2
+    34 					nop
+    35 					nop
+    36 					sta bar_color20	; 3 cycles
+    37 				.ENDM
+    38
+    39 				.MACRO LINE_WAIT
+    40 					sta WSYNC	;WAIT
+    41 				.ENDM
+    42
+    43 				.MACRO LINE_COLOR_CALC
+    44 					dex
+    45 					dey
+    46 				.ENDM
+    47
+    48 				.MACRO LINE_NOP_HALF
+    49 					LINE_WAIT
+    50 				
+    51 					;; 4 nops
+    52 					LINE_COLOR_CALC
+    53 					
+    54 					LINE_NOP_SPACE_1
+    55 					
+    56 					sta bar_color20	; 3 cycles
+    57 					stx DLI_PAPER	; 4 cycles
+    58 				;	stx DLI_PEN	; 4 cycles
+    59 					LINE_NOP_SPACE_2
+    60 					sty DLI_PAPER	; 4 cycles
+    61 				;	sty DLI_PEN	; 4 cycles
+    62 				.ENDM
+    63
+    64 				.MACRO LINE_NOP_NORMAL
+    65 					LINE_WAIT
+    66 				
+    67 					;; 4 nops
+    68 					LINE_COLOR_CALC
+    69 					LINE_NOP_SPACE_1
+    70 					
+    71 					stx DLI_PAPER	; 4 cycles
+    72 				;	stx DLI_PEN	; 4 cycles
+    73 					LINE_NOP_SPACE_2
+    74 					nop
+    75 					sty DLI_PAPER	; 4 cycles
+    76 				;	sty DLI_PEN	; 4 cycles
+    77 				.ENDM
+    78
+    79 				.MACRO LINE_NOP_SHORT
+    80 					LINE_WAIT
+    81 				
+    82 					;; 4 nops
+    83 					LINE_COLOR_CALC
+    84 					LINE_NOP_SPACE_1
+    85 					
+    86 					stx DLI_PAPER	; 4 cycles
+    87 				;	stx DLI_PEN	; 4 cycles
+    88 					LINE_NOP_SPACE_2
+    89 					sty DLI_PAPER	; 4 cycles
+    90 				;	sty DLI_PEN	; 4 cycles
+    91 				.ENDM
+     2
+     3 					org $2000
+     4
+     5 					.proc main
+     6 					
+     7 FFFF> 2000-21C7> 4C 0A + 	jmp part1
+     8
+     9 					.endp
+    10 					
+    11 2003				ICL 'part1.asm'
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+     1 2003 00			part1_x dta 0
+     2 2004 00			part1_y dta 0
+     3 2005 00			part1_d dta 0
+     4 2006 00			TMPCLR dta 0
+     5
+     6 2007 00			part1_tmpx dta 0
+     7 2008 00			part1_tmpy dta 0
+     8 2009 00			part1_sync: dta 0
+     9
+    10
+    11 200A			part1:
+    12 					; set handler for display list interrupt 
+    13 200A A9 69 8D 00 02 A9 + 	mwa #part1_dli_handler VDSLST
+    14 2014 20 98 39			jsr dl_set_mode
+    15
+    16 					; enable DL interrupt
+    17 2017 A9 C0			lda #$c0
+    18 				;	sta NMIEN
+    19
+    20 2019 20 5F 70			jsr screen_set_write_1
+    21 				;	jsr screen_clear
+    22 				;	jsr screen_fill
+    23 201C 20 54 70			jsr screen_set_read_1
+    24
+    25
+    26 201F			part1_0:
+    27
+    28 201F A9 00 85 EB A9 40 + 	mwa #image_data part1_image_data_address
+    29 2027 A9 00 85 ED A9 40 + 	mwa #screen_mem_1 part1_screen_data_address
+    30
+    31 202F A9 A0			lda #160
+    32 2031 8D 04 20			sta part1_y
+    33 2034			part1_loop_y:
+    34 2034 A0 00			ldy #0
+    35 2036			part1_loop_x:
+    36 2036 B1 EB			lda (part1_image_data_address),y
+    37 2038 91 ED			sta (part1_screen_data_address),y
+    38 					
+    39 203A C8				iny
+    40 203B C9 A0			cmp #160
+    41 203D D0 F7			bne part1_loop_x
+    42
+    43 203F 18				clc
+    44 2040 A5 EC			lda part1_image_data_address+1
+    45 2042 69 A0			adc #160
+    46 2044 85 EC			sta part1_image_data_address+1
+    47 2046 A5 EB			lda part1_image_data_address
+    48 2048 69 00			adc #0
+    49 204A 85 EB			sta part1_image_data_address
+    50
+    51 204C 18				clc
+    52 204D A5 EE			lda part1_screen_data_address+1
+    53 204F 69 A0			adc #160
+    54 2051 85 EE			sta part1_screen_data_address+1
+    55 2053 A5 ED			lda part1_screen_data_address
+    56 2055 69 00			adc #0
+    57 2057 85 ED			sta part1_screen_data_address
+    58
+    59 2059 AD 04 20			lda part1_y
+    60 205C E9 01			sbc #1
+    61 205E D0 D4			bne part1_loop_y
+    62 					
+    63 					
+    64 					
+    65 					
+    66 2060			part1_0_idle:
+    67 2060 4C 60 20			jmp part1_0_idle
+    68 					
+    69
+    70
+    71 2063				REG_PULL
+Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\macro.asm]
+     1 2063 68				pla
+     2 2064 A8				tay
+     3 2065 68				pla
+     4 2066 AA				tax
+     5 2067 68				pla
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+    72
+    73 2068 60				rts
+    74
+    75 2069			part1_dli_handler:
+    76
+    77 				; line:
+    78 				; 32 cycles - frame (2+26+4)
+    79 				; 28 cycles - screen
+    80
+    81 2069				REG_PUSH
+Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\macro.asm]
+     1 2069 48				pha
+     2 206A 8A				txa
+     3 206B 48				pha
+     4 206C 98				tya
+     5 206D 48				pha
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+    82 206E A9 00			lda #COLOR_BLACK
+    83 2070 8D 18 D0			sta DLI_PAPER ; black
+    84
+    85
+    86 					; bar size
+    87 2073 A9 02			lda #2
+    88 2075 85 E6			sta bar_size
+    89
+    90 2077 8D 0A D4			:1 sta WSYNC	;WAIT
+    91 					
+    92 					; cycle begin
+    93 207A A2 01			ldx #1
+    94 207C 8D 0A D4			:1 sta WSYNC	;WAIT
+    95
+    96 				;	lda math_sin_16,x
+    97 				;	:4 lsr
+    98 				;	adc #1
+    99 				;	tax
+   100
+   101 207F 8D 0A D4 8D 0A D4 + 	:19 sta WSYNC	;WAIT
+   102
+   103 					; init color value
+   104 20B8 A4 14			ldy RTCLOCK_0
+   105 20BA B9 00 1D			lda math_sin,y
+   106 20BD 85 E7			sta bar_color1
+   107 20BF 98				tya
+   108 20C0 49 FF			eor #$ff
+   109 20C2 A8				tay
+   110 20C3 B9 00 1D			lda math_sin,y
+   111 20C6 85 E8			sta bar_color2
+   112
+   113 20C8 8D 0A D4			:1 sta WSYNC	;WAIT
+   114
+   115 					; 192 screen lines
+   116
+   117
+   118 20CB A6 E7			ldx bar_color1
+   119 20CD A4 E8			ldy bar_color2
+   120
+   121 20CF				LINE_NOP_HALF
+Macro: LINE_NOP_HALF [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\macro.asm]
+     1 20CF 8D 0A D4			sta WSYNC	;WAIT
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+     1 20D2 CA				dex
+     2 20D3 88				dey
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+     1 20D4 EA				nop
+     2 20D5 EA				nop
+     3 20D6 EA				nop
+     4 20D7 EA				nop
+     5 20D8 EA				nop
+     6 20D9 EA				nop
+     7 20DA EA				nop
+     8 20DB EA				nop
+     9 20DC EA				nop
+    10 20DD EA				nop
+    12 20DE EA				nop
+    13 20DF EA				nop
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+     8 20E0 85 EA			sta bar_color20	; 3 cycles
+     9 20E2 8E 18 D0			stx DLI_PAPER	; 4 cycles
+     1 20E5 EA				nop
+     2 20E6 EA				nop
+     3 20E7 85 EA			sta bar_color20	; 3 cycles
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+    12 20E9 8C 18 D0			sty DLI_PAPER	; 4 cycles
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+   122 20EC				LINE_NOP_NORMAL
+Macro: LINE_NOP_NORMAL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\macro.asm]
+     1 20EC 8D 0A D4			sta WSYNC	;WAIT
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+     1 20EF CA				dex
+     2 20F0 88				dey
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+     1 20F1 EA				nop
+     2 20F2 EA				nop
+     3 20F3 EA				nop
+     4 20F4 EA				nop
+     5 20F5 EA				nop
+     6 20F6 EA				nop
+     7 20F7 EA				nop
+     8 20F8 EA				nop
+     9 20F9 EA				nop
+    10 20FA EA				nop
+    12 20FB EA				nop
+    13 20FC EA				nop
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+     7 20FD 8E 18 D0			stx DLI_PAPER	; 4 cycles
+     1 2100 EA				nop
+     2 2101 EA				nop
+     3 2102 85 EA			sta bar_color20	; 3 cycles
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+    10 2104 EA				nop
+    11 2105 8C 18 D0			sty DLI_PAPER	; 4 cycles
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+   123
+   124 2108 A9 38			lda #56
+   125 210A			dli_handler_loop_0:
+   126 210A				LINE_NOP_NORMAL
+Macro: LINE_NOP_NORMAL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\macro.asm]
+     1 210A 8D 0A D4			sta WSYNC	;WAIT
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+     1 210D CA				dex
+     2 210E 88				dey
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+     1 210F EA				nop
+     2 2110 EA				nop
+     3 2111 EA				nop
+     4 2112 EA				nop
+     5 2113 EA				nop
+     6 2114 EA				nop
+     7 2115 EA				nop
+     8 2116 EA				nop
+     9 2117 EA				nop
+    10 2118 EA				nop
+    12 2119 EA				nop
+    13 211A EA				nop
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+     7 211B 8E 18 D0			stx DLI_PAPER	; 4 cycles
+     1 211E EA				nop
+     2 211F EA				nop
+     3 2120 85 EA			sta bar_color20	; 3 cycles
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+    10 2122 EA				nop
+    11 2123 8C 18 D0			sty DLI_PAPER	; 4 cycles
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+   127 2126 E9 01			sbc #1
+   128 2128 D0 E0			bne dli_handler_loop_0
+   129 212A				LINE_NOP_SHORT
+Macro: LINE_NOP_SHORT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\macro.asm]
+     1 212A 8D 0A D4			sta WSYNC	;WAIT
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+     1 212D CA				dex
+     2 212E 88				dey
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+     1 212F EA				nop
+     2 2130 EA				nop
+     3 2131 EA				nop
+     4 2132 EA				nop
+     5 2133 EA				nop
+     6 2134 EA				nop
+     7 2135 EA				nop
+     8 2136 EA				nop
+     9 2137 EA				nop
+    10 2138 EA				nop
+    12 2139 EA				nop
+    13 213A EA				nop
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+     7 213B 8E 18 D0			stx DLI_PAPER	; 4 cycles
+     1 213E EA				nop
+     2 213F EA				nop
+     3 2140 85 EA			sta bar_color20	; 3 cycles
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+    10 2142 8C 18 D0			sty DLI_PAPER	; 4 cycles
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+   130
+   131 2145 A9 3F			lda #63
+   132 2147			dli_handler_loop_1:
+   133 2147				LINE_NOP_NORMAL
+Macro: LINE_NOP_NORMAL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\macro.asm]
+     1 2147 8D 0A D4			sta WSYNC	;WAIT
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+     1 214A CA				dex
+     2 214B 88				dey
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+     1 214C EA				nop
+     2 214D EA				nop
+     3 214E EA				nop
+     4 214F EA				nop
+     5 2150 EA				nop
+     6 2151 EA				nop
+     7 2152 EA				nop
+     8 2153 EA				nop
+     9 2154 EA				nop
+    10 2155 EA				nop
+    12 2156 EA				nop
+    13 2157 EA				nop
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+     7 2158 8E 18 D0			stx DLI_PAPER	; 4 cycles
+     1 215B EA				nop
+     2 215C EA				nop
+     3 215D 85 EA			sta bar_color20	; 3 cycles
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+    10 215F EA				nop
+    11 2160 8C 18 D0			sty DLI_PAPER	; 4 cycles
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+   134 2163 E9 01			sbc #1
+   135 2165 D0 E0			bne dli_handler_loop_1
+   136 2167				LINE_NOP_SHORT
+Macro: LINE_NOP_SHORT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\macro.asm]
+     1 2167 8D 0A D4			sta WSYNC	;WAIT
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+     1 216A CA				dex
+     2 216B 88				dey
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+     1 216C EA				nop
+     2 216D EA				nop
+     3 216E EA				nop
+     4 216F EA				nop
+     5 2170 EA				nop
+     6 2171 EA				nop
+     7 2172 EA				nop
+     8 2173 EA				nop
+     9 2174 EA				nop
+    10 2175 EA				nop
+    12 2176 EA				nop
+    13 2177 EA				nop
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+     7 2178 8E 18 D0			stx DLI_PAPER	; 4 cycles
+     1 217B EA				nop
+     2 217C EA				nop
+     3 217D 85 EA			sta bar_color20	; 3 cycles
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+    10 217F 8C 18 D0			sty DLI_PAPER	; 4 cycles
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+   137
+   138 2182 A9 3F			lda #63
+   139 2184			dli_handler_loop_2:
+   140 2184				LINE_NOP_NORMAL
+Macro: LINE_NOP_NORMAL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\macro.asm]
+     1 2184 8D 0A D4			sta WSYNC	;WAIT
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+     1 2187 CA				dex
+     2 2188 88				dey
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+     1 2189 EA				nop
+     2 218A EA				nop
+     3 218B EA				nop
+     4 218C EA				nop
+     5 218D EA				nop
+     6 218E EA				nop
+     7 218F EA				nop
+     8 2190 EA				nop
+     9 2191 EA				nop
+    10 2192 EA				nop
+    12 2193 EA				nop
+    13 2194 EA				nop
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+     7 2195 8E 18 D0			stx DLI_PAPER	; 4 cycles
+     1 2198 EA				nop
+     2 2199 EA				nop
+     3 219A 85 EA			sta bar_color20	; 3 cycles
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+    10 219C EA				nop
+    11 219D 8C 18 D0			sty DLI_PAPER	; 4 cycles
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+   141 21A0 E9 01			sbc #1
+   142 21A2 D0 E0			bne dli_handler_loop_2
+   143 21A4				LINE_NOP_SHORT
+Macro: LINE_NOP_SHORT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\macro.asm]
+     1 21A4 8D 0A D4			sta WSYNC	;WAIT
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+     1 21A7 CA				dex
+     2 21A8 88				dey
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+     1 21A9 EA				nop
+     2 21AA EA				nop
+     3 21AB EA				nop
+     4 21AC EA				nop
+     5 21AD EA				nop
+     6 21AE EA				nop
+     7 21AF EA				nop
+     8 21B0 EA				nop
+     9 21B1 EA				nop
+    10 21B2 EA				nop
+    12 21B3 EA				nop
+    13 21B4 EA				nop
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+     7 21B5 8E 18 D0			stx DLI_PAPER	; 4 cycles
+     1 21B8 EA				nop
+     2 21B9 EA				nop
+     3 21BA 85 EA			sta bar_color20	; 3 cycles
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+    10 21BC 8C 18 D0			sty DLI_PAPER	; 4 cycles
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+   144
+   145 					
+   146
+   147 21BF				LINE_WAIT
+Macro: LINE_WAIT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\macro.asm]
+     1 21BF 8D 0A D4			sta WSYNC	;WAIT
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+   148
+   149 21C2				REG_PULL
+Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\macro.asm]
+     1 21C2 68				pla
+     2 21C3 A8				tay
+     3 21C4 68				pla
+     4 21C5 AA				tax
+     5 21C6 68				pla
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\part1.asm
+   150 21C7 40				rti
+   151 					
+   152 					
+   153 					
+    12 21C8				ICL 'screen_mem.asm'
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\screen_mem.asm
+     1 21C8				org $4000
+     2
+     3 4000			image_data:	
+     4 4000				.local graphics
+     5 4000-707F> 00 00 00 00 + 	ins "..\pic\unicorn2inv.gr8"
+     6 					.endl
+     7
+     8 = 4000			screen_mem_1 = $4000
+     9 				;	:2048 dta $0
+    10 = 4800			screen_mem_1_1 = $4800
+    11 				;	:2048 dta $0
+    12 = 5000			screen_mem_1_2 = $5000
+    13 				;	:2048 dta $0
+    14 					
+    15 5800			screen_mem_2
+    16 5800 00 00 00 00 00 00 + 	:2048 dta $0
+    17 6000			screen_mem_2_1
+    18 6000 00 00 00 00 00 00 + 	:2048 dta $0
+    19 6800			screen_mem_2_2
+    20 6800 00 00 00 00 00 00 + 	:2048 dta $0
+    21
+    22 7000			screen_adr
+    23 7000 00 00			dta 0,0
+    24
+    25 7002			screen_clear:
+    26 7002				REG_PUSH
+Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\macro.asm]
+     1 7002 48				pha
+     2 7003 8A				txa
+     3 7004 48				pha
+     4 7005 98				tya
+     5 7006 48				pha
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\screen_mem.asm
+    27 7007 AD 00 70 8D 1A 70 + 	mwa screen_adr screen_clear_loop_2+1
+    28 7013 A9 00			lda #0
+    29 7015 A2 18			ldx #24
+    30 7017			screen_clear_loop_1
+    31 7017 A0 00			ldy #0	
+    32 7019			screen_clear_loop_2	
+    33 7019 99 00 00			sta $0000,y
+    34 701C C8				iny
+    35 701D D0 FA			bne screen_clear_loop_2
+    36 701F EE 1B 70			inc screen_clear_loop_2+2
+    37 7022 CA				dex
+    38 7023 D0 F4			bne screen_clear_loop_2
+    39 7025				REG_PULL
+Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\macro.asm]
+     1 7025 68				pla
+     2 7026 A8				tay
+     3 7027 68				pla
+     4 7028 AA				tax
+     5 7029 68				pla
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\screen_mem.asm
+    40 702A 60				rts	
+    41
+    42 702B			screen_fill:
+    43 702B				REG_PUSH
+Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\macro.asm]
+     1 702B 48				pha
+     2 702C 8A				txa
+     3 702D 48				pha
+     4 702E 98				tya
+     5 702F 48				pha
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\screen_mem.asm
+    44 7030 AD 00 70 8D 43 70 + 	mwa screen_adr screen_fill_loop_2+1
+    45 703C A9 FF			lda #255
+    46 703E A2 08			ldx #8
+    47 7040			screen_fill_loop_1
+    48 7040 A0 00			ldy #0	
+    49 7042			screen_fill_loop_2	
+    50 7042 99 00 00			sta $0000,y
+    51 7045 C8				iny
+    52 7046 D0 FA			bne screen_fill_loop_2
+    53 7048 EE 44 70			inc screen_fill_loop_2+2
+    54 704B CA				dex
+    55 704C D0 F4			bne screen_fill_loop_2
+    56 704E				REG_PULL
+Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\macro.asm]
+     1 704E 68				pla
+     2 704F A8				tay
+     3 7050 68				pla
+     4 7051 AA				tax
+     5 7052 68				pla
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\screen_mem.asm
+    57 7053 60				rts	
+    58
+    59 					
+    60 7054			screen_set_read_1:
+    61 					; load display list address to register
+    62 7054 A9 00 8D 30 02 A9 + 	mwa #dl_antic_1 DLIST
+    63 705E 60				rts
+    64 705F			screen_set_write_1:
+    65 					; switch working buffer pointer
+    66 705F A9 00 8D 00 70 A9 + 	mwa #screen_mem_1 screen_adr
+    67 7069 60				rts
+    68
+    69 706A			screen_set_read_2:
+    70 					; load display list address to register
+    71 706A A9 CC 8D 30 02 A9 + 	mwa #dl_antic_2 DLIST
+    72 7074 60				rts
+    73 7075			screen_set_write_2:	
+    74 					; switch working buffer pointer
+    75 7075 A9 00 8D 00 70 A9 + 	mwa #screen_mem_2 screen_adr
+    76 707F 60				rts
+    77 					
+    13 7080				ICL 'display_list.asm'
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\display_list.asm
+     1 7080				ICL 'display_list_const.asm'
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\display_list_const.asm
+     1 = 0012			RTCLOCK_2 = $12
+     2 = 0013			RTCLOCK_1 = $13
+     3 = 0014			RTCLOCK_0 = $14
+     4
+     5 = 0230			DLIST   = $230
+     6 = 0230			DLISTL  = $230 ; display list pointer low byte
+     7 = 0231			DLISTH  = $231 ;                      high byte
+     8 = 02C8			COLRBK  = $2C8
+     9
+    10 = D016			COLPF0	= $D016  
+    11 = D017			COLPF1	= $D017  
+    12 = D018			COLPF2	= $D018  
+    13 = D019			COLPF3	= $D019
+    14 = D01A			COLBG	= $D01A 
+    15
+    16 = 02C4			COLOR0	= $02C4
+    17 = 02C5			COLOR1	= $02C5
+    18 = 02C6			COLOR2	= $02C6
+    19 = 02C7			COLOR3	= $02C7
+    20 = 02C8			COLOR4 	= $02C8
+    21
+    22 = 022F			SDMCTL  = $022F
+    23 = D400			DMACTL  = $D400
+    24 = 0200			VDSLST  = $0200 ; display list interrupt vector
+    25 = D40E			NMEN	= $D40E
+    26 = D40E			NMIEN	= $D40E ; bit 7
+    27 = D40A			WSYNC   = $D40A
+    28 = D40B			VCOUNT  = $D40B
+    29
+    30 = 02C5			GR8_PEN   = COLOR1
+    31 = 02C6			GR8_PAPER = COLOR2
+    32 = 02C8			GR8_FRAME = COLOR4 
+    33
+    34 = D017			DLI_PEN   = COLPF1
+    35 = D018			DLI_PAPER = COLPF2
+    36 = D01A			DLI_FRAME = COLBG 
+    37
+    38 = 0000			COLOR_BLACK = $00
+    39 = 000E			COLOR_WHITE = $0E
+    40
+    41
+    42
+    43 				;     SAVMSC $0058,2       (88): pointer to current screen for CIO commands
+    44 				;     RAMTOP $006A        (106): start-of-ROM pointer (MSB only)
+    45 				;     VDSLST $0200,2      (512): DLI vector
+    46 				;     RAMSIZ $02E4        (740): permanent start-of-ROM pointer (MSB only)
+    47 				;     DLISTL $D402      (54274): display list pointer low byte
+    48 				;     DLISTH $D403      (54275):     "    high byte
+    49 				;     HSCROL $D404      (54276): horizontal scroll register
+    50 				;     VSCROL $D405      (54277): vertical scroll register
+    51 				;     NMIEN  $D40E      (54286): NMI enable (DLIs)
+    52 				;     
+    53 				;     
+    54 				;                               Shadow registers
+    55 				;     
+    56 				;     
+    57 				;     SDLSTL $0230        (560): DLISTL
+    58 				;     SDLSTH $0231        (561): DLISTH
+     2
+     3 7080				org $3800
+     4
+     5 = 0080			DL_DLI = $80
+     6
+     7 				; DL for first buffer	
+     8 3800-39D1> F0 70 70	dl_antic_1	dta $F0,$70,$70              ; 3x8 empty scanlines
+     9 3803 4F 00 40				dta b($4f),a(screen_mem_1)   ; $0f - mode, $40 - addr of 1/3 screen bitmap 
+    10 3806 0F 0F 0F 0F 0F 0F + 		:62 dta b($0f)               ; 63 lines of $0f 
+    11 3844 0F					dta b($0f)                   ; 1 line of $0f + DLI 
+    12 3845 4F 00 48				dta b($4f),a(screen_mem_1_1) ; $0f - mode, $40 - addr of 2/3 screen bitmap
+    13 3848 0F 0F 0F 0F 0F 0F + 		:63 dta b($0f)	             ; 63 lines of $0f 
+    14 3887 4F 00 50				dta b($4f),a(screen_mem_1_2) ; $0f - mode, $40 - addr of 3/3 screen bitmap
+    15 388A 0F 0F 0F 0F 0F 0F + 		:63 dta b($0f)               ; 63 lines of $0f
+    16 						;dta b($c1),a(dl_antic_1)     ; jump to DL start and trigger interrupt
+    17 38C9 41 00 38				dta b($41),a(dl_antic_1)     ; jump to DL start
+    18 38CC 70 70 70		dl_antic_2	dta $70,$70,$70              ; 3x8 empty scanlines 
+    19 38CF CF 00 58				dta b($cf),a(screen_mem_2)   ; $0f - mode, $40 - addr of 1/3 screen bitmap
+    20 38D2 0F 0F 0F 0F 0F 0F + 		:63 dta b($0f)               ; 63 lines of $0f 
+    21 3911 4F 00 60				dta b($4f),a(screen_mem_2_1) ; $0f - mode, $40 - addr of 2/3 screen bitmap
+    22 3914 0F 0F 0F 0F 0F 0F + 		:63 dta b($0f)	             ; 63 lines of $0f 
+    23 3953 4F 00 68				dta b($4f),a(screen_mem_2_2) ; $0f - mode, $40 - addr of 3/3 screen bitmap
+    24 3956 0F 0F 0F 0F 0F 0F + 		:63 dta b($0f)               ; 63 lines of $0f 
+    25 						;dta b($c1),a(dl_antic_2)     ; jump to DL start and trigger interrupt
+    26 3995 41 CC 38				dta b($41),a(dl_antic_2)     ; jump to DL start 
+    27
+    28 3998			dl_set_mode
+    29 					; set screen width to 32 byte
+    30 3998 A9 FD			lda #$fd
+    31 399A 2D 2F 02			and SDMCTL
+    32 399D 18 69 01			add #1
+    33 39A0 8D 2F 02			sta SDMCTL
+    34 39A3 8D 00 D4			sta DMACTL
+    35
+    36 39A6 A9 00			lda #COLOR_BLACK     
+    37 39A8 8D C5 02			sta GR8_PEN
+    38 39AB A9 00			lda #COLOR_BLACK     
+    39 39AD 8D C6 02			sta GR8_PAPER
+    40 39B0 A9 00			lda #COLOR_BLACK     
+    41 39B2 8D C8 02			sta GR8_FRAME
+    42 					
+    43 39B5 A9 0E			lda #COLOR_WHITE
+    44 39B7 8D C5 02			sta COLOR1
+    45 39BA A9 00			lda #COLOR_BLACK
+    46 39BC 8D C6 02			sta COLOR2
+    47 					
+    48
+    49 39BF 60				rts
+    50
+    51 						
+    14 39C0				ICL 'wait_vsync.asm'
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\wait_vsync.asm
+     1
+     2
+     3 39C0			wait_hsync:
+     4
+     5 39C0 48				pha
+     6
+     7 39C1 A9 52			lda #$52
+     8 39C3 8D 0A D4			sta WSYNC	;WAIT
+     9 39C6 68				pla
+    10
+    11 39C7 60				rts
+    12
+    13
+    14 39C8			wait_vsync:
+    15 39C8 48				pha
+    16 39C9			wait_vsync_loop:
+    17 39C9 AD 0B D4			lda VCOUNT
+    18 39CC C9 64			cmp #100
+    19 39CE D0 F9			bne wait_vsync_loop 
+    20 					
+    21 39D0 68				pla
+    22 39D1 60				rts
+    23 					
+    15 39D2				ICL 'math.asm'
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\math.asm
+     1 39D2				org $1D00
+     2 					
+     3 				;MATH_SIN_LEN = 16
+     4 				;MATH_SIN_MASK = %00001111	
+     5 				; math_sin dta 127,176,218,245,255,245,218,176,127,78,36,9,0,9,36,78
+     6 				; math_sin dta 128,176,218,245,255,245,218,176,128,79,37,10,0,10,37,79
+     7 				        
+     8 				;MATH_SIN_LEN = 64
+     9 				;MATH_SIN_MASK = %00111111	
+    10 				;math_sin dta 128,140,152,165,176,188,198,208,218,226,234,240,245,250,253,254,255,254,253,250,245,240,234,226,218,208,198,188,176,165,152,140,128,115,103,90,79,67,57,47,37,29,21,15,10,5,2,1,0,1,2,5,10,15,21,29,37,47,57,67,79,90,103,115
+    11
+    12 = 0100			MATH_SIN_LEN = 256
+    13 = 00FF			MATH_SIN_MASK = %11111111	
+    14 1D00-1F0F> 80 83 86 89 + math_sin dta 128,131,134,137,140,143,146,149,152,155,158,162,165,167,170,173,176,179,182,185,188,190,193,196,198,201,203,206,208,211,213,215,218,220,222,224,226,228,230,232,234,235,237,238,240,241,243,244,245,246,248,249,250,250,251,252,253,253,254,254,254,255,255,255,255,255,255,255,254,254,254,253,253,252,251,250,250,249,248,246,245,244,243,241,240,238,237,235,234,232,230,228,226,224,222,220,218,215,213,211,208,206,203,201,198,196,193,190,188,185,182,179,176,173,170,167,165,162,158,155,152,149,146,143,140,137,134,131,128,124,121,118,115,112,109,106,103,100,97,93,90,88,85,82,79,76,73,70,67,65,62,59,57,54,52,49,47,44,42,40,37,35,33,31,29,27,25,23,21,20,18,17,15,14,12,11,10,9,7,6,5,5,4,3,2,2,1,1,1,0,0,0,0,0,0,0,1,1,1,2,2,3,4,5,5,6,7,9,10,11,12,14,15,17,18,20,21,23,25,27,29,31,33,35,37,40,42,44,47,49,52,54,57,59,62,65,67,70,73,76,79,82,85,88,90,93,97,100,103,106,109,112,115,118,121,124
+    15
+    16 = 0010			MATH_SIN_LEN_16 = 16
+    17 = 000F			MATH_SIN_MASK_16 = %00001111	
+    18 1E00 80 B0 DA F5 FF F5 + math_sin_16 dta 128,176,218,245,255,245,218,176,128,79,37,10,0,10,37,79,128,176,218,245,255,245,218,176,128,79,37,10,0,10,37,79,128,176,218,245,255,245,218,176,128,79,37,10,0,10,37,79,128,176,218,245,255,245,218,176,128,79,37,10,0,10,37,79,128,176,218,245,255,245,218,176,128,79,37,10,0,10,37,79,128,176,218,245,255,245,218,176,128,79,37,10,0,10,37,79,128,176,218,245,255,245,218,176,128,79,37,10,0,10,37,79,128,176,218,245,255,245,218,176,128,79,37,10,0,10,37,79,128,176,218,245,255,245,218,176,128,79,37,10,0,10,37,79,128,176,218,245,255,245,218,176,128,79,37,10,0,10,37,79,128,176,218,245,255,245,218,176,128,79,37,10,0,10,37,79,128,176,218,245,255,245,218,176,128,79,37,10,0,10,37,79,128,176,218,245,255,245,218,176,128,79,37,10,0,10,37,79,128,176,218,245,255,245,218,176,128,79,37,10,0,10,37,79,128,176,218,245,255,245,218,176,128,79,37,10,0,10,37,79,128,176,218,245,255,245,218,176,128,79,37,10,0,10,37,79
+    19
+    20 1F00 C0 C0 60 40 30 27 + math_192_div dta 192,192,96,64,48,39,32,28,24,22,20,18,16,15,14,13
+    16 1F10				ICL 'zero.asm'
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\zero.asm
+     1 1F10				org $e0
+     2
+     3 00E0-00EE> 00		zero_a	dta 0
+     4 00E1 00			zero_x	dta 0
+     5 00E2 00			zero_y	dta 0
+     6 00E3 00			zero_1	dta 0
+     7 00E4 00			zero_2	dta 0
+     8 00E5 00			zero_3	dta 0
+     9 00E6 00			bar_size dta 0
+    10 00E7 00			bar_color1 dta 0
+    11 00E8 00			bar_color2 dta 0
+    12 00E9 00			bar_color10 dta 0
+    13 00EA 00			bar_color20 dta 0
+    14 00EB			part1_image_data_address: 
+    15 00EB 00 00			dta 0,0
+    16 00ED			part1_screen_data_address: 
+    17 00ED 00 00			dta 0,0
+    17
+    18 				;	org $8000
+    19 				;image_data:	
+    20 				;	.local graphics
+    21 				;	ins "..\pic\unicorn2.gr8"
+    22 				;	.endl
+    23 					

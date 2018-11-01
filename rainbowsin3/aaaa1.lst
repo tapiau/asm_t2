@@ -98,7 +98,7 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\macro.asm
      4
      5 					.proc main
      6 					
-     7 FFFF> 2000-2115> 4C 0A + 	jmp part1
+     7 FFFF> 2000-202D> 4C 0A + 	jmp part1
      8
      9 					.endp
     10 					
@@ -115,7 +115,7 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\part1.asm
      9
     10 200A			part1:
     11 					; set handler for display list interrupt 
-    12 200A A9 2E 8D 00 02 A9 + 	mwa #part1_dli_handler VDSLST
+    12 200A A9 00 8D 00 02 A9 + 	mwa #part1_dli_handler VDSLST
     13 2014 20 98 39			jsr dl_set_mode
     14
     15 					; enable DL interrupt
@@ -143,201 +143,203 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\part1.asm
     30
     31 202D 60				rts
     32
-    33 202E			part1_dli_handler:
+    33 202E				org $3000
     34
-    35 				; line:
-    36 				; 32 cycles - frame (2+26+4)
-    37 				; 28 cycles - screen
-    38
-    39 202E				REG_PUSH
+    35 3000			part1_dli_handler:
+    36
+    37 				; line:
+    38 				; 32 cycles - frame (2+26+4)
+    39 				; 28 cycles - screen
+    40
+    41 3000				REG_PUSH
 Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\macro.asm]
-     1 202E 48				pha
-     2 202F 8A				txa
-     3 2030 48				pha
-     4 2031 98				tya
-     5 2032 48				pha
+     1 3000-30E7> 48			pha
+     2 3001 8A				txa
+     3 3002 48				pha
+     4 3003 98				tya
+     5 3004 48				pha
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\part1.asm
-    40 2033 A9 00			lda #COLOR_BLACK
-    41 2035 8D 18 D0			sta DLI_PAPER ; black
-    42
-    43
-    44 					; bar size
-    45 2038 A9 02			lda #2
-    46 203A 85 E6			sta bar_size
-    47
-    48 203C 8D 0A D4			:1 sta WSYNC	;WAIT
-    49 					
-    50 					; cycle begin
-    51 203F A2 01			ldx #1
-    52 2041 8D 0A D4			:1 sta WSYNC	;WAIT
-    53
-    54 				;	lda math_sin_16,x
-    55 				;	:4 lsr
-    56 				;	adc #1
-    57 				;	tax
-    58
-    59 2044 8D 0A D4 8D 0A D4 + 	:20 sta WSYNC	;WAIT
+    42 3005 A9 00			lda #COLOR_BLACK
+    43 3007 8D 18 D0			sta DLI_PAPER ; black
+    44
+    45
+    46 					; bar size
+    47 300A A9 02			lda #2
+    48 300C 85 E6			sta bar_size
+    49
+    50 300E 8D 0A D4			:1 sta WSYNC	;WAIT
+    51 					
+    52 					; cycle begin
+    53 3011 A2 01			ldx #1
+    54 3013 8D 0A D4			:1 sta WSYNC	;WAIT
+    55
+    56 				;	lda math_sin_16,x
+    57 				;	:4 lsr
+    58 				;	adc #1
+    59 				;	tax
     60
-    61 					; init color value
-    62 2080 A4 14			ldy RTCLOCK_0
-    63 2082 B9 00 1D			lda math_sin,y
-    64 2085 85 E7			sta bar_color1
-    65 2087 98				tya
-    66 2088 49 FF			eor #$ff
-    67 208A A8				tay
-    68 208B B9 00 1D			lda math_sin,y
-    69 208E 85 E8			sta bar_color2
-    70
-    71 2090 8D 0A D4			:1 sta WSYNC	;WAIT
+    61 3016 8D 0A D4 8D 0A D4 + 	:20 sta WSYNC	;WAIT
+    62
+    63 					; init color value
+    64 3052 A4 14			ldy RTCLOCK_0
+    65 3054 B9 00 1D			lda math_sin,y
+    66 3057 85 E7			sta bar_color1
+    67 3059 98				tya
+    68 305A 49 FF			eor #$ff
+    69 305C A8				tay
+    70 305D B9 00 1D			lda math_sin,y
+    71 3060 85 E8			sta bar_color2
     72
-    73 					; 192 screen lines
+    73 3062 8D 0A D4			:1 sta WSYNC	;WAIT
     74
-    75
-    76 2093 A6 E7			ldx bar_color1
-    77 2095 A4 E8			ldy bar_color2
-    78
-    79 2097				LINE_NOP_HALF
+    75 					; 192 screen lines
+    76
+    77
+    78 3065 A6 E7			ldx bar_color1
+    79 3067 A4 E8			ldy bar_color2
+    80
+    81 3069				LINE_NOP_HALF
 Macro: LINE_NOP_HALF [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\macro.asm]
-     1 2097 8D 0A D4			sta WSYNC	;WAIT
+     1 3069 8D 0A D4			sta WSYNC	;WAIT
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\part1.asm
-     1 209A CA				dex
-     2 209B 88				dey
+     1 306C CA				dex
+     2 306D 88				dey
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\part1.asm
-     1 209C EA				nop
-     2 209D EA				nop
-     3 209E EA				nop
-     4 209F EA				nop
-     5 20A0 EA				nop
-     6 20A1 EA				nop
-     7 20A2 EA				nop
-     8 20A3 EA				nop
-     9 20A4 EA				nop
-    10 20A5 EA				nop
-    12 20A6 EA				nop
-    13 20A7 EA				nop
+     1 306E EA				nop
+     2 306F EA				nop
+     3 3070 EA				nop
+     4 3071 EA				nop
+     5 3072 EA				nop
+     6 3073 EA				nop
+     7 3074 EA				nop
+     8 3075 EA				nop
+     9 3076 EA				nop
+    10 3077 EA				nop
+    12 3078 EA				nop
+    13 3079 EA				nop
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\part1.asm
-     8 20A8 85 EA			sta bar_color20	; 3 cycles
-     9 20AA 8E 18 D0			stx DLI_PAPER	; 4 cycles
-     1 20AD EA				nop
-     2 20AE EA				nop
-     3 20AF EA				nop
+     8 307A 85 EA			sta bar_color20	; 3 cycles
+     9 307C 8E 18 D0			stx DLI_PAPER	; 4 cycles
+     1 307F EA				nop
+     2 3080 EA				nop
+     3 3081 EA				nop
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\part1.asm
-    11 20B0 8C 18 D0			sty DLI_PAPER	; 4 cycles
-    13 20B3 88				dey
+    11 3082 8C 18 D0			sty DLI_PAPER	; 4 cycles
+    13 3085 88				dey
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\part1.asm
-    80 20B4				LINE_NOP_NORMAL
+    82 3086				LINE_NOP_NORMAL
 Macro: LINE_NOP_NORMAL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\macro.asm]
-     1 20B4 8D 0A D4			sta WSYNC	;WAIT
+     1 3086 8D 0A D4			sta WSYNC	;WAIT
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\part1.asm
-     1 20B7 CA				dex
-     2 20B8 88				dey
+     1 3089 CA				dex
+     2 308A 88				dey
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\part1.asm
-     1 20B9 EA				nop
-     2 20BA EA				nop
-     3 20BB EA				nop
-     4 20BC EA				nop
-     5 20BD EA				nop
-     6 20BE EA				nop
-     7 20BF EA				nop
-     8 20C0 EA				nop
-     9 20C1 EA				nop
-    10 20C2 EA				nop
-    12 20C3 EA				nop
-    13 20C4 EA				nop
+     1 308B EA				nop
+     2 308C EA				nop
+     3 308D EA				nop
+     4 308E EA				nop
+     5 308F EA				nop
+     6 3090 EA				nop
+     7 3091 EA				nop
+     8 3092 EA				nop
+     9 3093 EA				nop
+    10 3094 EA				nop
+    12 3095 EA				nop
+    13 3096 EA				nop
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\part1.asm
-     7 20C5 8E 18 D0			stx DLI_PAPER	; 4 cycles
-     1 20C8 EA				nop
-     2 20C9 EA				nop
-     3 20CA EA				nop
+     7 3097 8E 18 D0			stx DLI_PAPER	; 4 cycles
+     1 309A EA				nop
+     2 309B EA				nop
+     3 309C EA				nop
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\part1.asm
-     9 20CB EA				nop
-    10 20CC 8C 18 D0			sty DLI_PAPER	; 4 cycles
-    12 20CF 88				dey
+     9 309D EA				nop
+    10 309E 8C 18 D0			sty DLI_PAPER	; 4 cycles
+    12 30A1 88				dey
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\part1.asm
-    81
-    82 20D0 A9 37			lda #55
-    83 20D2			dli_handler_loop_0:
-    84 20D2				LINE_NOP_NORMAL
+    83
+    84 30A2 A9 37			lda #55
+    85 30A4			dli_handler_loop_0:
+    86 30A4				LINE_NOP_NORMAL
 Macro: LINE_NOP_NORMAL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\macro.asm]
-     1 20D2 8D 0A D4			sta WSYNC	;WAIT
+     1 30A4 8D 0A D4			sta WSYNC	;WAIT
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\part1.asm
-     1 20D5 CA				dex
-     2 20D6 88				dey
+     1 30A7 CA				dex
+     2 30A8 88				dey
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\part1.asm
-     1 20D7 EA				nop
-     2 20D8 EA				nop
-     3 20D9 EA				nop
-     4 20DA EA				nop
-     5 20DB EA				nop
-     6 20DC EA				nop
-     7 20DD EA				nop
-     8 20DE EA				nop
-     9 20DF EA				nop
-    10 20E0 EA				nop
-    12 20E1 EA				nop
-    13 20E2 EA				nop
+     1 30A9 EA				nop
+     2 30AA EA				nop
+     3 30AB EA				nop
+     4 30AC EA				nop
+     5 30AD EA				nop
+     6 30AE EA				nop
+     7 30AF EA				nop
+     8 30B0 EA				nop
+     9 30B1 EA				nop
+    10 30B2 EA				nop
+    12 30B3 EA				nop
+    13 30B4 EA				nop
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\part1.asm
-     7 20E3 8E 18 D0			stx DLI_PAPER	; 4 cycles
-     1 20E6 EA				nop
-     2 20E7 EA				nop
-     3 20E8 EA				nop
+     7 30B5 8E 18 D0			stx DLI_PAPER	; 4 cycles
+     1 30B8 EA				nop
+     2 30B9 EA				nop
+     3 30BA EA				nop
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\part1.asm
-     9 20E9 EA				nop
-    10 20EA 8C 18 D0			sty DLI_PAPER	; 4 cycles
-    12 20ED 88				dey
+     9 30BB EA				nop
+    10 30BC 8C 18 D0			sty DLI_PAPER	; 4 cycles
+    12 30BF 88				dey
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\part1.asm
-    85 20EE E9 01			sbc #1
-    86 20F0 D0 E0			bne dli_handler_loop_0
-    87 20F2				LINE_NOP_SHORT
+    87 30C0 E9 01			sbc #1
+    88 30C2 D0 E0			bne dli_handler_loop_0
+    89 30C4				LINE_NOP_SHORT
 Macro: LINE_NOP_SHORT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\macro.asm]
-     1 20F2 8D 0A D4			sta WSYNC	;WAIT
+     1 30C4 8D 0A D4			sta WSYNC	;WAIT
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\part1.asm
-     1 20F5 CA				dex
-     2 20F6 88				dey
+     1 30C7 CA				dex
+     2 30C8 88				dey
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\part1.asm
-     1 20F7 EA				nop
-     2 20F8 EA				nop
-     3 20F9 EA				nop
-     4 20FA EA				nop
-     5 20FB EA				nop
-     6 20FC EA				nop
-     7 20FD EA				nop
-     8 20FE EA				nop
-     9 20FF EA				nop
-    10 2100 EA				nop
-    12 2101 EA				nop
-    13 2102 EA				nop
+     1 30C9 EA				nop
+     2 30CA EA				nop
+     3 30CB EA				nop
+     4 30CC EA				nop
+     5 30CD EA				nop
+     6 30CE EA				nop
+     7 30CF EA				nop
+     8 30D0 EA				nop
+     9 30D1 EA				nop
+    10 30D2 EA				nop
+    12 30D3 EA				nop
+    13 30D4 EA				nop
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\part1.asm
-     7 2103 8E 18 D0			stx DLI_PAPER	; 4 cycles
-     1 2106 EA				nop
-     2 2107 EA				nop
-     3 2108 EA				nop
+     7 30D5 8E 18 D0			stx DLI_PAPER	; 4 cycles
+     1 30D8 EA				nop
+     2 30D9 EA				nop
+     3 30DA EA				nop
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\part1.asm
-     9 2109 8C 18 D0			sty DLI_PAPER	; 4 cycles
-    11 210C 88				dey
+     9 30DB 8C 18 D0			sty DLI_PAPER	; 4 cycles
+    11 30DE 88				dey
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\part1.asm
-    88 					
-    89
-    90 210D				LINE_WAIT
-Macro: LINE_WAIT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\macro.asm]
-     1 210D 8D 0A D4			sta WSYNC	;WAIT
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\part1.asm
+    90 					
     91
-    92 2110				REG_PULL
-Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\macro.asm]
-     1 2110 68				pla
-     2 2111 A8				tay
-     3 2112 68				pla
-     4 2113 AA				tax
-     5 2114 68				pla
+    92 30DF				LINE_WAIT
+Macro: LINE_WAIT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\macro.asm]
+     1 30DF 8D 0A D4			sta WSYNC	;WAIT
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\part1.asm
-    93 2115 40				rti
-    94 					
-    95 					
+    93
+    94 30E2				REG_PULL
+Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\macro.asm]
+     1 30E2 68				pla
+     2 30E3 A8				tay
+     3 30E4 68				pla
+     4 30E5 AA				tax
+     5 30E6 68				pla
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\part1.asm
+    95 30E7 40				rti
     96 					
-    12 2116				ICL 'screen_mem.asm'
+    97 					
+    98 					
+    12 30E8				ICL 'screen_mem.asm'
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin3\screen_mem.asm
-     1 2116				org $4000
+     1 30E8				org $4000
      2
      3 4000			screen_mem_1
      4 4000-707F> 00 00 00 00 + 	:2048 dta $0
