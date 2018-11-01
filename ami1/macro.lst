@@ -1,0 +1,100 @@
+mads 2.0.6 build 58 (28 Jan 17)
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin1\macro.asm
+     1 				.MACRO REG_PUSH 
+     2 					pha
+     3 					txa
+     4 					pha
+     5 					tya
+     6 					pha
+     7 				.ENDM
+     8
+     9 				.MACRO REG_PULL
+    10 					pla
+    11 					tay
+    12 					pla
+    13 					tax
+    14 					pla
+    15 				.ENDM
+    16
+    17 				.MACRO LINE_NOP_HALF
+    18 					sta WSYNC	;WAIT
+    19 				
+    20 					;; 4 nops
+    21 					lda bar_color1  ; 3 cycles
+    22 					sbc #$01	; 2 cycles
+    23 					sta bar_color1  ; 3 cycles
+    24 					eor #$ff	; 2 cycles
+    25 					sta bar_color10 ; 3 cycles
+    26 				
+    27 					lda bar_color2  ; 3 cycles
+    28 					sbc #$01	; 2 cycles
+    29 					sta bar_color2  ; 3 cycles
+    30 					eor #$ff	; 2 cycles
+    31 					sta bar_color20 ; 3 cycles
+    32 				
+    33 					
+    34 					lda bar_color20	; 3 cycles
+    35 					sta DLI_PAPER	; 4 cycles
+    36 					lda bar_color10
+    37 					nop
+    38 					nop
+    39 					nop
+    40 					sta DLI_PAPER	; 4 cycles
+    41 				
+    42 					dey
+    43 				.ENDM
+    44
+    45 				.MACRO LINE_NOP_NORMAL
+    46 					sta WSYNC	;WAIT
+    47 				
+    48 					;; 4 nops
+    49 					lda bar_color1  ; 3 cycles
+    50 					sbc #$01	; 2 cycles
+    51 					sta bar_color1  ; 3 cycles
+    52 					eor #$ff	; 2 cycles
+    53 					sta bar_color10 ; 3 cycles
+    54 				
+    55 					lda bar_color2  ; 3 cycles
+    56 					sbc #$01	; 2 cycles
+    57 					sta bar_color2  ; 3 cycles
+    58 					eor #$ff	; 2 cycles
+    59 					sta bar_color20 ; 3 cycles
+    60 				
+    61 					
+    62 					sta DLI_PAPER	; 4 cycles
+    63 					lda bar_color10
+    64 					nop
+    65 					nop
+    66 					nop
+    67 					nop
+    68 					sta DLI_PAPER	; 4 cycles
+    69 				
+    70 					dey
+    71 				.ENDM
+    72
+    73 				.MACRO LINE_NOP_SHORT
+    74 					sta WSYNC	;WAIT
+    75 				
+    76 					;; 4 nops
+    77 					lda bar_color1  ; 3 cycles
+    78 					sbc #$01	; 2 cycles
+    79 					sta bar_color1  ; 3 cycles
+    80 					eor #$ff	; 2 cycles
+    81 					sta bar_color10 ; 3 cycles
+    82 				
+    83 					lda bar_color2  ; 3 cycles
+    84 					sbc #$01	; 2 cycles
+    85 					sta bar_color2  ; 3 cycles
+    86 					eor #$ff	; 2 cycles
+    87 					sta bar_color20 ; 3 cycles
+    88 				
+    89 					
+    90 					sta DLI_PAPER	; 4 cycles
+    91 					lda bar_color10
+    92 					nop
+    93 					nop
+    94 					nop
+    95 					sta DLI_PAPER	; 4 cycles
+    96 				
+    97 					dey
+    98 				.ENDM
