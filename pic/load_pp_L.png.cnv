@@ -1,5 +1,5 @@
 #WUDSN IDE Converter Parameters
-#Fri Nov 02 10:14:22 CET 2018
+#Fri Nov 02 10:02:07 CET 2018
 converterDirection=IMAGE_TO_FILES
 filesConverterParameters.converterId=
 filesConverterParameters.imageAspect.factorX=1
@@ -26,9 +26,9 @@ imageConverterParameters.displayAspect.factorX=1
 imageConverterParameters.displayAspect.factorY=1
 imageConverterParameters.displayShrinkToFit=false
 imageConverterParameters.displayZoomToFit=true
-imageConverterParameters.imageFilePath=zx_font.png
+imageConverterParameters.imageFilePath=load_pp_L.png
 imageConverterParameters.targetFiles=10
-imageConverterParameters.targetFiles.0.path=zx_font.fnt
+imageConverterParameters.targetFiles.0.path=load_pp_L.gr8
 imageConverterParameters.targetFiles.1.path=
 imageConverterParameters.targetFiles.2.path=
 imageConverterParameters.targetFiles.3.path=
@@ -39,4 +39,4 @@ imageConverterParameters.targetFiles.7.path=
 imageConverterParameters.targetFiles.8.path=
 imageConverterParameters.targetFiles.9.path=
 imageConverterParameters.useDefaultScript=false
-imageConverterParameters.script=function convertToFileData(data) \r\n{\r\n\tvar bpsl \= (data.getImageDataWidth() + 7) / 8;\r\n\tvar bytes \= [];\r\n\tvar offset \= 0;\r\n\r\n\tfor(var row\=0;row<6;row++)\r\n\t{\r\n\t\tfor(var chr\=0;chr<16;chr++)\r\n\t\t{\r\n\t\t\tfor (var y \= 0; y <8; y++) \r\n\t\t\t{\r\n\t\t\t\tvar b \= 0;\r\n\t\t\t\tfor (var p \= 0; p < 8; p++) \r\n\t\t\t\t{\r\n\t\t\t\t\tvar color;\r\n\t\t\t\t\tcolor \= data.getPixel(chr*8+p, row*8+y);\r\n\t\t\t\t\tif (color \=\= 0) \r\n\t\t\t\t\t{\r\n\t\t\t\t\t\tb \= b | 1 << 7 - p;\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t\tbytes[offset++] \= b;\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n\tdata.setTargetFileObject(0, bytes);\r\n}
+imageConverterParameters.script=function convertToFileData(data) {\r\n\tvar bpsl \= (data.getImageDataWidth() + 7) / 8;\r\n\tvar bytes \= [];\r\n\tvar offset \= 0;\r\n\tfor (var y \= 0; y < data.getImageDataHeight(); y++) {\r\n\t    for (var x \= 0; x < data.getImageDataWidth(); x \= x + 8) {\r\n\t\t\tvar b \= 0;\r\n\t\t\tfor (var p \= 0; p < 8; p++) {\r\n\t\t\t    var color;\r\n\t\t\t    color \= data.getPixel(x + p, y);\r\n\t\t\t    if (color \=\= 0) {\r\n\t\t\t\t\tb \= b | 1 << 7 - p;\r\n\t\t\t    }\r\n\t\t\t}\r\n\t\t\tbytes[offset++] \= b;\r\n\t    }\r\n\t}\r\n\tdata.setTargetFileObject(0, bytes);\r\n}

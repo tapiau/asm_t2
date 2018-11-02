@@ -4,11 +4,13 @@
 
 	.proc main
 	
-	jmp part1
+	jmp zx
 
 	.endp
 	
-	ICL 'part1.asm'
+	ICL 'zx.asm'
+	ICL 'zx_func.asm'
+	ICL 'func.asm'
 	ICL 'screen_mem.asm'
 	ICL 'display_list.asm'
 	ICL 'wait_vsync.asm'

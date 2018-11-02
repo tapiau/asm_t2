@@ -73,7 +73,6 @@
 .MACRO LINE_NOP_SHORT
 	sta WSYNC	;WAIT
 
-	;; 4 nops
 	lda bar_color1  ; 3 cycles
 	sbc #$01	; 2 cycles
 	sta bar_color1  ; 3 cycles
@@ -88,10 +87,10 @@
 
 	
 	sta DLI_PAPER	; 4 cycles
-	lda bar_color10
-	nop
-	nop
-	nop
+	lda bar_color10 ; 3 cycles
+	nop		; 2 cycles
+	nop		; 2 cycles
+	nop		; 2 cycles
 	sta DLI_PAPER	; 4 cycles
 
 	dey

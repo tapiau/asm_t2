@@ -15,3 +15,14 @@ part1_image_data_address:
 	dta 0,0
 part1_screen_data_address: 
 	dta 0,0
+memcopy_block_src:
+	dta 0,0
+memcopy_block_dst:
+	dta 0,0
+src:
+	dta 0,0
+dst:
+	dta 0,0
+tmp_word:
+	dta 0,0
+	

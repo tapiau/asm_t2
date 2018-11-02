@@ -1,7 +1,7 @@
 mads 2.0.6 build 58 (28 Jan 17)
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\aaaa1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\aaaa1.asm
      1 					ICL 'macro.asm'
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\macro.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\macro.asm
      1 				.MACRO REG_PUSH 
      2 					pha
      3 					txa
@@ -113,7 +113,7 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\macro.asm
      9 					.endp
     10 					
     11 2003				ICL 'part1.asm'
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
      1 2003 00			part1_x dta 0
      2 2004 00			part1_y dta 0
      3 2005 00			part1_d dta 0
@@ -139,7 +139,7 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
     23 201F 20 54 88			jsr screen_set_read_1
     24 					
     25 2022				PM_SHOW
-Macro: PM_SHOW [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\ghosts.asm]
+Macro: PM_SHOW [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\ghosts.asm]
     21 2022 A9 60			lda #$60
     22 2024 8D 07 D4			sta 54279	; PMBASE
     24 2027 A9 01			lda #1
@@ -166,7 +166,7 @@ Macro: PM_SHOW [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\ghost
     55 205B 8D 02 D0			sta HPOSP2 
     57 205E A9 B4			lda #180
     58 2060 8D 03 D0			sta HPOSP3 
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
     26
     27
     28 2063			part1_0:
@@ -179,13 +179,13 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
     35 2063 4C 63 20			jmp part1_0_idle
     36 					
     37 2066				REG_PULL
-Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\macro.asm]
+Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\macro.asm]
      1 2066 68				pla
      2 2067 A8				tay
      3 2068 68				pla
      4 2069 AA				tax
      5 206A 68				pla
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
     38
     39 206B 60				rts
     40
@@ -196,13 +196,13 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
     45 				; 28 cycles - screen
     46
     47 206C				REG_PUSH
-Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\macro.asm]
+Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\macro.asm]
      1 206C 48				pha
      2 206D 8A				txa
      3 206E 48				pha
      4 206F 98				tya
      5 2070 48				pha
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
     48 2071 A9 00			lda #COLOR_BLACK
     49 2073 8D 18 D0			sta DLI_PAPER ; black
     50 2076 A5 01			lda 1
@@ -250,12 +250,12 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
     92 20DA A4 E8			ldy bar_color2
     93
     94 20DC				LINE_NOP_NORMAL
-Macro: LINE_NOP_NORMAL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\macro.asm]
+Macro: LINE_NOP_NORMAL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\macro.asm]
      1 20DC 8D 0A D4			sta WSYNC	;WAIT
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
      1 20DF CA				dex
      2 20E0 88				dey
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
      3 20E1 8C 12 D0			sty COLPM0
      4 20E4 8C 13 D0			sty COLPM1
      5 20E7 8E 14 D0			stx COLPM2
@@ -266,17 +266,17 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
      3 20F2 EA				nop
      4 20F3 EA				nop
      5 20F4 EA				nop
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
      9 20F5 EA				nop
     10 20F6 8C 18 D0			sty DLI_PAPER	; 4 cycles
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
     95 20F9				LINE_NOP_NORMAL
-Macro: LINE_NOP_NORMAL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\macro.asm]
+Macro: LINE_NOP_NORMAL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\macro.asm]
      1 20F9 8D 0A D4			sta WSYNC	;WAIT
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
      1 20FC CA				dex
      2 20FD 88				dey
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
      3 20FE 8C 12 D0			sty COLPM0
      4 2101 8C 13 D0			sty COLPM1
      5 2104 8E 14 D0			stx COLPM2
@@ -287,20 +287,20 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
      3 210F EA				nop
      4 2110 EA				nop
      5 2111 EA				nop
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
      9 2112 EA				nop
     10 2113 8C 18 D0			sty DLI_PAPER	; 4 cycles
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
     96
     97 2116 A9 39			lda #57
     98 2118			dli_handler_loop_0:
     99 2118				LINE_NOP_NORMAL
-Macro: LINE_NOP_NORMAL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\macro.asm]
+Macro: LINE_NOP_NORMAL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\macro.asm]
      1 2118 8D 0A D4			sta WSYNC	;WAIT
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
      1 211B CA				dex
      2 211C 88				dey
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
      3 211D 8C 12 D0			sty COLPM0
      4 2120 8C 13 D0			sty COLPM1
      5 2123 8E 14 D0			stx COLPM2
@@ -311,20 +311,20 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
      3 212E EA				nop
      4 212F EA				nop
      5 2130 EA				nop
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
      9 2131 EA				nop
     10 2132 8C 18 D0			sty DLI_PAPER	; 4 cycles
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
    100 2135 E9 01			sbc #1
    101 2137 D0 DF			bne dli_handler_loop_0
    102
    103 2139				LINE_NOP_SHORT
-Macro: LINE_NOP_SHORT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\macro.asm]
+Macro: LINE_NOP_SHORT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\macro.asm]
      1 2139 8D 0A D4			sta WSYNC	;WAIT
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
      1 213C CA				dex
      2 213D 88				dey
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
      3 213E 8C 12 D0			sty COLPM0
      4 2141 8C 13 D0			sty COLPM1
      5 2144 8E 14 D0			stx COLPM2
@@ -335,19 +335,19 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
      3 214F EA				nop
      4 2150 EA				nop
      5 2151 EA				nop
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
      9 2152 8C 18 D0			sty DLI_PAPER	; 4 cycles
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
    104
    105 2155 A9 3F			lda #63
    106 2157			dli_handler_loop_1:
    107 2157				LINE_NOP_NORMAL
-Macro: LINE_NOP_NORMAL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\macro.asm]
+Macro: LINE_NOP_NORMAL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\macro.asm]
      1 2157 8D 0A D4			sta WSYNC	;WAIT
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
      1 215A CA				dex
      2 215B 88				dey
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
      3 215C 8C 12 D0			sty COLPM0
      4 215F 8C 13 D0			sty COLPM1
      5 2162 8E 14 D0			stx COLPM2
@@ -358,19 +358,19 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
      3 216D EA				nop
      4 216E EA				nop
      5 216F EA				nop
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
      9 2170 EA				nop
     10 2171 8C 18 D0			sty DLI_PAPER	; 4 cycles
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
    108 2174 E9 01			sbc #1
    109 2176 D0 DF			bne dli_handler_loop_1
    110 2178				LINE_NOP_SHORT
-Macro: LINE_NOP_SHORT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\macro.asm]
+Macro: LINE_NOP_SHORT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\macro.asm]
      1 2178 8D 0A D4			sta WSYNC	;WAIT
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
      1 217B CA				dex
      2 217C 88				dey
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
      3 217D 8C 12 D0			sty COLPM0
      4 2180 8C 13 D0			sty COLPM1
      5 2183 8E 14 D0			stx COLPM2
@@ -381,19 +381,19 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
      3 218E EA				nop
      4 218F EA				nop
      5 2190 EA				nop
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
      9 2191 8C 18 D0			sty DLI_PAPER	; 4 cycles
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
    111
    112 2194 A9 3F			lda #63
    113 2196			dli_handler_loop_2:
    114 2196				LINE_NOP_NORMAL
-Macro: LINE_NOP_NORMAL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\macro.asm]
+Macro: LINE_NOP_NORMAL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\macro.asm]
      1 2196 8D 0A D4			sta WSYNC	;WAIT
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
      1 2199 CA				dex
      2 219A 88				dey
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
      3 219B 8C 12 D0			sty COLPM0
      4 219E 8C 13 D0			sty COLPM1
      5 21A1 8E 14 D0			stx COLPM2
@@ -404,18 +404,18 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
      3 21AC EA				nop
      4 21AD EA				nop
      5 21AE EA				nop
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
      9 21AF EA				nop
     10 21B0 8C 18 D0			sty DLI_PAPER	; 4 cycles
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
    115 21B3 E9 01			sbc #1
    116 21B5 D0 DF			bne dli_handler_loop_2
    117 				;	LINE_NOP_SHORT
    118 					
    119 21B7				LINE_NOP_LAST
-Macro: LINE_NOP_LAST [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\macro.asm]
+Macro: LINE_NOP_LAST [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\macro.asm]
      1 21B7 8D 0A D4			sta WSYNC	;WAIT
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
      2 21BA 8E 18 D0			stx DLI_PAPER	; 4 cycles
      3 21BD A9 01			lda #1
      4 21BF 8D 12 D0			sta COLPM0
@@ -427,10 +427,10 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
      3 21CD EA				nop
      4 21CE EA				nop
      5 21CF EA				nop
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
      9 21D0 EA				nop
     10 21D1 8C 18 D0			sty DLI_PAPER	; 4 cycles
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
    120
    121 21D4 A5 01			lda 1
    122 21D6 8D 12 D0			sta COLPM0
@@ -439,25 +439,25 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
    125 21DF 8D 15 D0			sta COLPM3
    126
    127 21E2				LINE_WAIT
-Macro: LINE_WAIT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\macro.asm]
+Macro: LINE_WAIT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\macro.asm]
      1 21E2 8D 0A D4			sta WSYNC	;WAIT
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
    128 					
    129
    130 21E5				REG_PULL
-Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\macro.asm]
+Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\macro.asm]
      1 21E5 68				pla
      2 21E6 A8				tay
      3 21E7 68				pla
      4 21E8 AA				tax
      5 21E9 68				pla
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\part1.asm
    131 21EA 40				rti
    132 					
    133 					
    134 					
     12 21EB				ICL 'screen_mem.asm'
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\screen_mem.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\screen_mem.asm
      1 21EB				org $4000
      2
      3 4000				.local graphics
@@ -483,13 +483,13 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\screen_mem.asm
     23
     24 8802			screen_clear:
     25 8802				REG_PUSH
-Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\macro.asm]
+Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\macro.asm]
      1 8802 48				pha
      2 8803 8A				txa
      3 8804 48				pha
      4 8805 98				tya
      5 8806 48				pha
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\screen_mem.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\screen_mem.asm
     26 8807 AD 00 88 8D 1A 88 + 	mwa screen_adr screen_clear_loop_2+1
     27 8813 A9 00			lda #0
     28 8815 A2 18			ldx #24
@@ -503,24 +503,24 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\screen_mem.asm
     36 8822 CA				dex
     37 8823 D0 F4			bne screen_clear_loop_2
     38 8825				REG_PULL
-Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\macro.asm]
+Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\macro.asm]
      1 8825 68				pla
      2 8826 A8				tay
      3 8827 68				pla
      4 8828 AA				tax
      5 8829 68				pla
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\screen_mem.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\screen_mem.asm
     39 882A 60				rts	
     40
     41 882B			screen_fill:
     42 882B				REG_PUSH
-Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\macro.asm]
+Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\macro.asm]
      1 882B 48				pha
      2 882C 8A				txa
      3 882D 48				pha
      4 882E 98				tya
      5 882F 48				pha
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\screen_mem.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\screen_mem.asm
     43 8830 AD 00 88 8D 43 88 + 	mwa screen_adr screen_fill_loop_2+1
     44 883C A9 FF			lda #255
     45 883E A2 08			ldx #8
@@ -534,13 +534,13 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\screen_mem.asm
     53 884B CA				dex
     54 884C D0 F4			bne screen_fill_loop_2
     55 884E				REG_PULL
-Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\macro.asm]
+Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\macro.asm]
      1 884E 68				pla
      2 884F A8				tay
      3 8850 68				pla
      4 8851 AA				tax
      5 8852 68				pla
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\screen_mem.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\screen_mem.asm
     56 8853 60				rts	
     57
     58 					
@@ -563,9 +563,9 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\screen_mem.asm
     75 887F 60				rts
     76 					
     13 8880				ICL 'display_list.asm'
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\display_list.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\display_list.asm
      1 8880				ICL 'display_list_const.asm'
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\display_list_const.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\display_list_const.asm
      1 = 0012			RTCLOCK_2 = $12
      2 = 0013			RTCLOCK_1 = $13
      3 = 0014			RTCLOCK_0 = $14
@@ -711,7 +711,7 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\display_list_const.as
     50
     51 						
     14 39B7				ICL 'wait_vsync.asm'
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\wait_vsync.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\wait_vsync.asm
      1
      2
      3 39B7			wait_hsync:
@@ -736,7 +736,7 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\wait_vsync.asm
     22 39C8 60				rts
     23 					
     15 39C9				ICL 'math.asm'
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\math.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\math.asm
      1 39C9				org $1D00
      2 					
      3 				;MATH_SIN_LEN = 16
@@ -758,7 +758,7 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\math.asm
     19
     20 1F00 C0 C0 60 40 30 27 + math_192_div dta 192,192,96,64,48,39,32,28,24,22,20,18,16,15,14,13
     16 1F10				ICL 'zero.asm'
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\zero.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\zero.asm
      1 1F10				org $e0
      2
      3 00E0-00EE> 00		zero_a	dta 0
@@ -777,7 +777,7 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\zero.asm
     16 00ED			part1_screen_data_address: 
     17 00ED 00 00			dta 0,0
     17 00EF				ICL 'ghosts.asm'
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5\ghosts.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin5-ready\ghosts.asm
      1 00EF				org $6000
      2
      3 6000			pm_base:

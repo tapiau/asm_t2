@@ -83,8 +83,8 @@ dli_handler_loop_0:
 	LINE_NOP_NORMAL
 	bne dli_handler_loop_0
 	
-	;LINE_NOP_SHORT
-	LINE_NOP_NORMAL
+	LINE_NOP_SHORT
+;	LINE_NOP_NORMAL
 	
 	ldy #63
 dli_handler_loop_1:
