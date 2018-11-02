@@ -9,14 +9,27 @@ screen_mem_1_1 = $4800
 screen_mem_1_2 = $5000
 
 	:6144 dta 0
-
-	org $5800
 	
-screen_mem_2 = $5800
-screen_mem_2_1 = $6000
-screen_mem_2_2 = $6800
+;	org $5800
+screen_mem_2
+	:2048 dta $0
+screen_mem_2_1
+	:2048 dta $0
+screen_mem_2_2
+	:1792 dta $0
+screen_mem_zx:
+	:256 dta $0
 
-	org $7000
+image_data_sinclair_research
+	.local graphics
+	ins "..\pic\sinclair_research.gr8"
+	.endl
+image_data_zx_font
+	.local graphics
+	ins "..\pic\zx_font.fnt"
+	.endl
+
+
 screen_adr
 	dta 0,0
 
@@ -41,7 +54,7 @@ screen_fill:
 	REG_PUSH
 	mwa screen_adr screen_fill_loop_2+1
 	lda #255
-	ldx #8
+	ldx #24
 screen_fill_loop_1
 	ldy #0	
 screen_fill_loop_2	

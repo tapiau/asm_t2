@@ -3,8 +3,10 @@
 	org $2000
 
 	.proc main
+
+	jsr dl_set_mode
 	
-	jmp part1
+	jsr part1
 
 	.endp
 	

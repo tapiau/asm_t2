@@ -5,9 +5,7 @@ screen_mem_1 = $4000
 screen_mem_1_1 = $4800
 	:2048 dta $0
 screen_mem_1_2 = $5000
-	:1792 dta $0
-screen_mem_zx:
-	:256 dta $0
+	:2048 dta $0
 	
 ;	org $5800
 screen_mem_2
@@ -15,7 +13,9 @@ screen_mem_2
 screen_mem_2_1
 	:2048 dta $0
 screen_mem_2_2
-	:2048 dta $0
+	:1792 dta $0
+screen_mem_zx:
+	:256 dta $0
 
 image_data_unicorn = $5800
 ;image_data_unicorn:

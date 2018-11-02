@@ -16,6 +16,18 @@ part1:
 	lda #$c0
 	sta NMIEN
 
+	lda #COLOR_BLACK     
+	sta GR8_PEN
+	lda #COLOR_BLACK     
+	sta GR8_PAPER
+	lda #COLOR_BLACK     
+	sta GR8_FRAME
+	
+	lda #COLOR_WHITE
+	sta COLOR1
+	lda #COLOR_BLACK
+	sta COLOR2
+
 	jsr screen_set_write_1
 	jsr screen_set_read_1
 	
