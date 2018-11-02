@@ -107,3 +107,14 @@ SLEEP_LOOP:
 	nop
 	sty DLI_PAPER	; 4 cycles
 .ENDM
+
+.MACRO DLI_ENABLE handler
+	mwa #:handler VDSLST
+	lda #$c0
+	sta NMIEN
+.ENDM
+
+.MACRO DLI_DISABLE
+	lda #$40
+	sta NMIEN
+.ENDM

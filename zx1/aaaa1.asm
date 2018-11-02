@@ -17,6 +17,7 @@
 	ICL 'math.asm'
 	ICL 'zero.asm'
 	ICL 'ghosts.asm'
+	ICL 'zx_dli.asm'
 
 ;	org $8000
 ;image_data:	

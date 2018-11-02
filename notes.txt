@@ -1,3 +1,11 @@
 http://mads.atari8.info/mads.html#_mv
 
 http://www.6502.org/tutorials/6502opcodes.html
+https://atariwiki.org/wiki/Wiki.jsp?page=6502%20Coding%20Algorithms%20Macro%20Library
+https://atariwiki.org/wiki/Wiki.jsp?page=Advanced%206502%20Assembly%20Code%20Examples
+http://krap.pl/mirrorz/atari/homepage.ntlworld.com/kryten_droid/Atari/800XL/atari_hw/gtia.htm
+
+
+
+
+
