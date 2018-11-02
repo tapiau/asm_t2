@@ -10,12 +10,7 @@ part1_sync: dta 0
 
 part1:
 	; set handler for display list interrupt 
-	mwa #part1_dli_handler VDSLST
-	jsr dl_set_mode
-
-	; enable DL interrupt
-;	lda #$c0
-;	sta NMIEN
+	DLI_ENABLE part1_dli_handler
 
 	lda #COLOR_BLACK     
 	sta GR8_PEN
@@ -24,10 +19,10 @@ part1:
 	lda #COLOR_WHITE     
 	sta GR8_FRAME
 
-	jsr screen_set_write_1
+	jsr screen_set_write_2
 ;	jsr screen_clear
 ;	jsr screen_fill
-	jsr screen_set_read_1
+	jsr screen_set_read_2
 	
 ;	PM_SHOW
 

@@ -4,7 +4,10 @@
 
 	.proc main
 	
-	jmp zx
+	jsr dl_set_mode
+	
+;	jsr zx
+	jsr part1
 
 	.endp
 	
@@ -17,11 +20,6 @@
 	ICL 'math.asm'
 	ICL 'zero.asm'
 	ICL 'ghosts.asm'
+	ICL 'part1.asm'
 	ICL 'zx_dli.asm'
 
-;	org $8000
-;image_data:	
-;	.local graphics
-;	ins "..\pic\unicorn2.gr8"
-;	.endl
-	

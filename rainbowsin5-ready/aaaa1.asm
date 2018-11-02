@@ -16,9 +16,3 @@
 	ICL 'zero.asm'
 	ICL 'ghosts.asm'
 
-;	org $8000
-;image_data:	
-;	.local graphics
-;	ins "..\pic\unicorn2.gr8"
-;	.endl
-	

@@ -9,6 +9,7 @@ screen_mem_1_2 = $5000
 screen_mem_zx:
 	:256 dta $0
 	
+;	org $5800
 screen_mem_2
 	:2048 dta $0
 screen_mem_2_1
@@ -16,13 +17,14 @@ screen_mem_2_1
 screen_mem_2_2
 	:2048 dta $0
 
+image_data_unicorn = $5800
+;image_data_unicorn:
+	.local graphics
+	ins "..\pic\unicorn2inv.gr8"
+	.endl
 image_data_sinclair_research
 	.local graphics
 	ins "..\pic\sinclair_research.gr8"
-	.endl
-image_data_load_pp_L
-	.local graphics
-	ins "..\pic\load_pp_L.gr8"
 	.endl
 image_data_zx_font
 	.local graphics

@@ -19,8 +19,9 @@
 	sta GR8_FRAME
 
 	DLI_ENABLE zx_dli_header_block
-	SLEEP 75
+	SLEEP 175
 	DLI_DISABLE
+	
 	ZX_PRINT 'P'-32 0 0
 	ZX_PRINT 'r'-32 1 0
 	ZX_PRINT 'o'-32 2 0
@@ -43,6 +44,9 @@
 	ZX_PRINT 'T'-32 19 0
 	SLEEP 100
 	
+	DLI_ENABLE zx_dli_data_block
+	SLEEP 175
+	DLI_DISABLE
 	
 	
 	
