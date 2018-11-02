@@ -22,7 +22,7 @@ screen_mem_zx:
 
 image_data_sinclair_research
 	.local graphics
-	ins "..\pic\sinclair_research.gr8"
+	ins "..\pic\gomiboy_research.gr8"
 	.endl
 image_data_zx_font
 	.local graphics

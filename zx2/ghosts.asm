@@ -15,33 +15,11 @@ pm_player3:
 	
 .MACRO PM_SHOW
 
-;	lda #$60
-;	sta PMBASE
-;	lda #0
-;	sta SIZEP0
-;	lda #COLOR_WHITE
-;	sta COLPM0
-;	sta COLPM0S
-;	lda #100
-;	sta HPOSP0
-;	lda #3
-;	sta PMCTL
-;	lda #1
-;	sta GTIACTL
-
-;	lda DMACTLS
-;	ora #%00011000
-;	sta DMACTLS
-
-
 	lda #$60
-	sta 54279	; PMBASE
+	sta PMBASE	; PMBASE
 
 	lda #1
-	sta 623		; GTIACTL
-
-	lda #14
-	sta 704		; KOLOR
+	sta GTIACTL		; GTIACTL
 
 	; szerokoœæ
 	lda #0
@@ -54,10 +32,10 @@ pm_player3:
 	sta SIZEP3	; SIZEP0
 
 	lda #2
-	sta 53277	; PMCTL
+	sta PMCTL	; PMCTL
 
 	lda #57
-	sta 559		; DMACTLS
+	sta DMACTLS		; DMACTLS
 
 	; 64 - begin
 	; 4,8,12,16
@@ -74,6 +52,15 @@ pm_player3:
 	sta HPOSP3 
 
 .ENDM
+
+.MACRO PM_HIDE
+	lda #0
+	sta HPOSP0 
+	sta HPOSP1 
+	sta HPOSP2 
+	sta HPOSP3 
+.ENDM
+
 
 .MACRO PM_MOVE
 	lda RTCLOCK_0

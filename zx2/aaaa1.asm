@@ -8,6 +8,8 @@
 	
 	jsr zx
 	jsr part1
+	
+	rts
 
 	.endp
 	
