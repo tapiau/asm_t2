@@ -7,6 +7,7 @@ zx_dli_header_block:
 	ldy #240
 zx_dli_header_block_loop1:	
 	lda (RTCLOCK_0),y
+	adc #5
 	and #$0f
 	ldx #COLOR_RED
 	stx DLI_FRAME
@@ -19,6 +20,7 @@ zx_dli_header_block_loop2:
 
 zx_dli_header_block_loop3:	
 	lda (RTCLOCK_0),y
+	adc #5
 	and #$0f
 	ldx #COLOR_CYAN
 	stx DLI_FRAME
