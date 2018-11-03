@@ -45,7 +45,7 @@ part1_0_idle:
 	
 	;PM_MOVE
 	
-	jmp part1_0_idle
+;	jmp part1_0_idle
 
 	SLEEP 250
 	SLEEP 250
