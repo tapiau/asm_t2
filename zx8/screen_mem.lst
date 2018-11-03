@@ -1,0 +1,79 @@
+mads 2.0.6 build 58 (28 Jan 17)
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin4\screen_mem.asm
+     1 					org $4000
+     2
+     3 				image_data:	
+     4 					.local graphics
+     5 FFFF> 4000-7063> FF FF + 	ins "..\pic\unicorn2inv.gr8"
+     6 					.endl
+     7
+     8 = 4000			screen_mem_1 = $4000
+     9 				;	:2048 dta $0
+    10 = 4800			screen_mem_1_1 = $4800
+    11 				;	:2048 dta $0
+    12 = 5000			screen_mem_1_2 = $5000
+    13 				;	:2048 dta $0
+    14 					
+    15 5800			screen_mem_2
+    16 5800 00 00 00 00 00 00 + 	:2048 dta $0
+    17 6000			screen_mem_2_1
+    18 6000 00 00 00 00 00 00 + 	:2048 dta $0
+    19 6800			screen_mem_2_2
+    20 6800 00 00 00 00 00 00 + 	:2048 dta $0
+    21
+    22 7000			screen_adr
+    23 7000 00 00			dta 0,0
+    24
+    25 7002			screen_clear:
+    26 					REG_PUSH
+    27 7002 AD 00 70 8D 15 70 + 	mwa screen_adr screen_clear_loop_2+1
+    28 700E A9 00			lda #0
+    29 7010 A2 18			ldx #24
+    30 7012			screen_clear_loop_1
+    31 7012 A0 00			ldy #0	
+    32 7014			screen_clear_loop_2	
+    33 7014 99 00 00			sta $0000,y
+    34 7017 C8				iny
+    35 7018 D0 FA			bne screen_clear_loop_2
+    36 701A EE 16 70			inc screen_clear_loop_2+2
+    37 701D CA				dex
+    38 701E D0 F4			bne screen_clear_loop_2
+    39 					REG_PULL
+    40 7020 60				rts	
+    41
+    42 7021			screen_fill:
+    43 					REG_PUSH
+    44 7021 AD 00 70 8D 34 70 + 	mwa screen_adr screen_fill_loop_2+1
+    45 702D A9 FF			lda #255
+    46 702F A2 08			ldx #8
+    47 7031			screen_fill_loop_1
+    48 7031 A0 00			ldy #0	
+    49 7033			screen_fill_loop_2	
+    50 7033 99 00 00			sta $0000,y
+    51 7036 C8				iny
+    52 7037 D0 FA			bne screen_fill_loop_2
+    53 7039 EE 35 70			inc screen_fill_loop_2+2
+    54 703C CA				dex
+    55 703D D0 F4			bne screen_fill_loop_2
+    56 					REG_PULL
+    57 703F 60				rts	
+    58
+    59 					
+    60 7040			screen_set_read_1:
+    61 					; load display list address to register
+    62 7040 A9 00 85 00 85 00		mwa #dl_antic_1 DLIST
+    63 7046 60				rts
+    64 7047			screen_set_write_1:
+    65 					; switch working buffer pointer
+    66 7047 A9 00 8D 00 70 A9 + 	mwa #screen_mem_1 screen_adr
+    67 7051 60				rts
+    68
+    69 7052			screen_set_read_2:
+    70 					; load display list address to register
+    71 7052 A9 00 85 00 85 00		mwa #dl_antic_2 DLIST
+    72 7058 60				rts
+    73 7059			screen_set_write_2:	
+    74 					; switch working buffer pointer
+    75 7059 A9 00 8D 00 70 A9 + 	mwa #screen_mem_2 screen_adr
+    76 7063 60				rts
+    77 					
