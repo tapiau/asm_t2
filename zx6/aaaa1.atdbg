@@ -1,0 +1,9 @@
+.sourcemode on
+.echo
+.echo "Loading executable..."
+.echo
+bc *
+.onexerun .echo "Launching executable..."
+bp `C:\jac\wudsn\Workspace\Atari800\asm_t2\zx6\part2.asm:6`
+bp `C:\jac\wudsn\Workspace\Atari800\asm_t2\zx6\aaaa1.asm:14`
+bp `C:\jac\wudsn\Workspace\Atari800\asm_t2\zx6\zx_boot.asm:7`
