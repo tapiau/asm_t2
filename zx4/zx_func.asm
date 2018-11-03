@@ -87,4 +87,79 @@ zx_print_inv_func_loop:
 	jsr zx_print_inv_func
 .ENDM
 
-		
+; src
+; dst
+; tmp_word (0,1)
+zx_copy_line:
+	REG_PUSH
+	ldx #8
+zx_load_screen_8_lines_loop:
+	ldy #0
+zx_load_screen_line_loop:
+	lda (src),y
+	sta (dst),y
+	iny
+	tya
+	cmp #32
+	bne zx_load_screen_line_loop
+	lda src+1
+	clc
+	adc #1
+	sta src+1
+	lda dst+1
+	clc
+	adc #1
+	sta dst+1
+	dex
+	bne zx_load_screen_8_lines_loop
+	REG_PULL
+	rts
+	
+zx_copy_screen_block:
+	REG_PUSH
+	ldy #3
+zx_copy_screen_block_loop0:	
+	ldx #8
+zx_copy_screen_block_loop1:
+	jsr zx_copy_line
+	lda src
+	clc
+	adc #32
+	sta src
+	lda src+1
+	adc #0
+	sta src+1
+
+	lda dst
+	clc
+	adc #32
+	sta dst
+	lda dst+1
+	adc #0
+	sta dst+1
+
+	lda src+1
+	sec
+	sbc #$08
+	sta src+1
+	lda dst+1
+	sec
+	sbc #$08
+	sta dst+1
+	dex
+	bne zx_copy_screen_block_loop1
+	
+	lda src+1
+	clc
+	adc #$07
+	sta src+1
+	lda dst+1
+	clc
+	adc #$07
+	sta dst+1
+	
+	dey
+	bne zx_copy_screen_block_loop0
+	
+	REG_PULL
+	rts

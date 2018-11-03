@@ -13,6 +13,7 @@ zx_loop:
 
 	ICL "zx_boot.asm"
 	ICL "zx_load.asm"	
+	ICL "zx_load_screen.asm"	
 	
 	rts
 ;	jmp zx_loop

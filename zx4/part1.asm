@@ -33,7 +33,7 @@ part1:
 	jsr screen_set_write_1
 	jsr screen_set_read_1
 	
-	MEMCOPY_SCREEN image_data_unicorn screen_mem_1
+;	MEMCOPY_SCREEN image_data_unicorn screen_mem_1
 	
 	PM_SHOW
 
@@ -115,7 +115,7 @@ part1_dli_handler:
 	LINE_NOP_NORMAL
 	LINE_NOP_NORMAL
 
-	lda #57
+	lda #56
 dli_handler_loop_0:
 	LINE_NOP_NORMAL
 	sbc #1

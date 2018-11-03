@@ -127,7 +127,7 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm
      4
      5 					.proc main
      6 					
-     7 FFFF> 2000-2562> 20 98 + 	jsr dl_set_mode	
+     7 FFFF> 2000-26EE> 20 98 + 	jsr dl_set_mode	
      8 2003 20 0D 20			jsr zx
      9
     10 2006 20 98 39			jsr dl_set_mode
@@ -147,8 +147,8 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx.asm
      6 2017 A9 0E			lda #COLOR_WHITE     
      7 2019 8D C8 02			sta GR8_FRAME
      8
-     9 201C 20 46 25			jsr screen_set_write_1
-    10 201F 20 3B 25			jsr screen_set_read_1
+     9 201C 20 D2 26			jsr screen_set_write_1
+    10 201F 20 C7 26			jsr screen_set_read_1
     11 					
     12 2022			zx_loop:
     13
@@ -156,7 +156,7 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx.asm
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
      1 2022 A9 0E			lda #COLOR_WHITE
      2 2024 8D C8 02			sta GR8_FRAME
-     3 2027 20 14 25			jsr screen_fill
+     3 2027 20 A0 26			jsr screen_fill
      4 202A				SLEEP 50
 Macro: SLEEP [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
      1 202A A5 14			lda RTCLOCK_0
@@ -165,42 +165,42 @@ Macro: SLEEP [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
      4 202F C5 14			cmp RTCLOCK_0
      5 2031 D0 FC			bne SLEEP_LOOP
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
-     5 2033 20 ED 24			jsr screen_clear
+     5 2033 20 79 26			jsr screen_clear
      6 					
      7 2036				ZX_PRINT 96 0 23
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 2036 A9 60			lda #96
      2 2038 A2 00			ldx #0
      3 203A A0 17			ldy #23
-     4 203C 20 30 23			jsr zx_print_func
+     4 203C 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
      8 203F				ZX_PRINT '2'-32 2 23
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 203F A9 12			lda #'2'-32
      2 2041 A2 02			ldx #2
      3 2043 A0 17			ldy #23
-     4 2045 20 30 23			jsr zx_print_func
+     4 2045 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
      9 2048				ZX_PRINT '0'-32 3 23
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 2048 A9 10			lda #'0'-32
      2 204A A2 03			ldx #3
      3 204C A0 17			ldy #23
-     4 204E 20 30 23			jsr zx_print_func
+     4 204E 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     10 2051				ZX_PRINT '1'-32 4 23
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 2051 A9 11			lda #'1'-32
      2 2053 A2 04			ldx #4
      3 2055 A0 17			ldy #23
-     4 2057 20 30 23			jsr zx_print_func
+     4 2057 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     11 205A				ZX_PRINT '8'-32 5 23
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 205A A9 18			lda #'8'-32
      2 205C A2 05			ldx #5
      3 205E A0 17			ldy #23
-     4 2060 20 30 23			jsr zx_print_func
+     4 2060 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     12
     13 2063				ZX_PRINT 'G'-32 7 23
@@ -208,49 +208,49 @@ Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 2063 A9 27			lda #'G'-32
      2 2065 A2 07			ldx #7
      3 2067 A0 17			ldy #23
-     4 2069 20 30 23			jsr zx_print_func
+     4 2069 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     14 206C				ZX_PRINT 'o'-32 8 23
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 206C A9 4F			lda #'o'-32
      2 206E A2 08			ldx #8
      3 2070 A0 17			ldy #23
-     4 2072 20 30 23			jsr zx_print_func
+     4 2072 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     15 2075				ZX_PRINT 'm'-32 9 23
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 2075 A9 4D			lda #'m'-32
      2 2077 A2 09			ldx #9
      3 2079 A0 17			ldy #23
-     4 207B 20 30 23			jsr zx_print_func
+     4 207B 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     16 207E				ZX_PRINT 'i'-32 10 23
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 207E A9 49			lda #'i'-32
      2 2080 A2 0A			ldx #10
      3 2082 A0 17			ldy #23
-     4 2084 20 30 23			jsr zx_print_func
+     4 2084 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     17 2087				ZX_PRINT 'b'-32 11 23
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 2087 A9 42			lda #'b'-32
      2 2089 A2 0B			ldx #11
      3 208B A0 17			ldy #23
-     4 208D 20 30 23			jsr zx_print_func
+     4 208D 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     18 2090				ZX_PRINT 'o'-32 12 23
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 2090 A9 4F			lda #'o'-32
      2 2092 A2 0C			ldx #12
      3 2094 A0 17			ldy #23
-     4 2096 20 30 23			jsr zx_print_func
+     4 2096 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     19 2099				ZX_PRINT 'y'-32 13 23
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 2099 A9 59			lda #'y'-32
      2 209B A2 0D			ldx #13
      3 209D A0 17			ldy #23
-     4 209F 20 30 23			jsr zx_print_func
+     4 209F 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     20
     21 20A2				ZX_PRINT 'R'-32 15 23
@@ -258,56 +258,56 @@ Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 20A2 A9 32			lda #'R'-32
      2 20A4 A2 0F			ldx #15
      3 20A6 A0 17			ldy #23
-     4 20A8 20 30 23			jsr zx_print_func
+     4 20A8 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     22 20AB				ZX_PRINT 'e'-32 16 23
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 20AB A9 45			lda #'e'-32
      2 20AD A2 10			ldx #16
      3 20AF A0 17			ldy #23
-     4 20B1 20 30 23			jsr zx_print_func
+     4 20B1 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     23 20B4				ZX_PRINT 's'-32 17 23
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 20B4 A9 53			lda #'s'-32
      2 20B6 A2 11			ldx #17
      3 20B8 A0 17			ldy #23
-     4 20BA 20 30 23			jsr zx_print_func
+     4 20BA 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     24 20BD				ZX_PRINT 'e'-32 18 23
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 20BD A9 45			lda #'e'-32
      2 20BF A2 12			ldx #18
      3 20C1 A0 17			ldy #23
-     4 20C3 20 30 23			jsr zx_print_func
+     4 20C3 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     25 20C6				ZX_PRINT 'a'-32 19 23
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 20C6 A9 41			lda #'a'-32
      2 20C8 A2 13			ldx #19
      3 20CA A0 17			ldy #23
-     4 20CC 20 30 23			jsr zx_print_func
+     4 20CC 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     26 20CF				ZX_PRINT 'r'-32 20 23
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 20CF A9 52			lda #'r'-32
      2 20D1 A2 14			ldx #20
      3 20D3 A0 17			ldy #23
-     4 20D5 20 30 23			jsr zx_print_func
+     4 20D5 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     27 20D8				ZX_PRINT 'c'-32 21 23
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 20D8 A9 43			lda #'c'-32
      2 20DA A2 15			ldx #21
      3 20DC A0 17			ldy #23
-     4 20DE 20 30 23			jsr zx_print_func
+     4 20DE 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     28 20E1				ZX_PRINT 'h'-32 22 23
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 20E1 A9 48			lda #'h'-32
      2 20E3 A2 16			ldx #22
      3 20E5 A0 17			ldy #23
-     4 20E7 20 30 23			jsr zx_print_func
+     4 20E7 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     29
     30 20EA				ZX_PRINT 'L'-32 24 23
@@ -315,21 +315,21 @@ Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 20EA A9 2C			lda #'L'-32
      2 20EC A2 18			ldx #24
      3 20EE A0 17			ldy #23
-     4 20F0 20 30 23			jsr zx_print_func
+     4 20F0 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     31 20F3				ZX_PRINT 't'-32 25 23
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 20F3 A9 54			lda #'t'-32
      2 20F5 A2 19			ldx #25
      3 20F7 A0 17			ldy #23
-     4 20F9 20 30 23			jsr zx_print_func
+     4 20F9 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     32 20FC				ZX_PRINT 'd'-32 26 23
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 20FC A9 44			lda #'d'-32
      2 20FE A2 1A			ldx #26
      3 2100 A0 17			ldy #23
-     4 2102 20 30 23			jsr zx_print_func
+     4 2102 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     33 					
     34 2105				SLEEP 50
@@ -341,49 +341,49 @@ Macro: SLEEP [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
      5 210C D0 FC			bne SLEEP_LOOP
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     35
-    36 210E 20 ED 24			jsr screen_clear
+    36 210E 20 79 26			jsr screen_clear
     37 					
     38 2111				ZX_PRINT 'L'-32 0 23
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 2111 A9 2C			lda #'L'-32
      2 2113 A2 00			ldx #0
      3 2115 A0 17			ldy #23
-     4 2117 20 30 23			jsr zx_print_func
+     4 2117 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     39 211A				ZX_PRINT 'O'-32 1 23
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 211A A9 2F			lda #'O'-32
      2 211C A2 01			ldx #1
      3 211E A0 17			ldy #23
-     4 2120 20 30 23			jsr zx_print_func
+     4 2120 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     40 2123				ZX_PRINT 'A'-32 2 23
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 2123 A9 21			lda #'A'-32
      2 2125 A2 02			ldx #2
      3 2127 A0 17			ldy #23
-     4 2129 20 30 23			jsr zx_print_func
+     4 2129 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     41 212C				ZX_PRINT 'D'-32 3 23
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 212C A9 24			lda #'D'-32
      2 212E A2 03			ldx #3
      3 2130 A0 17			ldy #23
-     4 2132 20 30 23			jsr zx_print_func
+     4 2132 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     42 2135				ZX_PRINT ' '-32 4 23
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 2135 A9 00			lda #' '-32
      2 2137 A2 04			ldx #4
      3 2139 A0 17			ldy #23
-     4 213B 20 30 23			jsr zx_print_func
+     4 213B 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     43 213E				ZX_PRINT_INV 'L'-32 5 23
 Macro: ZX_PRINT_INV [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 213E A9 2C			lda #'L'-32
      2 2140 A2 05			ldx #5
      3 2142 A0 17			ldy #23
-     4 2144 20 F4 23			jsr zx_print_inv_func
+     4 2144 20 08 25			jsr zx_print_inv_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     44 2147				SLEEP 25
 Macro: SLEEP [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
@@ -398,7 +398,7 @@ Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 2150 A9 2C			lda #'L'-32
      2 2152 A2 05			ldx #5
      3 2154 A0 17			ldy #23
-     4 2156 20 30 23			jsr zx_print_func
+     4 2156 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     46 2159				SLEEP 25
 Macro: SLEEP [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
@@ -413,7 +413,7 @@ Macro: ZX_PRINT_INV [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.
      1 2162 A9 2C			lda #'L'-32
      2 2164 A2 05			ldx #5
      3 2166 A0 17			ldy #23
-     4 2168 20 F4 23			jsr zx_print_inv_func
+     4 2168 20 08 25			jsr zx_print_inv_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     48 216B				SLEEP 25
 Macro: SLEEP [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
@@ -428,7 +428,7 @@ Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 2174 A9 2C			lda #'L'-32
      2 2176 A2 05			ldx #5
      3 2178 A0 17			ldy #23
-     4 217A 20 30 23			jsr zx_print_func
+     4 217A 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     50 217D				SLEEP 25
 Macro: SLEEP [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
@@ -443,14 +443,14 @@ Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 2186 A9 02			lda #'"'-32
      2 2188 A2 05			ldx #5
      3 218A A0 17			ldy #23
-     4 218C 20 30 23			jsr zx_print_func
+     4 218C 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     52 218F				ZX_PRINT_INV 'L'-32 6 23
 Macro: ZX_PRINT_INV [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 218F A9 2C			lda #'L'-32
      2 2191 A2 06			ldx #6
      3 2193 A0 17			ldy #23
-     4 2195 20 F4 23			jsr zx_print_inv_func
+     4 2195 20 08 25			jsr zx_print_inv_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     53 2198				SLEEP 25
 Macro: SLEEP [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
@@ -465,14 +465,14 @@ Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 21A1 A9 02			lda #'"'-32
      2 21A3 A2 06			ldx #6
      3 21A5 A0 17			ldy #23
-     4 21A7 20 30 23			jsr zx_print_func
+     4 21A7 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     55 21AA				ZX_PRINT_INV 'L'-32 7 23
 Macro: ZX_PRINT_INV [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 21AA A9 2C			lda #'L'-32
      2 21AC A2 07			ldx #7
      3 21AE A0 17			ldy #23
-     4 21B0 20 F4 23			jsr zx_print_inv_func
+     4 21B0 20 08 25			jsr zx_print_inv_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     56 21B3				SLEEP 25
 Macro: SLEEP [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
@@ -487,7 +487,7 @@ Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 21BC A9 2C			lda #'L'-32
      2 21BE A2 07			ldx #7
      3 21C0 A0 17			ldy #23
-     4 21C2 20 30 23			jsr zx_print_func
+     4 21C2 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     58 21C5				SLEEP 25
 Macro: SLEEP [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
@@ -502,7 +502,7 @@ Macro: ZX_PRINT_INV [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.
      1 21CE A9 2C			lda #'L'-32
      2 21D0 A2 07			ldx #7
      3 21D2 A0 17			ldy #23
-     4 21D4 20 F4 23			jsr zx_print_inv_func
+     4 21D4 20 08 25			jsr zx_print_inv_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     60 21D7				SLEEP 25
 Macro: SLEEP [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
@@ -517,7 +517,7 @@ Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 21E0 A9 2C			lda #'L'-32
      2 21E2 A2 07			ldx #7
      3 21E4 A0 17			ldy #23
-     4 21E6 20 30 23			jsr zx_print_func
+     4 21E6 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     62 21E9				SLEEP 25
 Macro: SLEEP [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
@@ -532,7 +532,7 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_boot.asm
     65 					
     15 21F2				ICL "zx_load.asm"	
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load.asm
-     1 21F2 20 ED 24			jsr screen_clear
+     1 21F2 20 79 26			jsr screen_clear
      2 					
      3 21F5				SLEEP 25
 Macro: SLEEP [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
@@ -589,7 +589,7 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load.asm
     20
     21 223B				DLI_ENABLE zx_dli_header_block
 Macro: DLI_ENABLE [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
-     1 223B A9 40 8D 00 02 A9 + 	mwa #ZX_DLI_HEADER_BLOCK VDSLST
+     1 223B A9 2D 8D 00 02 A9 + 	mwa #ZX_DLI_HEADER_BLOCK VDSLST
      2 2245 A9 C0			lda #$c0
      3 2247 8D 0E D4			sta NMIEN
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load.asm
@@ -612,56 +612,56 @@ Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 2258 A9 30			lda #'P'-32
      2 225A A2 00			ldx #0
      3 225C A0 00			ldy #0
-     4 225E 20 30 23			jsr zx_print_func
+     4 225E 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load.asm
     26 2261				ZX_PRINT 'r'-32 1 0
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 2261 A9 52			lda #'r'-32
      2 2263 A2 01			ldx #1
      3 2265 A0 00			ldy #0
-     4 2267 20 30 23			jsr zx_print_func
+     4 2267 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load.asm
     27 226A				ZX_PRINT 'o'-32 2 0
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 226A A9 4F			lda #'o'-32
      2 226C A2 02			ldx #2
      3 226E A0 00			ldy #0
-     4 2270 20 30 23			jsr zx_print_func
+     4 2270 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load.asm
     28 2273				ZX_PRINT 'g'-32 3 0
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 2273 A9 47			lda #'g'-32
      2 2275 A2 03			ldx #3
      3 2277 A0 00			ldy #0
-     4 2279 20 30 23			jsr zx_print_func
+     4 2279 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load.asm
     29 227C				ZX_PRINT 'r'-32 4 0
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 227C A9 52			lda #'r'-32
      2 227E A2 04			ldx #4
      3 2280 A0 00			ldy #0
-     4 2282 20 30 23			jsr zx_print_func
+     4 2282 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load.asm
     30 2285				ZX_PRINT 'a'-32 5 0
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 2285 A9 41			lda #'a'-32
      2 2287 A2 05			ldx #5
      3 2289 A0 00			ldy #0
-     4 228B 20 30 23			jsr zx_print_func
+     4 228B 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load.asm
     31 228E				ZX_PRINT 'm'-32 6 0
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 228E A9 4D			lda #'m'-32
      2 2290 A2 06			ldx #6
      3 2292 A0 00			ldy #0
-     4 2294 20 30 23			jsr zx_print_func
+     4 2294 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load.asm
     32 2297				ZX_PRINT ':'-32 7 0
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 2297 A9 1A			lda #':'-32
      2 2299 A2 07			ldx #7
      3 229B A0 00			ldy #0
-     4 229D 20 30 23			jsr zx_print_func
+     4 229D 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load.asm
     33 					
     34 22A0				ZX_PRINT 'R'-32 9 0
@@ -669,77 +669,77 @@ Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 22A0 A9 32			lda #'R'-32
      2 22A2 A2 09			ldx #9
      3 22A4 A0 00			ldy #0
-     4 22A6 20 30 23			jsr zx_print_func
+     4 22A6 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load.asm
     35 22A9				ZX_PRINT 'A'-32 10 0
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 22A9 A9 21			lda #'A'-32
      2 22AB A2 0A			ldx #10
      3 22AD A0 00			ldy #0
-     4 22AF 20 30 23			jsr zx_print_func
+     4 22AF 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load.asm
     36 22B2				ZX_PRINT 'I'-32 11 0
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 22B2 A9 29			lda #'I'-32
      2 22B4 A2 0B			ldx #11
      3 22B6 A0 00			ldy #0
-     4 22B8 20 30 23			jsr zx_print_func
+     4 22B8 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load.asm
     37 22BB				ZX_PRINT 'N'-32 12 0
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 22BB A9 2E			lda #'N'-32
      2 22BD A2 0C			ldx #12
      3 22BF A0 00			ldy #0
-     4 22C1 20 30 23			jsr zx_print_func
+     4 22C1 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load.asm
     38 22C4				ZX_PRINT 'B'-32 13 0
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 22C4 A9 22			lda #'B'-32
      2 22C6 A2 0D			ldx #13
      3 22C8 A0 00			ldy #0
-     4 22CA 20 30 23			jsr zx_print_func
+     4 22CA 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load.asm
     39 22CD				ZX_PRINT 'O'-32 14 0
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 22CD A9 2F			lda #'O'-32
      2 22CF A2 0E			ldx #14
      3 22D1 A0 00			ldy #0
-     4 22D3 20 30 23			jsr zx_print_func
+     4 22D3 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load.asm
     40 22D6				ZX_PRINT 'W'-32 15 0
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 22D6 A9 37			lda #'W'-32
      2 22D8 A2 0F			ldx #15
      3 22DA A0 00			ldy #0
-     4 22DC 20 30 23			jsr zx_print_func
+     4 22DC 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load.asm
     41 22DF				ZX_PRINT 'O'-32 16 0
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 22DF A9 2F			lda #'O'-32
      2 22E1 A2 10			ldx #16
      3 22E3 A0 00			ldy #0
-     4 22E5 20 30 23			jsr zx_print_func
+     4 22E5 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load.asm
     42 22E8				ZX_PRINT 'M'-32 17 0
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 22E8 A9 2D			lda #'M'-32
      2 22EA A2 11			ldx #17
      3 22EC A0 00			ldy #0
-     4 22EE 20 30 23			jsr zx_print_func
+     4 22EE 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load.asm
     43 22F1				ZX_PRINT 'I'-32 18 0
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 22F1 A9 29			lda #'I'-32
      2 22F3 A2 12			ldx #18
      3 22F5 A0 00			ldy #0
-     4 22F7 20 30 23			jsr zx_print_func
+     4 22F7 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load.asm
     44 22FA				ZX_PRINT 'T'-32 19 0
 Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
      1 22FA A9 34			lda #'T'-32
      2 22FC A2 13			ldx #19
      3 22FE A0 00			ldy #0
-     4 2300 20 30 23			jsr zx_print_func
+     4 2300 20 44 24			jsr zx_print_func
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load.asm
     45 2303				SLEEP 100
 Macro: SLEEP [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
@@ -752,7 +752,7 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load.asm
     46 					
     47 230C				DLI_ENABLE zx_dli_data_block
 Macro: DLI_ENABLE [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
-     1 230C A9 7A 8D 00 02 A9 + 	mwa #ZX_DLI_DATA_BLOCK VDSLST
+     1 230C A9 67 8D 00 02 A9 + 	mwa #ZX_DLI_DATA_BLOCK VDSLST
      2 2316 A9 C0			lda #$c0
      3 2318 8D 0E D4			sta NMIEN
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load.asm
@@ -772,54 +772,261 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load.asm
     50 					
     51 					
     52 					
-    53 					
-    16 					
-    17 2329 60				rts
-    18 				;	jmp zx_loop
-    19 					
-    20 				;	PM_SHOW
-    21
-    22 					
-    18 232A				ICL 'zx_func.asm'
+    53 						
+    54 					
+    55 					
+    16 2329				ICL "zx_load_screen.asm"	
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load_screen.asm
+     1 2329 20 79 26			jsr screen_clear
+     2 					
+     3 232C				SLEEP 25
+Macro: SLEEP [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
+     1 232C A5 14			lda RTCLOCK_0
+     2 232E 18 69 19			add #25
+     3 2331			SLEEP_LOOP:
+     4 2331 C5 14			cmp RTCLOCK_0
+     5 2333 D0 FC			bne SLEEP_LOOP
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load_screen.asm
+     4 2335 A9 AC			lda #COLOR_CYAN
+     5 2337 8D C8 02			sta GR8_FRAME
+     6 233A				SLEEP 25
+Macro: SLEEP [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
+     1 233A A5 14			lda RTCLOCK_0
+     2 233C 18 69 19			add #25
+     3 233F			SLEEP_LOOP:
+     4 233F C5 14			cmp RTCLOCK_0
+     5 2341 D0 FC			bne SLEEP_LOOP
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load_screen.asm
+     7 2343 A9 0E			lda #COLOR_WHITE
+     8 2345 8D C8 02			sta GR8_FRAME
+     9 					
+    10 2348				SLEEP 25
+Macro: SLEEP [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
+     1 2348 A5 14			lda RTCLOCK_0
+     2 234A 18 69 19			add #25
+     3 234D			SLEEP_LOOP:
+     4 234D C5 14			cmp RTCLOCK_0
+     5 234F D0 FC			bne SLEEP_LOOP
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load_screen.asm
+    11 2351 A9 AC			lda #COLOR_CYAN
+    12 2353 8D C8 02			sta GR8_FRAME
+    13 2356				SLEEP 25
+Macro: SLEEP [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
+     1 2356 A5 14			lda RTCLOCK_0
+     2 2358 18 69 19			add #25
+     3 235B			SLEEP_LOOP:
+     4 235B C5 14			cmp RTCLOCK_0
+     5 235D D0 FC			bne SLEEP_LOOP
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load_screen.asm
+    14 235F A9 0E			lda #COLOR_WHITE
+    15 2361 8D C8 02			sta GR8_FRAME
+    16
+    17 2364				SLEEP 25
+Macro: SLEEP [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
+     1 2364 A5 14			lda RTCLOCK_0
+     2 2366 18 69 19			add #25
+     3 2369			SLEEP_LOOP:
+     4 2369 C5 14			cmp RTCLOCK_0
+     5 236B D0 FC			bne SLEEP_LOOP
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load_screen.asm
+    18 236D A9 AC			lda #COLOR_CYAN
+    19 236F 8D C8 02			sta GR8_FRAME
+    20
+    21 2372				DLI_ENABLE zx_dli_header_block
+Macro: DLI_ENABLE [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
+     1 2372 A9 2D 8D 00 02 A9 + 	mwa #ZX_DLI_HEADER_BLOCK VDSLST
+     2 237C A9 C0			lda #$c0
+     3 237E 8D 0E D4			sta NMIEN
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load_screen.asm
+    22 2381				SLEEP 175
+Macro: SLEEP [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
+     1 2381 A5 14			lda RTCLOCK_0
+     2 2383 18 69 AF			add #175
+     3 2386			SLEEP_LOOP:
+     4 2386 C5 14			cmp RTCLOCK_0
+     5 2388 D0 FC			bne SLEEP_LOOP
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load_screen.asm
+    23 238A				DLI_DISABLE
+Macro: DLI_DISABLE [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
+     1 238A A9 40			lda #$40
+     2 238C 8D 0E D4			sta NMIEN
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load_screen.asm
+    24 					
+    25 238F				ZX_PRINT 'B'-32 0 0
+Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
+     1 238F A9 22			lda #'B'-32
+     2 2391 A2 00			ldx #0
+     3 2393 A0 00			ldy #0
+     4 2395 20 44 24			jsr zx_print_func
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load_screen.asm
+    26 2398				ZX_PRINT 'y'-32 1 0
+Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
+     1 2398 A9 59			lda #'y'-32
+     2 239A A2 01			ldx #1
+     3 239C A0 00			ldy #0
+     4 239E 20 44 24			jsr zx_print_func
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load_screen.asm
+    27 23A1				ZX_PRINT 't'-32 2 0
+Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
+     1 23A1 A9 54			lda #'t'-32
+     2 23A3 A2 02			ldx #2
+     3 23A5 A0 00			ldy #0
+     4 23A7 20 44 24			jsr zx_print_func
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load_screen.asm
+    28 23AA				ZX_PRINT 'e'-32 3 0
+Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
+     1 23AA A9 45			lda #'e'-32
+     2 23AC A2 03			ldx #3
+     3 23AE A0 00			ldy #0
+     4 23B0 20 44 24			jsr zx_print_func
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load_screen.asm
+    29 23B3				ZX_PRINT 's'-32 4 0
+Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
+     1 23B3 A9 53			lda #'s'-32
+     2 23B5 A2 04			ldx #4
+     3 23B7 A0 00			ldy #0
+     4 23B9 20 44 24			jsr zx_print_func
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load_screen.asm
+    30 23BC				ZX_PRINT ':'-32 5 0
+Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
+     1 23BC A9 1A			lda #':'-32
+     2 23BE A2 05			ldx #5
+     3 23C0 A0 00			ldy #0
+     4 23C2 20 44 24			jsr zx_print_func
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load_screen.asm
+    31 					
+    32 23C5				ZX_PRINT 'U'-32 7 0
+Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
+     1 23C5 A9 35			lda #'U'-32
+     2 23C7 A2 07			ldx #7
+     3 23C9 A0 00			ldy #0
+     4 23CB 20 44 24			jsr zx_print_func
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load_screen.asm
+    33 23CE				ZX_PRINT 'N'-32 8 0
+Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
+     1 23CE A9 2E			lda #'N'-32
+     2 23D0 A2 08			ldx #8
+     3 23D2 A0 00			ldy #0
+     4 23D4 20 44 24			jsr zx_print_func
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load_screen.asm
+    34 23D7				ZX_PRINT 'I'-32 9 0
+Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
+     1 23D7 A9 29			lda #'I'-32
+     2 23D9 A2 09			ldx #9
+     3 23DB A0 00			ldy #0
+     4 23DD 20 44 24			jsr zx_print_func
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load_screen.asm
+    35 23E0				ZX_PRINT 'C'-32 10 0
+Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
+     1 23E0 A9 23			lda #'C'-32
+     2 23E2 A2 0A			ldx #10
+     3 23E4 A0 00			ldy #0
+     4 23E6 20 44 24			jsr zx_print_func
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load_screen.asm
+    36 23E9				ZX_PRINT 'O'-32 11 0
+Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
+     1 23E9 A9 2F			lda #'O'-32
+     2 23EB A2 0B			ldx #11
+     3 23ED A0 00			ldy #0
+     4 23EF 20 44 24			jsr zx_print_func
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load_screen.asm
+    37 23F2				ZX_PRINT 'R'-32 12 0
+Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
+     1 23F2 A9 32			lda #'R'-32
+     2 23F4 A2 0C			ldx #12
+     3 23F6 A0 00			ldy #0
+     4 23F8 20 44 24			jsr zx_print_func
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load_screen.asm
+    38 23FB				ZX_PRINT 'N'-32 13 0
+Macro: ZX_PRINT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm]
+     1 23FB A9 2E			lda #'N'-32
+     2 23FD A2 0D			ldx #13
+     3 23FF A0 00			ldy #0
+     4 2401 20 44 24			jsr zx_print_func
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load_screen.asm
+    39 2404				SLEEP 100
+Macro: SLEEP [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
+     1 2404 A5 14			lda RTCLOCK_0
+     2 2406 18 69 64			add #100
+     3 2409			SLEEP_LOOP:
+     4 2409 C5 14			cmp RTCLOCK_0
+     5 240B D0 FC			bne SLEEP_LOOP
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load_screen.asm
+    40
+    41 240D A9 00 85 ED A9 70 + 	mwa #image_data_unicorn src
+    42 2415 A9 00 85 EF A9 40 + 	mwa #screen_mem_1 dst
+    43 					
+    44 241D				DLI_ENABLE zx_dli_data_block
+Macro: DLI_ENABLE [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
+     1 241D A9 67 8D 00 02 A9 + 	mwa #ZX_DLI_DATA_BLOCK VDSLST
+     2 2427 A9 C0			lda #$c0
+     3 2429 8D 0E D4			sta NMIEN
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load_screen.asm
+    45
+    46 					
+    47 242C 20 F8 25			jsr zx_copy_screen_block
+    48 242F				SLEEP 50
+Macro: SLEEP [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
+     1 242F A5 14			lda RTCLOCK_0
+     2 2431 18 69 32			add #50
+     3 2434			SLEEP_LOOP:
+     4 2434 C5 14			cmp RTCLOCK_0
+     5 2436 D0 FC			bne SLEEP_LOOP
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load_screen.asm
+    49
+    50 2438				DLI_DISABLE
+Macro: DLI_DISABLE [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
+     1 2438 A9 40			lda #$40
+     2 243A 8D 0E D4			sta NMIEN
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load_screen.asm
+    51 					
+    17 					
+    18 243D 60				rts
+    19 				;	jmp zx_loop
+    20 					
+    21 				;	PM_SHOW
+    22
+    23 					
+    18 243E				ICL 'zx_func.asm'
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm
-     1 232A 00 00		zx_print_x: dta 0,0
-     2 232C 00 00		zx_print_y: dta 0,0
-     3 232E 00 00		zx_print_a: dta 0,0
+     1 243E 00 00		zx_print_x: dta 0,0
+     2 2440 00 00		zx_print_y: dta 0,0
+     3 2442 00 00		zx_print_a: dta 0,0
      4
-     5 2330			zx_print_func:
-     6 2330 8E 2A 23			stx zx_print_x 
-     7 2333 8C 2C 23			sty zx_print_y 
-     8 2336 8D 2E 23			sta zx_print_a 
+     5 2444			zx_print_func:
+     6 2444 8E 3E 24			stx zx_print_x 
+     7 2447 8C 40 24			sty zx_print_y 
+     8 244A 8D 42 24			sta zx_print_a 
      9
-    10 2339 A9 00 85 ED A9 70 + 	mwa #image_data_zx_font src
-    11 2341 A5 F3 85 EF A5 F4 + 	mwa screen_adr dst
+    10 244D A9 00 85 ED A9 90 + 	mwa #image_data_zx_font src
+    11 2455 A5 F3 85 EF A5 F4 + 	mwa screen_adr dst
     12 					
-    13 2349 18 A5 ED 6D 2E 23 + 	ADW src zx_print_a
-    14 2358 18 A5 ED 6D 2E 23 + 	ADW src zx_print_a
-    15 2367 18 A5 ED 6D 2E 23 + 	ADW src zx_print_a
-    16 2376 18 A5 ED 6D 2E 23 + 	ADW src zx_print_a
-    17 2385 18 A5 ED 6D 2E 23 + 	ADW src zx_print_a
-    18 2394 18 A5 ED 6D 2E 23 + 	ADW src zx_print_a
-    19 23A3 18 A5 ED 6D 2E 23 + 	ADW src zx_print_a
-    20 23B2 18 A5 ED 6D 2E 23 + 	ADW src zx_print_a
+    13 245D 18 A5 ED 6D 42 24 + 	ADW src zx_print_a
+    14 246C 18 A5 ED 6D 42 24 + 	ADW src zx_print_a
+    15 247B 18 A5 ED 6D 42 24 + 	ADW src zx_print_a
+    16 248A 18 A5 ED 6D 42 24 + 	ADW src zx_print_a
+    17 2499 18 A5 ED 6D 42 24 + 	ADW src zx_print_a
+    18 24A8 18 A5 ED 6D 42 24 + 	ADW src zx_print_a
+    19 24B7 18 A5 ED 6D 42 24 + 	ADW src zx_print_a
+    20 24C6 18 A5 ED 6D 42 24 + 	ADW src zx_print_a
     21 					
-    22 23C1 A5 F0			lda dst+1
-    23 23C3 6D 2C 23			adc zx_print_y
-    24 23C6 85 F0			sta dst+1
+    22 24D5 A5 F0			lda dst+1
+    23 24D7 6D 40 24			adc zx_print_y
+    24 24DA 85 F0			sta dst+1
     25
-    26 23C8 18 A5 EF 6D 2A 23 + 	ADW dst zx_print_x
+    26 24DC 18 A5 EF 6D 3E 24 + 	ADW dst zx_print_x
     27 					
-    28 23D7 A2 08			ldx #8
-    29 23D9 A0 00			ldy #0
-    30 23DB			zx_print_func_loop:
-    31 23DB B1 ED			lda (src),y
-    32 23DD 91 EF			sta (dst),y
-    33 23DF E6 ED D0 02 E6 EE		INW src
-    34 23E5 18 A5 EF 69 20 85 + 	ADW dst #32
-    35 23F0 CA				dex
-    36 23F1 D0 E8			bne zx_print_func_loop
+    28 24EB A2 08			ldx #8
+    29 24ED A0 00			ldy #0
+    30 24EF			zx_print_func_loop:
+    31 24EF B1 ED			lda (src),y
+    32 24F1 91 EF			sta (dst),y
+    33 24F3 E6 ED D0 02 E6 EE		INW src
+    34 24F9 18 A5 EF 69 20 85 + 	ADW dst #32
+    35 2504 CA				dex
+    36 2505 D0 E8			bne zx_print_func_loop
     37
-    38 23F3 60				rts
+    38 2507 60				rts
     39
     40 				.MACRO ZX_PRINT letter position_x position_y
     41 					lda #:letter
@@ -828,41 +1035,41 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm
     44 					jsr zx_print_func
     45 				.ENDM
     46
-    47 23F4			zx_print_inv_func:
-    48 23F4 8D 2E 23			sta zx_print_a 
-    49 23F7 8E 2A 23			stx zx_print_x 
-    50 23FA 8C 2C 23			sty zx_print_y 
+    47 2508			zx_print_inv_func:
+    48 2508 8D 42 24			sta zx_print_a 
+    49 250B 8E 3E 24			stx zx_print_x 
+    50 250E 8C 40 24			sty zx_print_y 
     51
-    52 23FD A9 00 85 ED A9 70 + 	mwa #image_data_zx_font src
-    53 2405 A5 F3 85 EF A5 F4 + 	mwa screen_adr dst
+    52 2511 A9 00 85 ED A9 90 + 	mwa #image_data_zx_font src
+    53 2519 A5 F3 85 EF A5 F4 + 	mwa screen_adr dst
     54 					
-    55 240D 18 A5 ED 6D 2E 23 + 	ADW src zx_print_a
-    56 241C 18 A5 ED 6D 2E 23 + 	ADW src zx_print_a
-    57 242B 18 A5 ED 6D 2E 23 + 	ADW src zx_print_a
-    58 243A 18 A5 ED 6D 2E 23 + 	ADW src zx_print_a
-    59 2449 18 A5 ED 6D 2E 23 + 	ADW src zx_print_a
-    60 2458 18 A5 ED 6D 2E 23 + 	ADW src zx_print_a
-    61 2467 18 A5 ED 6D 2E 23 + 	ADW src zx_print_a
-    62 2476 18 A5 ED 6D 2E 23 + 	ADW src zx_print_a
+    55 2521 18 A5 ED 6D 42 24 + 	ADW src zx_print_a
+    56 2530 18 A5 ED 6D 42 24 + 	ADW src zx_print_a
+    57 253F 18 A5 ED 6D 42 24 + 	ADW src zx_print_a
+    58 254E 18 A5 ED 6D 42 24 + 	ADW src zx_print_a
+    59 255D 18 A5 ED 6D 42 24 + 	ADW src zx_print_a
+    60 256C 18 A5 ED 6D 42 24 + 	ADW src zx_print_a
+    61 257B 18 A5 ED 6D 42 24 + 	ADW src zx_print_a
+    62 258A 18 A5 ED 6D 42 24 + 	ADW src zx_print_a
     63 					
-    64 2485 A5 F0			lda dst+1
-    65 2487 6D 2C 23			adc zx_print_y
-    66 248A 85 F0			sta dst+1 
+    64 2599 A5 F0			lda dst+1
+    65 259B 6D 40 24			adc zx_print_y
+    66 259E 85 F0			sta dst+1 
     67
-    68 248C 18 A5 EF 6D 2A 23 + 	ADW dst zx_print_x
+    68 25A0 18 A5 EF 6D 3E 24 + 	ADW dst zx_print_x
     69 					
-    70 249B A2 08			ldx #8
-    71 249D A0 00			ldy #0
-    72 249F			zx_print_inv_func_loop:
-    73 249F B1 ED			lda (src),y
-    74 24A1 49 FF			eor #$ff
-    75 24A3 91 EF			sta (dst),y
-    76 24A5 E6 ED D0 02 E6 EE		INW src
-    77 24AB 18 A5 EF 69 20 85 + 	ADW dst #32
-    78 24B6 CA				dex
-    79 24B7 D0 E6			bne zx_print_inv_func_loop
+    70 25AF A2 08			ldx #8
+    71 25B1 A0 00			ldy #0
+    72 25B3			zx_print_inv_func_loop:
+    73 25B3 B1 ED			lda (src),y
+    74 25B5 49 FF			eor #$ff
+    75 25B7 91 EF			sta (dst),y
+    76 25B9 E6 ED D0 02 E6 EE		INW src
+    77 25BF 18 A5 EF 69 20 85 + 	ADW dst #32
+    78 25CA CA				dex
+    79 25CB D0 E6			bne zx_print_inv_func_loop
     80
-    81 24B9 60				rts
+    81 25CD 60				rts
     82
     83 				.MACRO ZX_PRINT_INV letter position_x position_y
     84 					lda #:letter
@@ -871,37 +1078,140 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm
     87 					jsr zx_print_inv_func
     88 				.ENDM
     89
-    90 						
-    19 24BA				ICL 'func.asm'
+    90 				; src
+    91 				; dst
+    92 				; tmp_word (0,1)
+    93 25CE			zx_copy_line:
+    94 25CE				REG_PUSH
+Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
+     1 25CE 48				pha
+     2 25CF 8A				txa
+     3 25D0 48				pha
+     4 25D1 98				tya
+     5 25D2 48				pha
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm
+    95 25D3 A2 08			ldx #8
+    96 25D5			zx_load_screen_8_lines_loop:
+    97 25D5 A0 00			ldy #0
+    98 25D7			zx_load_screen_line_loop:
+    99 25D7 B1 ED			lda (src),y
+   100 25D9 91 EF			sta (dst),y
+   101 25DB C8				iny
+   102 25DC 98				tya
+   103 25DD C9 20			cmp #32
+   104 25DF D0 F6			bne zx_load_screen_line_loop
+   105 25E1 A5 EE			lda src+1
+   106 25E3 18				clc
+   107 25E4 69 01			adc #1
+   108 25E6 85 EE			sta src+1
+   109 25E8 A5 F0			lda dst+1
+   110 25EA 18				clc
+   111 25EB 69 01			adc #1
+   112 25ED 85 F0			sta dst+1
+   113 25EF CA				dex
+   114 25F0 D0 E3			bne zx_load_screen_8_lines_loop
+   115 25F2				REG_PULL
+Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
+     1 25F2 68				pla
+     2 25F3 A8				tay
+     3 25F4 68				pla
+     4 25F5 AA				tax
+     5 25F6 68				pla
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm
+   116 25F7 60				rts
+   117 					
+   118 25F8			zx_copy_screen_block:
+   119 25F8				REG_PUSH
+Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
+     1 25F8 48				pha
+     2 25F9 8A				txa
+     3 25FA 48				pha
+     4 25FB 98				tya
+     5 25FC 48				pha
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm
+   120 25FD A0 03			ldy #3
+   121 25FF			zx_copy_screen_block_loop0:	
+   122 25FF A2 08			ldx #8
+   123 2601			zx_copy_screen_block_loop1:
+   124 2601 20 CE 25			jsr zx_copy_line
+   125 2604 A5 ED			lda src
+   126 2606 18				clc
+   127 2607 69 20			adc #32
+   128 2609 85 ED			sta src
+   129 260B A5 EE			lda src+1
+   130 260D 69 00			adc #0
+   131 260F 85 EE			sta src+1
+   132
+   133 2611 A5 EF			lda dst
+   134 2613 18				clc
+   135 2614 69 20			adc #32
+   136 2616 85 EF			sta dst
+   137 2618 A5 F0			lda dst+1
+   138 261A 69 00			adc #0
+   139 261C 85 F0			sta dst+1
+   140
+   141 261E A5 EE			lda src+1
+   142 2620 38				sec
+   143 2621 E9 08			sbc #$08
+   144 2623 85 EE			sta src+1
+   145 2625 A5 F0			lda dst+1
+   146 2627 38				sec
+   147 2628 E9 08			sbc #$08
+   148 262A 85 F0			sta dst+1
+   149 262C CA				dex
+   150 262D D0 D2			bne zx_copy_screen_block_loop1
+   151 					
+   152 262F A5 EE			lda src+1
+   153 2631 18				clc
+   154 2632 69 07			adc #$07
+   155 2634 85 EE			sta src+1
+   156 2636 A5 F0			lda dst+1
+   157 2638 18				clc
+   158 2639 69 07			adc #$07
+   159 263B 85 F0			sta dst+1
+   160 					
+   161 263D 88				dey
+   162 263E D0 BF			bne zx_copy_screen_block_loop0
+   163 					
+   164 2640				REG_PULL
+Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
+     1 2640 68				pla
+     2 2641 A8				tay
+     3 2642 68				pla
+     4 2643 AA				tax
+     5 2644 68				pla
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_func.asm
+   165 2645 60				rts
+    19 2646				ICL 'func.asm'
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\func.asm
      1 				; copy 256 byte block from src to dst
      2
-     3 24BA			memcopy_block_func:
-     4 24BA				REG_PUSH
+     3 2646			memcopy_block_func:
+     4 2646				REG_PUSH
 Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
-     1 24BA 48				pha
-     2 24BB 8A				txa
-     3 24BC 48				pha
-     4 24BD 98				tya
-     5 24BE 48				pha
+     1 2646 48				pha
+     2 2647 8A				txa
+     3 2648 48				pha
+     4 2649 98				tya
+     5 264A 48				pha
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\func.asm
      5
-     6 24BF A0 00			ldy #0
-     7 24C1			memcopy_block_loop:	
-     8 24C1 B1 E9		 	lda (memcopy_block_src),y
-     9 24C3 91 EB		 	sta (memcopy_block_dst),y
-    10 24C5 C8			 	iny
-    11 24C6 D0 F9		 	bne memcopy_block_loop
+     6 264B A0 00			ldy #0
+     7 264D			memcopy_block_loop:	
+     8 264D B1 E9		 	lda (memcopy_block_src),y
+     9 264F 91 EB		 	sta (memcopy_block_dst),y
+    10 2651 C8			 	iny
+    11 2652 D0 F9		 	bne memcopy_block_loop
     12
-    13 24C8			 	REG_PULL
+    13 2654			 	REG_PULL
 Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
-     1 24C8 68				pla
-     2 24C9 A8				tay
-     3 24CA 68				pla
-     4 24CB AA				tax
-     5 24CC 68				pla
+     1 2654 68				pla
+     2 2655 A8				tay
+     3 2656 68				pla
+     4 2657 AA				tax
+     5 2658 68				pla
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\func.asm
-    14 24CD 60			 	rts
+    14 2659 60			 	rts
     15
     16 				.MACRO MEMCOPY_BLOCK src dst
     17 					mwa #:src memcopy_block_src
@@ -910,37 +1220,37 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\func.asm
     20 					jsr memcopy_block_func
     21 				.ENDM
     22
-    23 24CE			memcopy_screen_func:
-    24 24CE				REG_PUSH
+    23 265A			memcopy_screen_func:
+    24 265A				REG_PUSH
 Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
-     1 24CE 48				pha
-     2 24CF 8A				txa
-     3 24D0 48				pha
-     4 24D1 98				tya
-     5 24D2 48				pha
+     1 265A 48				pha
+     2 265B 8A				txa
+     3 265C 48				pha
+     4 265D 98				tya
+     5 265E 48				pha
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\func.asm
     25 					
-    26 24D3 A2 18			ldx #24
-    27 24D5			memcopy_screen_func_loop:
-    28 24D5 20 BA 24			jsr memcopy_block_func
-    29 24D8 A5 EA			lda memcopy_block_src+1
-    30 24DA 69 01			adc #1
-    31 24DC 85 EA			sta memcopy_block_src+1	
-    32 24DE A5 EC			lda memcopy_block_dst+1
-    33 24E0 69 01			adc #1
-    34 24E2 85 EC			sta memcopy_block_dst+1	
-    35 24E4 CA				dex
-    36 24E5 D0 EE			bne memcopy_screen_func_loop
+    26 265F A2 18			ldx #24
+    27 2661			memcopy_screen_func_loop:
+    28 2661 20 46 26			jsr memcopy_block_func
+    29 2664 A5 EA			lda memcopy_block_src+1
+    30 2666 69 01			adc #1
+    31 2668 85 EA			sta memcopy_block_src+1	
+    32 266A A5 EC			lda memcopy_block_dst+1
+    33 266C 69 01			adc #1
+    34 266E 85 EC			sta memcopy_block_dst+1	
+    35 2670 CA				dex
+    36 2671 D0 EE			bne memcopy_screen_func_loop
     37 					
-    38 24E7				REG_PULL
+    38 2673				REG_PULL
 Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
-     1 24E7 68				pla
-     2 24E8 A8				tay
-     3 24E9 68				pla
-     4 24EA AA				tax
-     5 24EB 68				pla
+     1 2673 68				pla
+     2 2674 A8				tay
+     3 2675 68				pla
+     4 2676 AA				tax
+     5 2677 68				pla
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\func.asm
-    39 24EC 60				rts
+    39 2678 60				rts
     40
     41 				.MACRO MEMCOPY_SCREEN src dst
     42 					mwa #:src memcopy_block_src
@@ -949,95 +1259,95 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\func.asm
     45 					jsr memcopy_screen_func	
     46 				.ENDM
     47
-    48 24ED			screen_clear:
-    49 24ED				REG_PUSH
+    48 2679			screen_clear:
+    49 2679				REG_PUSH
 Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
-     1 24ED 48				pha
-     2 24EE 8A				txa
-     3 24EF 48				pha
-     4 24F0 98				tya
-     5 24F1 48				pha
+     1 2679 48				pha
+     2 267A 8A				txa
+     3 267B 48				pha
+     4 267C 98				tya
+     5 267D 48				pha
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\func.asm
-    50 24F2 A5 F3 8D 03 25 A5 + 	mwa screen_adr screen_clear_loop_2+1
-    51 24FC A9 00			lda #0
-    52 24FE A2 18			ldx #24
-    53 2500			screen_clear_loop_1
-    54 2500 A0 00			ldy #0	
-    55 2502			screen_clear_loop_2	
-    56 2502 99 00 00			sta $0000,y
-    57 2505 C8				iny
-    58 2506 D0 FA			bne screen_clear_loop_2
-    59 2508 EE 04 25			inc screen_clear_loop_2+2
-    60 250B CA				dex
-    61 250C D0 F4			bne screen_clear_loop_2
-    62 250E				REG_PULL
+    50 267E A5 F3 8D 8F 26 A5 + 	mwa screen_adr screen_clear_loop_2+1
+    51 2688 A9 00			lda #0
+    52 268A A2 18			ldx #24
+    53 268C			screen_clear_loop_1
+    54 268C A0 00			ldy #0	
+    55 268E			screen_clear_loop_2	
+    56 268E 99 00 00			sta $0000,y
+    57 2691 C8				iny
+    58 2692 D0 FA			bne screen_clear_loop_2
+    59 2694 EE 90 26			inc screen_clear_loop_2+2
+    60 2697 CA				dex
+    61 2698 D0 F4			bne screen_clear_loop_2
+    62 269A				REG_PULL
 Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
-     1 250E 68				pla
-     2 250F A8				tay
-     3 2510 68				pla
-     4 2511 AA				tax
-     5 2512 68				pla
+     1 269A 68				pla
+     2 269B A8				tay
+     3 269C 68				pla
+     4 269D AA				tax
+     5 269E 68				pla
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\func.asm
-    63 2513 60				rts	
+    63 269F 60				rts	
     64
-    65 2514			screen_fill:
-    66 2514				REG_PUSH
+    65 26A0			screen_fill:
+    66 26A0				REG_PUSH
 Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
-     1 2514 48				pha
-     2 2515 8A				txa
-     3 2516 48				pha
-     4 2517 98				tya
-     5 2518 48				pha
+     1 26A0 48				pha
+     2 26A1 8A				txa
+     3 26A2 48				pha
+     4 26A3 98				tya
+     5 26A4 48				pha
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\func.asm
-    67 2519 A5 F3 8D 2A 25 A5 + 	mwa screen_adr screen_fill_loop_2+1
-    68 2523 A9 FF			lda #255
-    69 2525 A2 18			ldx #24
-    70 2527			screen_fill_loop_1
-    71 2527 A0 00			ldy #0	
-    72 2529			screen_fill_loop_2	
-    73 2529 99 00 00			sta $0000,y
-    74 252C C8				iny
-    75 252D D0 FA			bne screen_fill_loop_2
-    76 252F EE 2B 25			inc screen_fill_loop_2+2
-    77 2532 CA				dex
-    78 2533 D0 F4			bne screen_fill_loop_2
-    79 2535				REG_PULL
+    67 26A5 A5 F3 8D B6 26 A5 + 	mwa screen_adr screen_fill_loop_2+1
+    68 26AF A9 FF			lda #255
+    69 26B1 A2 18			ldx #24
+    70 26B3			screen_fill_loop_1
+    71 26B3 A0 00			ldy #0	
+    72 26B5			screen_fill_loop_2	
+    73 26B5 99 00 00			sta $0000,y
+    74 26B8 C8				iny
+    75 26B9 D0 FA			bne screen_fill_loop_2
+    76 26BB EE B7 26			inc screen_fill_loop_2+2
+    77 26BE CA				dex
+    78 26BF D0 F4			bne screen_fill_loop_2
+    79 26C1				REG_PULL
 Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
-     1 2535 68				pla
-     2 2536 A8				tay
-     3 2537 68				pla
-     4 2538 AA				tax
-     5 2539 68				pla
+     1 26C1 68				pla
+     2 26C2 A8				tay
+     3 26C3 68				pla
+     4 26C4 AA				tax
+     5 26C5 68				pla
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\func.asm
-    80 253A 60				rts	
+    80 26C6 60				rts	
     81
     82 					
-    83 253B			screen_set_read_1:
+    83 26C7			screen_set_read_1:
     84 					; load display list address to register
-    85 253B A9 00 8D 30 02 A9 + 	mwa #dl_antic_1 DLIST
-    86 2545 60				rts
-    87 2546			screen_set_write_1:
+    85 26C7 A9 00 8D 30 02 A9 + 	mwa #dl_antic_1 DLIST
+    86 26D1 60				rts
+    87 26D2			screen_set_write_1:
     88 					; switch working buffer pointer
-    89 2546 A9 00 85 F3 A9 40 + 	mwa #screen_mem_1 screen_adr
-    90 254E 60				rts
+    89 26D2 A9 00 85 F3 A9 40 + 	mwa #screen_mem_1 screen_adr
+    90 26DA 60				rts
     91
-    92 254F			screen_set_read_2:
+    92 26DB			screen_set_read_2:
     93 					; load display list address to register
-    94 254F A9 CC 8D 30 02 A9 + 	mwa #dl_antic_2 DLIST
-    95 2559 60				rts
-    96 255A			screen_set_write_2:	
+    94 26DB A9 CC 8D 30 02 A9 + 	mwa #dl_antic_2 DLIST
+    95 26E5 60				rts
+    96 26E6			screen_set_write_2:	
     97 					; switch working buffer pointer
-    98 255A A9 00 85 F3 A9 58 + 	mwa #screen_mem_2 screen_adr
-    99 2562 60				rts
+    98 26E6 A9 00 85 F3 A9 58 + 	mwa #screen_mem_2 screen_adr
+    99 26EE 60				rts
    100 					
-    20 2563				ICL 'screen_mem.asm'
+    20 26EF				ICL 'screen_mem.asm'
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\screen_mem.asm
-     1 2563				org $4000
+     1 26EF				org $4000
      2
      3 = 4000			screen_mem_1 = $4000
      4 = 4800			screen_mem_1_1 = $4800
      5 = 5000			screen_mem_1_2 = $5000
-     6 4000-8AFF> 00 00 00 00 + 	:6144 dta 0
+     6 4000-87FF> 00 00 00 00 + 	:6144 dta 0
      7 					
      8 5800				org $5800
      9 = 5800			screen_mem_2 = $5800
@@ -1046,17 +1356,19 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\screen_mem.asm
     12 5800 00 00 00 00 00 00 + 	:6144 dta 0
     13
     14 7000				org $7000
-    15 7000			image_data_zx_font:
+    15 = 7000			image_data_unicorn = $7000
     16 7000				.local graphics
-    17 7000 00 00 00 00 00 00 + 	ins "..\pic\zx_font.fnt"
+    17 7000 00 00 00 00 00 00 + 	ins "..\pic\unicorn2inv.gr8"
     18 					.endl
-    19 7300			image_data_unicorn:
-    20 7300				.local graphics
-    21 7300 00 00 00 00 00 00 + 	ins "..\pic\unicorn2inv.gr8"
-    22 					.endl
-    23
-    24
-    21 8B00				ICL 'display_list_const.asm'
+    19 					
+    20 8800				org $9000
+    21 9000			image_data_zx_font:
+    22 9000				.local graphics
+    23 9000-92FF> 00 00 00 00 + 	ins "..\pic\zx_font.fnt"
+    24 					.endl
+    25
+    26
+    21 9300				ICL 'display_list_const.asm'
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\display_list_const.asm
      1 = 0012			RTCLOCK_2 = $12
      2 = 0013			RTCLOCK_1 = $13
@@ -1154,10 +1466,10 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\display_list_const.asm
     94 				;     
     95 				;     SDLSTL $0230        (560): DLISTL
     96 				;     SDLSTH $0231        (561): DLISTH
-    22 8B00				ICL 'display_list.asm'
+    22 9300				ICL 'display_list.asm'
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\display_list.asm
      1
-     2 8B00				org $3800
+     2 9300				org $3800
      3 				; DL for first buffer	
      4 3800-39C8> F0 70 70	dl_antic_1	dta $F0,$70,$70              ; 3x8 empty scanlines + interrupt
      5 3803 4F 00 40				dta b($4f),a(screen_mem_1)   ; $0f - mode, $40 - addr of 1/3 screen bitmap 
@@ -1281,7 +1593,7 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\ghosts.asm
      1 00F5				org $6000
      2
      3 6000			pm_base:
-     4 6000-6AB3> FF FF FF FF + 	:768 dta $FF
+     4 6000-6AA0> FF FF FF FF + 	:768 dta $FF
      5 6300			pm_missle:
      6 6300 FF FF FF FF FF FF + 	:256 dta $FF
      7 6400			pm_player0:
@@ -1375,7 +1687,7 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
     18 					
     19 6807				DLI_ENABLE part1_dli_handler
 Macro: DLI_ENABLE [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
-     1 6807 A9 B8 8D 00 02 A9 + 	mwa #PART1_DLI_HANDLER VDSLST
+     1 6807 A9 A5 8D 00 02 A9 + 	mwa #PART1_DLI_HANDLER VDSLST
      2 6811 A9 C0			lda #$c0
      3 6813 8D 0E D4			sta NMIEN
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
@@ -1392,482 +1704,477 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
     30 682A A9 00			lda #COLOR_BLACK
     31 682C 8D C6 02			sta COLOR2
     32
-    33 682F 20 46 25			jsr screen_set_write_1
-    34 6832 20 3B 25			jsr screen_set_read_1
+    33 682F 20 D2 26			jsr screen_set_write_1
+    34 6832 20 C7 26			jsr screen_set_read_1
     35 					
-    36 6835				MEMCOPY_SCREEN image_data_unicorn screen_mem_1
-Macro: MEMCOPY_SCREEN [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\func.asm]
-     1 6835 A9 00 85 E9 A9 73 + 	mwa #IMAGE_DATA_UNICORN memcopy_block_src
-     2 683D A9 00 85 EB A9 40 + 	mwa #SCREEN_MEM_1 memcopy_block_dst
-     4 6845 20 CE 24			jsr memcopy_screen_func	
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
+    36 				;	MEMCOPY_SCREEN image_data_unicorn screen_mem_1
     37 					
-    38 6848				PM_SHOW
+    38 6835				PM_SHOW
 Macro: PM_SHOW [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\ghosts.asm]
-     2 6848 A9 60			lda #$60
-     3 684A 8D 07 D4			sta PMBASE	; PMBASE
-     5 684D A9 01			lda #1
-     6 684F 8D 6F 02			sta GTIACTLS		; GTIACTLS
-     9 6852 A9 00			lda #0
-    10 6854 8D 08 D0			sta SIZEP0	; SIZEP0
-    11 6857 A9 01			lda #1
-    12 6859 8D 09 D0			sta SIZEP1	; SIZEP0
-    13 685C A9 01			lda #1
-    14 685E 8D 0A D0			sta SIZEP2	; SIZEP0
-    15 6861 A9 00			lda #0
-    16 6863 8D 0B D0			sta SIZEP3	; SIZEP0
-    18 6866 A9 02			lda #2
-    19 6868 8D 1D D0			sta PMCTL	; PMCTL
-    21 686B A9 39			lda #57
-    22 686D 8D 2F 02			sta DMACTLS		; DMACTLS
-    26 6870 A9 44			lda #68
-    27 6872 8D 00 D0			sta HPOSP0 
-    29 6875 A9 58			lda #88
-    30 6877 8D 01 D0			sta HPOSP1 
-    32 687A A9 96			lda #150
-    33 687C 8D 02 D0			sta HPOSP2 
-    35 687F A9 B4			lda #180
-    36 6881 8D 03 D0			sta HPOSP3 
-    38 6884 A9 0E			lda #14
-    39 6886 8D 12 D0			sta COLPM0
-    40 6889 8D 13 D0			sta COLPM1
-    41 688C 8D 14 D0			sta COLPM2
-    42 688F 8D 15 D0			sta COLPM3
+     2 6835 A9 60			lda #$60
+     3 6837 8D 07 D4			sta PMBASE	; PMBASE
+     5 683A A9 01			lda #1
+     6 683C 8D 6F 02			sta GTIACTLS		; GTIACTLS
+     9 683F A9 00			lda #0
+    10 6841 8D 08 D0			sta SIZEP0	; SIZEP0
+    11 6844 A9 01			lda #1
+    12 6846 8D 09 D0			sta SIZEP1	; SIZEP0
+    13 6849 A9 01			lda #1
+    14 684B 8D 0A D0			sta SIZEP2	; SIZEP0
+    15 684E A9 00			lda #0
+    16 6850 8D 0B D0			sta SIZEP3	; SIZEP0
+    18 6853 A9 02			lda #2
+    19 6855 8D 1D D0			sta PMCTL	; PMCTL
+    21 6858 A9 39			lda #57
+    22 685A 8D 2F 02			sta DMACTLS		; DMACTLS
+    26 685D A9 44			lda #68
+    27 685F 8D 00 D0			sta HPOSP0 
+    29 6862 A9 58			lda #88
+    30 6864 8D 01 D0			sta HPOSP1 
+    32 6867 A9 96			lda #150
+    33 6869 8D 02 D0			sta HPOSP2 
+    35 686C A9 B4			lda #180
+    36 686E 8D 03 D0			sta HPOSP3 
+    38 6871 A9 0E			lda #14
+    39 6873 8D 12 D0			sta COLPM0
+    40 6876 8D 13 D0			sta COLPM1
+    41 6879 8D 14 D0			sta COLPM2
+    42 687C 8D 15 D0			sta COLPM3
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
     39
     40
-    41 6892			part1_0:
+    41 687F			part1_0:
     42
     43 					
-    44 6892			part1_0_idle:
+    44 687F			part1_0_idle:
     45 					
     46 					;PM_MOVE
     47 					
     48 				;	jmp part1_0_idle
     49
-    50 6892				SLEEP 250
+    50 687F				SLEEP 250
 Macro: SLEEP [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
-     1 6892 A5 14			lda RTCLOCK_0
-     2 6894 18 69 FA			add #250
-     3 6897			SLEEP_LOOP:
-     4 6897 C5 14			cmp RTCLOCK_0
-     5 6899 D0 FC			bne SLEEP_LOOP
+     1 687F A5 14			lda RTCLOCK_0
+     2 6881 18 69 FA			add #250
+     3 6884			SLEEP_LOOP:
+     4 6884 C5 14			cmp RTCLOCK_0
+     5 6886 D0 FC			bne SLEEP_LOOP
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
-    51 689B				SLEEP 250
+    51 6888				SLEEP 250
 Macro: SLEEP [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
-     1 689B A5 14			lda RTCLOCK_0
-     2 689D 18 69 FA			add #250
-     3 68A0			SLEEP_LOOP:
-     4 68A0 C5 14			cmp RTCLOCK_0
-     5 68A2 D0 FC			bne SLEEP_LOOP
+     1 6888 A5 14			lda RTCLOCK_0
+     2 688A 18 69 FA			add #250
+     3 688D			SLEEP_LOOP:
+     4 688D C5 14			cmp RTCLOCK_0
+     5 688F D0 FC			bne SLEEP_LOOP
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
     52 					
-    53 68A4				DLI_DISABLE
+    53 6891				DLI_DISABLE
 Macro: DLI_DISABLE [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
-     1 68A4 A9 40			lda #$40
-     2 68A6 8D 0E D4			sta NMIEN
+     1 6891 A9 40			lda #$40
+     2 6893 8D 0E D4			sta NMIEN
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
-    54 68A9				PM_HIDE
+    54 6896				PM_HIDE
 Macro: PM_HIDE [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\ghosts.asm]
-     1 68A9 A9 00			lda #0
-     2 68AB 8D 00 D0			sta HPOSP0 
-     3 68AE 8D 01 D0			sta HPOSP1 
-     4 68B1 8D 02 D0			sta HPOSP2 
-     5 68B4 8D 03 D0			sta HPOSP3 
+     1 6896 A9 00			lda #0
+     2 6898 8D 00 D0			sta HPOSP0 
+     3 689B 8D 01 D0			sta HPOSP1 
+     4 689E 8D 02 D0			sta HPOSP2 
+     5 68A1 8D 03 D0			sta HPOSP3 
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
     55
-    56 68B7 60				rts
+    56 68A4 60				rts
     57
-    58 68B8			part1_dli_handler:
+    58 68A5			part1_dli_handler:
     59
     60 				; line:
     61 				; 32 cycles - frame (2+26+4)
     62 				; 28 cycles - screen
     63
-    64 68B8				REG_PUSH
+    64 68A5				REG_PUSH
 Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
-     1 68B8 48				pha
-     2 68B9 8A				txa
-     3 68BA 48				pha
-     4 68BB 98				tya
-     5 68BC 48				pha
+     1 68A5 48				pha
+     2 68A6 8A				txa
+     3 68A7 48				pha
+     4 68A8 98				tya
+     5 68A9 48				pha
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
-    65 68BD A9 00			lda #COLOR_BLACK
-    66 68BF 8D 18 D0			sta DLI_PAPER ; black
+    65 68AA A9 00			lda #COLOR_BLACK
+    66 68AC 8D 18 D0			sta DLI_PAPER ; black
     67
     68
     69 					; bar size
-    70 68C2 A9 02			lda #2
-    71 68C4 85 E0			sta bar_size
+    70 68AF A9 02			lda #2
+    71 68B1 85 E0			sta bar_size
     72
-    73 68C6 8D 0A D4			:1 sta WSYNC	;WAIT
+    73 68B3 8D 0A D4			:1 sta WSYNC	;WAIT
     74 					
-    75 68C9 A9 01			lda #1
-    76 68CB 8D 12 D0			sta COLPM0
-    77 68CE 8D 13 D0			sta COLPM1
-    78 68D1 8D 14 D0			sta COLPM2
-    79 68D4 8D 15 D0			sta COLPM3
+    75 68B6 A9 01			lda #1
+    76 68B8 8D 12 D0			sta COLPM0
+    77 68BB 8D 13 D0			sta COLPM1
+    78 68BE 8D 14 D0			sta COLPM2
+    79 68C1 8D 15 D0			sta COLPM3
     80
     81 					; cycle begin
-    82 68D7 A2 01			ldx #1
-    83 68D9 8D 0A D4			:1 sta WSYNC	;WAIT
+    82 68C4 A2 01			ldx #1
+    83 68C6 8D 0A D4			:1 sta WSYNC	;WAIT
     84
     85 				;	lda math_sin_16,x
     86 				;	:4 lsr
     87 				;	adc #1
     88 				;	tax
     89
-    90 68DC 8D 0A D4			:1 sta WSYNC
+    90 68C9 8D 0A D4			:1 sta WSYNC
     91 					
-    92 68DF A5 13			lda RTCLOCK_1
-    93 68E1 8D C0 02			sta 704		; KOLOR
+    92 68CC A5 13			lda RTCLOCK_1
+    93 68CE 8D C0 02			sta 704		; KOLOR
     94
-    95 68E4 8D 0A D4 8D 0A D4 + 	:18 sta WSYNC	;WAIT
+    95 68D1 8D 0A D4 8D 0A D4 + 	:18 sta WSYNC	;WAIT
     96
     97 					; init color value
-    98 691A A4 14			ldy RTCLOCK_0
-    99 691C B9 00 1D			lda math_sin,y
-   100 691F 85 E1			sta bar_color1
-   101 6921 98				tya
-   102 6922 49 FF			eor #$ff
-   103 6924 A8				tay
-   104 6925 B9 00 1D			lda math_sin,y
-   105 6928 85 E2			sta bar_color2
+    98 6907 A4 14			ldy RTCLOCK_0
+    99 6909 B9 00 1D			lda math_sin,y
+   100 690C 85 E1			sta bar_color1
+   101 690E 98				tya
+   102 690F 49 FF			eor #$ff
+   103 6911 A8				tay
+   104 6912 B9 00 1D			lda math_sin,y
+   105 6915 85 E2			sta bar_color2
    106
-   107 692A 8D 0A D4			:1 sta WSYNC	;WAIT
+   107 6917 8D 0A D4			:1 sta WSYNC	;WAIT
    108
    109 					; 192 screen lines
    110
    111
-   112 692D A6 E1			ldx bar_color1
-   113 692F A4 E2			ldy bar_color2
+   112 691A A6 E1			ldx bar_color1
+   113 691C A4 E2			ldy bar_color2
    114
-   115 6931				LINE_NOP_NORMAL
+   115 691E				LINE_NOP_NORMAL
 Macro: LINE_NOP_NORMAL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
-     1 6931 8D 0A D4			sta WSYNC	;WAIT
+     1 691E 8D 0A D4			sta WSYNC	;WAIT
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
-     1 6934 CA				dex
-     2 6935 88				dey
+     1 6921 CA				dex
+     2 6922 88				dey
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
-     3 6936 8C 12 D0			sty COLPM0
-     4 6939 8C 13 D0			sty COLPM1
-     5 693C 8E 14 D0			stx COLPM2
-     6 693F 8E 15 D0			stx COLPM3
-     7 6942 8E 18 D0			stx DLI_PAPER	; 4 cycles
-     1 6945 EA				nop
-     2 6946 EA				nop
-     3 6947 EA				nop
-     4 6948 EA				nop
-     5 6949 EA				nop
+     3 6923 8C 12 D0			sty COLPM0
+     4 6926 8C 13 D0			sty COLPM1
+     5 6929 8E 14 D0			stx COLPM2
+     6 692C 8E 15 D0			stx COLPM3
+     7 692F 8E 18 D0			stx DLI_PAPER	; 4 cycles
+     1 6932 EA				nop
+     2 6933 EA				nop
+     3 6934 EA				nop
+     4 6935 EA				nop
+     5 6936 EA				nop
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
-     9 694A EA				nop
-    10 694B 8C 18 D0			sty DLI_PAPER	; 4 cycles
+     9 6937 EA				nop
+    10 6938 8C 18 D0			sty DLI_PAPER	; 4 cycles
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
-   116 694E				LINE_NOP_NORMAL
+   116 693B				LINE_NOP_NORMAL
 Macro: LINE_NOP_NORMAL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
-     1 694E 8D 0A D4			sta WSYNC	;WAIT
+     1 693B 8D 0A D4			sta WSYNC	;WAIT
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
-     1 6951 CA				dex
-     2 6952 88				dey
+     1 693E CA				dex
+     2 693F 88				dey
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
-     3 6953 8C 12 D0			sty COLPM0
-     4 6956 8C 13 D0			sty COLPM1
-     5 6959 8E 14 D0			stx COLPM2
-     6 695C 8E 15 D0			stx COLPM3
-     7 695F 8E 18 D0			stx DLI_PAPER	; 4 cycles
-     1 6962 EA				nop
-     2 6963 EA				nop
-     3 6964 EA				nop
-     4 6965 EA				nop
-     5 6966 EA				nop
+     3 6940 8C 12 D0			sty COLPM0
+     4 6943 8C 13 D0			sty COLPM1
+     5 6946 8E 14 D0			stx COLPM2
+     6 6949 8E 15 D0			stx COLPM3
+     7 694C 8E 18 D0			stx DLI_PAPER	; 4 cycles
+     1 694F EA				nop
+     2 6950 EA				nop
+     3 6951 EA				nop
+     4 6952 EA				nop
+     5 6953 EA				nop
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
-     9 6967 EA				nop
-    10 6968 8C 18 D0			sty DLI_PAPER	; 4 cycles
+     9 6954 EA				nop
+    10 6955 8C 18 D0			sty DLI_PAPER	; 4 cycles
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
    117
-   118 696B A9 39			lda #57
-   119 696D			dli_handler_loop_0:
-   120 696D				LINE_NOP_NORMAL
+   118 6958 A9 38			lda #56
+   119 695A			dli_handler_loop_0:
+   120 695A				LINE_NOP_NORMAL
 Macro: LINE_NOP_NORMAL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
-     1 696D 8D 0A D4			sta WSYNC	;WAIT
+     1 695A 8D 0A D4			sta WSYNC	;WAIT
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
-     1 6970 CA				dex
-     2 6971 88				dey
+     1 695D CA				dex
+     2 695E 88				dey
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
-     3 6972 8C 12 D0			sty COLPM0
-     4 6975 8C 13 D0			sty COLPM1
-     5 6978 8E 14 D0			stx COLPM2
-     6 697B 8E 15 D0			stx COLPM3
-     7 697E 8E 18 D0			stx DLI_PAPER	; 4 cycles
-     1 6981 EA				nop
-     2 6982 EA				nop
-     3 6983 EA				nop
-     4 6984 EA				nop
-     5 6985 EA				nop
+     3 695F 8C 12 D0			sty COLPM0
+     4 6962 8C 13 D0			sty COLPM1
+     5 6965 8E 14 D0			stx COLPM2
+     6 6968 8E 15 D0			stx COLPM3
+     7 696B 8E 18 D0			stx DLI_PAPER	; 4 cycles
+     1 696E EA				nop
+     2 696F EA				nop
+     3 6970 EA				nop
+     4 6971 EA				nop
+     5 6972 EA				nop
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
-     9 6986 EA				nop
-    10 6987 8C 18 D0			sty DLI_PAPER	; 4 cycles
+     9 6973 EA				nop
+    10 6974 8C 18 D0			sty DLI_PAPER	; 4 cycles
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
-   121 698A E9 01			sbc #1
-   122 698C D0 DF			bne dli_handler_loop_0
+   121 6977 E9 01			sbc #1
+   122 6979 D0 DF			bne dli_handler_loop_0
    123
-   124 698E				LINE_NOP_SHORT
+   124 697B				LINE_NOP_SHORT
 Macro: LINE_NOP_SHORT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
-     1 698E 8D 0A D4			sta WSYNC	;WAIT
+     1 697B 8D 0A D4			sta WSYNC	;WAIT
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
-     1 6991 CA				dex
-     2 6992 88				dey
+     1 697E CA				dex
+     2 697F 88				dey
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
-     3 6993 8C 12 D0			sty COLPM0
-     4 6996 8C 13 D0			sty COLPM1
-     5 6999 8E 14 D0			stx COLPM2
-     6 699C 8E 15 D0			stx COLPM3
-     7 699F 8E 18 D0			stx DLI_PAPER	; 4 cycles
-     1 69A2 EA				nop
-     2 69A3 EA				nop
-     3 69A4 EA				nop
-     4 69A5 EA				nop
-     5 69A6 EA				nop
+     3 6980 8C 12 D0			sty COLPM0
+     4 6983 8C 13 D0			sty COLPM1
+     5 6986 8E 14 D0			stx COLPM2
+     6 6989 8E 15 D0			stx COLPM3
+     7 698C 8E 18 D0			stx DLI_PAPER	; 4 cycles
+     1 698F EA				nop
+     2 6990 EA				nop
+     3 6991 EA				nop
+     4 6992 EA				nop
+     5 6993 EA				nop
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
-     9 69A7 8C 18 D0			sty DLI_PAPER	; 4 cycles
+     9 6994 8C 18 D0			sty DLI_PAPER	; 4 cycles
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
    125
-   126 69AA A9 3F			lda #63
-   127 69AC			dli_handler_loop_1:
-   128 69AC				LINE_NOP_NORMAL
+   126 6997 A9 3F			lda #63
+   127 6999			dli_handler_loop_1:
+   128 6999				LINE_NOP_NORMAL
 Macro: LINE_NOP_NORMAL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
-     1 69AC 8D 0A D4			sta WSYNC	;WAIT
+     1 6999 8D 0A D4			sta WSYNC	;WAIT
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
-     1 69AF CA				dex
-     2 69B0 88				dey
+     1 699C CA				dex
+     2 699D 88				dey
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
-     3 69B1 8C 12 D0			sty COLPM0
-     4 69B4 8C 13 D0			sty COLPM1
-     5 69B7 8E 14 D0			stx COLPM2
-     6 69BA 8E 15 D0			stx COLPM3
-     7 69BD 8E 18 D0			stx DLI_PAPER	; 4 cycles
-     1 69C0 EA				nop
-     2 69C1 EA				nop
-     3 69C2 EA				nop
-     4 69C3 EA				nop
-     5 69C4 EA				nop
+     3 699E 8C 12 D0			sty COLPM0
+     4 69A1 8C 13 D0			sty COLPM1
+     5 69A4 8E 14 D0			stx COLPM2
+     6 69A7 8E 15 D0			stx COLPM3
+     7 69AA 8E 18 D0			stx DLI_PAPER	; 4 cycles
+     1 69AD EA				nop
+     2 69AE EA				nop
+     3 69AF EA				nop
+     4 69B0 EA				nop
+     5 69B1 EA				nop
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
-     9 69C5 EA				nop
-    10 69C6 8C 18 D0			sty DLI_PAPER	; 4 cycles
+     9 69B2 EA				nop
+    10 69B3 8C 18 D0			sty DLI_PAPER	; 4 cycles
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
-   129 69C9 E9 01			sbc #1
-   130 69CB D0 DF			bne dli_handler_loop_1
-   131 69CD				LINE_NOP_SHORT
+   129 69B6 E9 01			sbc #1
+   130 69B8 D0 DF			bne dli_handler_loop_1
+   131 69BA				LINE_NOP_SHORT
 Macro: LINE_NOP_SHORT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
-     1 69CD 8D 0A D4			sta WSYNC	;WAIT
+     1 69BA 8D 0A D4			sta WSYNC	;WAIT
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
-     1 69D0 CA				dex
-     2 69D1 88				dey
+     1 69BD CA				dex
+     2 69BE 88				dey
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
-     3 69D2 8C 12 D0			sty COLPM0
-     4 69D5 8C 13 D0			sty COLPM1
-     5 69D8 8E 14 D0			stx COLPM2
-     6 69DB 8E 15 D0			stx COLPM3
-     7 69DE 8E 18 D0			stx DLI_PAPER	; 4 cycles
-     1 69E1 EA				nop
-     2 69E2 EA				nop
-     3 69E3 EA				nop
-     4 69E4 EA				nop
-     5 69E5 EA				nop
+     3 69BF 8C 12 D0			sty COLPM0
+     4 69C2 8C 13 D0			sty COLPM1
+     5 69C5 8E 14 D0			stx COLPM2
+     6 69C8 8E 15 D0			stx COLPM3
+     7 69CB 8E 18 D0			stx DLI_PAPER	; 4 cycles
+     1 69CE EA				nop
+     2 69CF EA				nop
+     3 69D0 EA				nop
+     4 69D1 EA				nop
+     5 69D2 EA				nop
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
-     9 69E6 8C 18 D0			sty DLI_PAPER	; 4 cycles
+     9 69D3 8C 18 D0			sty DLI_PAPER	; 4 cycles
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
    132
-   133 69E9 A9 3E			lda #62
-   134 69EB			dli_handler_loop_2:
-   135 69EB				LINE_NOP_NORMAL
+   133 69D6 A9 3E			lda #62
+   134 69D8			dli_handler_loop_2:
+   135 69D8				LINE_NOP_NORMAL
 Macro: LINE_NOP_NORMAL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
-     1 69EB 8D 0A D4			sta WSYNC	;WAIT
+     1 69D8 8D 0A D4			sta WSYNC	;WAIT
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
-     1 69EE CA				dex
-     2 69EF 88				dey
+     1 69DB CA				dex
+     2 69DC 88				dey
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
-     3 69F0 8C 12 D0			sty COLPM0
-     4 69F3 8C 13 D0			sty COLPM1
-     5 69F6 8E 14 D0			stx COLPM2
-     6 69F9 8E 15 D0			stx COLPM3
-     7 69FC 8E 18 D0			stx DLI_PAPER	; 4 cycles
-     1 69FF EA				nop
-     2 6A00 EA				nop
-     3 6A01 EA				nop
-     4 6A02 EA				nop
-     5 6A03 EA				nop
+     3 69DD 8C 12 D0			sty COLPM0
+     4 69E0 8C 13 D0			sty COLPM1
+     5 69E3 8E 14 D0			stx COLPM2
+     6 69E6 8E 15 D0			stx COLPM3
+     7 69E9 8E 18 D0			stx DLI_PAPER	; 4 cycles
+     1 69EC EA				nop
+     2 69ED EA				nop
+     3 69EE EA				nop
+     4 69EF EA				nop
+     5 69F0 EA				nop
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
-     9 6A04 EA				nop
-    10 6A05 8C 18 D0			sty DLI_PAPER	; 4 cycles
+     9 69F1 EA				nop
+    10 69F2 8C 18 D0			sty DLI_PAPER	; 4 cycles
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
-   136 6A08 E9 01			sbc #1
-   137 6A0A D0 DF			bne dli_handler_loop_2
+   136 69F5 E9 01			sbc #1
+   137 69F7 D0 DF			bne dli_handler_loop_2
    138
    139 				;	LINE_NOP_SHORT
    140 					
-   141 6A0C				LINE_NOP_LAST
+   141 69F9				LINE_NOP_LAST
 Macro: LINE_NOP_LAST [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
-     1 6A0C 8D 0A D4			sta WSYNC	;WAIT
+     1 69F9 8D 0A D4			sta WSYNC	;WAIT
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
-     2 6A0F 8E 18 D0			stx DLI_PAPER	; 4 cycles
-     3 6A12 A9 01			lda #1
-     4 6A14 8D 12 D0			sta COLPM0
-     5 6A17 8D 13 D0			sta COLPM1
-     6 6A1A 8D 14 D0			sta COLPM2
-     7 6A1D 8D 15 D0			sta COLPM3
-     1 6A20 EA				nop
-     2 6A21 EA				nop
-     3 6A22 EA				nop
-     4 6A23 EA				nop
-     5 6A24 EA				nop
+     2 69FC 8E 18 D0			stx DLI_PAPER	; 4 cycles
+     3 69FF A9 01			lda #1
+     4 6A01 8D 12 D0			sta COLPM0
+     5 6A04 8D 13 D0			sta COLPM1
+     6 6A07 8D 14 D0			sta COLPM2
+     7 6A0A 8D 15 D0			sta COLPM3
+     1 6A0D EA				nop
+     2 6A0E EA				nop
+     3 6A0F EA				nop
+     4 6A10 EA				nop
+     5 6A11 EA				nop
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
-     9 6A25 EA				nop
-    10 6A26 8C 18 D0			sty DLI_PAPER	; 4 cycles
+     9 6A12 EA				nop
+    10 6A13 8C 18 D0			sty DLI_PAPER	; 4 cycles
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
    142
-   143 6A29 A9 01			lda #1
-   144 6A2B 8D 12 D0			sta COLPM0
-   145 6A2E 8D 13 D0			sta COLPM1
-   146 6A31 8D 14 D0			sta COLPM2
-   147 6A34 8D 15 D0			sta COLPM3
+   143 6A16 A9 01			lda #1
+   144 6A18 8D 12 D0			sta COLPM0
+   145 6A1B 8D 13 D0			sta COLPM1
+   146 6A1E 8D 14 D0			sta COLPM2
+   147 6A21 8D 15 D0			sta COLPM3
    148
-   149 6A37				LINE_WAIT
+   149 6A24				LINE_WAIT
 Macro: LINE_WAIT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
-     1 6A37 8D 0A D4			sta WSYNC	;WAIT
+     1 6A24 8D 0A D4			sta WSYNC	;WAIT
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
    150 					
    151
-   152 6A3A				REG_PULL
+   152 6A27				REG_PULL
 Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
-     1 6A3A 68				pla
-     2 6A3B A8				tay
-     3 6A3C 68				pla
-     4 6A3D AA				tax
-     5 6A3E 68				pla
+     1 6A27 68				pla
+     2 6A28 A8				tay
+     3 6A29 68				pla
+     4 6A2A AA				tax
+     5 6A2B 68				pla
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\part1.asm
-   153 6A3F 40				rti
+   153 6A2C 40				rti
    154 					
    155 					
    156 					
-    28 6A40				ICL 'zx_dli.asm'
+    28 6A2D				ICL 'zx_dli.asm'
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_dli.asm
      1
-     2 6A40			zx_dli_header_block:
+     2 6A2D			zx_dli_header_block:
      3
-     4 6A40				REG_PUSH
+     4 6A2D				REG_PUSH
 Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
-     1 6A40 48				pha
-     2 6A41 8A				txa
-     3 6A42 48				pha
-     4 6A43 98				tya
-     5 6A44 48				pha
+     1 6A2D 48				pha
+     2 6A2E 8A				txa
+     3 6A2F 48				pha
+     4 6A30 98				tya
+     5 6A31 48				pha
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_dli.asm
      5
      6 					; 192 screen lines
-     7 6A45 A0 F0			ldy #240
-     8 6A47			zx_dli_header_block_loop1:	
-     9 6A47 B1 14			lda (RTCLOCK_0),y
-    10 6A49 69 05			adc #5
-    11 6A4B 29 0F			and #$0f
-    12 6A4D A2 43			ldx #COLOR_RED
-    13 6A4F 8E 1A D0			stx DLI_FRAME
-    14 6A52			zx_dli_header_block_loop2:	
-    15 6A52				LINE_WAIT
+     7 6A32 A0 F0			ldy #240
+     8 6A34			zx_dli_header_block_loop1:	
+     9 6A34 B1 14			lda (RTCLOCK_0),y
+    10 6A36 69 05			adc #5
+    11 6A38 29 0F			and #$0f
+    12 6A3A A2 43			ldx #COLOR_RED
+    13 6A3C 8E 1A D0			stx DLI_FRAME
+    14 6A3F			zx_dli_header_block_loop2:	
+    15 6A3F				LINE_WAIT
 Macro: LINE_WAIT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
-     1 6A52 8D 0A D4			sta WSYNC	;WAIT
+     1 6A3F 8D 0A D4			sta WSYNC	;WAIT
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_dli.asm
-    16 6A55 88				dey
-    17 6A56 F0 1C			beq zx_dli_header_block_end
-    18 6A58 E9 01			sbc #1
-    19 6A5A D0 F6			bne zx_dli_header_block_loop2
+    16 6A42 88				dey
+    17 6A43 F0 1C			beq zx_dli_header_block_end
+    18 6A45 E9 01			sbc #1
+    19 6A47 D0 F6			bne zx_dli_header_block_loop2
     20
-    21 6A5C			zx_dli_header_block_loop3:	
-    22 6A5C B1 14			lda (RTCLOCK_0),y
-    23 6A5E 69 05			adc #5
-    24 6A60 29 0F			and #$0f
-    25 6A62 A2 AC			ldx #COLOR_CYAN
-    26 6A64 8E 1A D0			stx DLI_FRAME
-    27 6A67			zx_dli_header_block_loop4:	
-    28 6A67				LINE_WAIT
+    21 6A49			zx_dli_header_block_loop3:	
+    22 6A49 B1 14			lda (RTCLOCK_0),y
+    23 6A4B 69 05			adc #5
+    24 6A4D 29 0F			and #$0f
+    25 6A4F A2 AC			ldx #COLOR_CYAN
+    26 6A51 8E 1A D0			stx DLI_FRAME
+    27 6A54			zx_dli_header_block_loop4:	
+    28 6A54				LINE_WAIT
 Macro: LINE_WAIT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
-     1 6A67 8D 0A D4			sta WSYNC	;WAIT
+     1 6A54 8D 0A D4			sta WSYNC	;WAIT
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_dli.asm
-    29 6A6A 88				dey
-    30 6A6B F0 07			beq zx_dli_header_block_end
-    31 6A6D E9 01			sbc #1
-    32 6A6F D0 F6			bne zx_dli_header_block_loop4
-    33 6A71 4C 47 6A			jmp zx_dli_header_block_loop1
+    29 6A57 88				dey
+    30 6A58 F0 07			beq zx_dli_header_block_end
+    31 6A5A E9 01			sbc #1
+    32 6A5C D0 F6			bne zx_dli_header_block_loop4
+    33 6A5E 4C 34 6A			jmp zx_dli_header_block_loop1
     34
-    35 6A74			zx_dli_header_block_end:
-    36 6A74				REG_PULL
+    35 6A61			zx_dli_header_block_end:
+    36 6A61				REG_PULL
 Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
-     1 6A74 68				pla
-     2 6A75 A8				tay
-     3 6A76 68				pla
-     4 6A77 AA				tax
-     5 6A78 68				pla
+     1 6A61 68				pla
+     2 6A62 A8				tay
+     3 6A63 68				pla
+     4 6A64 AA				tax
+     5 6A65 68				pla
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_dli.asm
-    37 6A79 40				rti
+    37 6A66 40				rti
     38 					
     39 				;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     40
-    41 6A7A			zx_dli_data_block:
+    41 6A67			zx_dli_data_block:
     42
-    43 6A7A				REG_PUSH
+    43 6A67				REG_PUSH
 Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
-     1 6A7A 48				pha
-     2 6A7B 8A				txa
-     3 6A7C 48				pha
-     4 6A7D 98				tya
-     5 6A7E 48				pha
+     1 6A67 48				pha
+     2 6A68 8A				txa
+     3 6A69 48				pha
+     4 6A6A 98				tya
+     5 6A6B 48				pha
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_dli.asm
     44
     45 					; 192 screen lines
-    46 6A7F A0 F0			ldy #240
-    47 6A81			zx_dli_data_block_loop1:	
-    48 6A81 B1 13			lda (RTCLOCK_1),y
-    49 6A83 69 03			adc #3
-    50 6A85 29 07			and #$07
-    51 6A87 A2 43			ldx #COLOR_RED
-    52 6A89 8E 1A D0			stx DLI_FRAME
-    53 6A8C			zx_dli_data_block_loop2:	
-    54 6A8C				LINE_WAIT
+    46 6A6C A0 F0			ldy #240
+    47 6A6E			zx_dli_data_block_loop1:	
+    48 6A6E B1 13			lda (RTCLOCK_1),y
+    49 6A70 69 03			adc #3
+    50 6A72 29 07			and #$07
+    51 6A74 A2 43			ldx #COLOR_RED
+    52 6A76 8E 1A D0			stx DLI_FRAME
+    53 6A79			zx_dli_data_block_loop2:	
+    54 6A79				LINE_WAIT
 Macro: LINE_WAIT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
-     1 6A8C 8D 0A D4			sta WSYNC	;WAIT
+     1 6A79 8D 0A D4			sta WSYNC	;WAIT
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_dli.asm
-    55 6A8F 88				dey
-    56 6A90 F0 1C			beq zx_dli_data_block_end
-    57 6A92 E9 01			sbc #1
-    58 6A94 D0 F6			bne zx_dli_data_block_loop2
+    55 6A7C 88				dey
+    56 6A7D F0 1C			beq zx_dli_data_block_end
+    57 6A7F E9 01			sbc #1
+    58 6A81 D0 F6			bne zx_dli_data_block_loop2
     59
-    60 6A96			zx_dli_data_block_loop3:	
-    61 6A96 B1 14			lda (RTCLOCK_0),y
-    62 6A98 69 05			adc #5
-    63 6A9A 29 0F			and #$0f
-    64 6A9C A2 AC			ldx #COLOR_CYAN
-    65 6A9E 8E 1A D0			stx DLI_FRAME
-    66 6AA1			zx_dli_data_block_loop4:	
-    67 6AA1				LINE_WAIT
+    60 6A83			zx_dli_data_block_loop3:	
+    61 6A83 B1 14			lda (RTCLOCK_0),y
+    62 6A85 69 05			adc #5
+    63 6A87 29 0F			and #$0f
+    64 6A89 A2 AC			ldx #COLOR_CYAN
+    65 6A8B 8E 1A D0			stx DLI_FRAME
+    66 6A8E			zx_dli_data_block_loop4:	
+    67 6A8E				LINE_WAIT
 Macro: LINE_WAIT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
-     1 6AA1 8D 0A D4			sta WSYNC	;WAIT
+     1 6A8E 8D 0A D4			sta WSYNC	;WAIT
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_dli.asm
-    68 6AA4 88				dey
-    69 6AA5 F0 07			beq zx_dli_data_block_end
-    70 6AA7 E9 01			sbc #1
-    71 6AA9 D0 F6			bne zx_dli_data_block_loop4
-    72 6AAB 4C 81 6A			jmp zx_dli_data_block_loop1
+    68 6A91 88				dey
+    69 6A92 F0 07			beq zx_dli_data_block_end
+    70 6A94 E9 01			sbc #1
+    71 6A96 D0 F6			bne zx_dli_data_block_loop4
+    72 6A98 4C 6E 6A			jmp zx_dli_data_block_loop1
     73
-    74 6AAE			zx_dli_data_block_end:
-    75 6AAE				REG_PULL
+    74 6A9B			zx_dli_data_block_end:
+    75 6A9B				REG_PULL
 Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\macro.asm]
-     1 6AAE 68				pla
-     2 6AAF A8				tay
-     3 6AB0 68				pla
-     4 6AB1 AA				tax
-     5 6AB2 68				pla
+     1 6A9B 68				pla
+     2 6A9C A8				tay
+     3 6A9D 68				pla
+     4 6A9E AA				tax
+     5 6A9F 68				pla
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_dli.asm
-    76 6AB3 40				rti
+    76 6AA0 40				rti
     77 					
     78 					
     79 						

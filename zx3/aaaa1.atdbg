@@ -4,3 +4,4 @@
 .echo
 bc *
 .onexerun .echo "Launching executable..."
+bp `C:\jac\wudsn\Workspace\Atari800\asm_t2\zx4\zx_load_screen.asm:46`
