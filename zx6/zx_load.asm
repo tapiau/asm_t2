@@ -1,0 +1,55 @@
+	jsr screen_clear
+	
+	SLEEP 25
+	lda #COLOR_CYAN
+	sta GR8_FRAME
+	SLEEP 25
+	lda #COLOR_WHITE
+	sta GR8_FRAME
+	
+	SLEEP 25
+	lda #COLOR_CYAN
+	sta GR8_FRAME
+	SLEEP 25
+	lda #COLOR_WHITE
+	sta GR8_FRAME
+
+	SLEEP 25
+	lda #COLOR_CYAN
+	sta GR8_FRAME
+
+	DLI_ENABLE zx_dli_header_block
+	SLEEP 175
+	DLI_DISABLE
+	
+	ZX_PRINT 'P'-32 0 0
+	ZX_PRINT 'r'-32 1 0
+	ZX_PRINT 'o'-32 2 0
+	ZX_PRINT 'g'-32 3 0
+	ZX_PRINT 'r'-32 4 0
+	ZX_PRINT 'a'-32 5 0
+	ZX_PRINT 'm'-32 6 0
+	ZX_PRINT ':'-32 7 0
+	
+	ZX_PRINT 'R'-32 9 0
+	ZX_PRINT 'A'-32 10 0
+	ZX_PRINT 'I'-32 11 0
+	ZX_PRINT 'N'-32 12 0
+	ZX_PRINT 'B'-32 13 0
+	ZX_PRINT 'O'-32 14 0
+	ZX_PRINT 'W'-32 15 0
+	ZX_PRINT 'O'-32 16 0
+	ZX_PRINT 'M'-32 17 0
+	ZX_PRINT 'I'-32 18 0
+	ZX_PRINT 'T'-32 19 0
+	SLEEP 100
+	
+	DLI_ENABLE zx_dli_data_block
+	SLEEP 175
+	DLI_DISABLE
+	
+	
+	
+		
+	
+	
