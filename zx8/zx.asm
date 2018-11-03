@@ -1,10 +1,10 @@
 zx:
 	lda #COLOR_BLACK     
-	sta GR8_PEN
+	sta DLI_PEN
 	lda #COLOR_WHITE     
-	sta GR8_PAPER
+	sta DLI_PAPER
 	lda #COLOR_WHITE     
-	sta GR8_FRAME
+	sta DLI_FRAME
 
 	jsr screen_set_write_1
 	jsr screen_set_read_1

@@ -15,11 +15,12 @@
 .ENDM
 
 .MACRO SLEEP frames
-;	lda RTCLOCK_0
-;	add #:frames
-;SLEEP_LOOP:
-;	cmp RTCLOCK_0
-;	bne SLEEP_LOOP
+	lda RTCLOCK_0
+	add #:frames
+SLEEP_LOOP:
+	cmp RTCLOCK_0
+	bne SLEEP_LOOP
+	nop
 .ENDM
 
 .MACRO LINE_SPACE_9_CYCLES

@@ -41,6 +41,7 @@ nmi_dli_handler_vector equ *-2
 VBL:
 	REG_PUSH
 	lda RTCLOCK_0
+	clc
 	adc #1
 	sta RTCLOCK_0
 	jsr rmt_play
