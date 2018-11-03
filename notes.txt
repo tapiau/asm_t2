@@ -6,7 +6,6 @@ https://atariwiki.org/wiki/Wiki.jsp?page=Advanced%206502%20Assembly%20Code%20Exa
 http://krap.pl/mirrorz/atari/homepage.ntlworld.com/kryten_droid/Atari/800XL/atari_hw/gtia.htm
 
 http://raster.infos.cz/atari/rmt/rmt.htm
-
-
+https://user.xmission.com/~trevin/atari/antic_regs.html#NMIST
 
 
