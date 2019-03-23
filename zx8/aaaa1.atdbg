@@ -4,4 +4,3 @@
 .echo
 bc *
 .onexerun .echo "Launching executable..."
-bp `C:\jac\wudsn\Workspace\Atari800\asm_t2\zx8\macro.asm:23`

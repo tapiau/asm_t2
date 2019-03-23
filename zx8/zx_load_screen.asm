@@ -1,25 +1,25 @@
 	jsr screen_clear
 	
-	SLEEP 25
+;	SLEEP 25
 	lda #COLOR_CYAN
 	sta GR8_FRAME
-	SLEEP 25
+;	SLEEP 25
 	lda #COLOR_WHITE
 	sta GR8_FRAME
 	
-	SLEEP 25
+;	SLEEP 25
 	lda #COLOR_CYAN
 	sta GR8_FRAME
-	SLEEP 25
+;	SLEEP 25
 	lda #COLOR_WHITE
 	sta GR8_FRAME
 
-	SLEEP 25
+;	SLEEP 25
 	lda #COLOR_CYAN
 	sta GR8_FRAME
 
 	DLI_ENABLE zx_dli_header_block
-	SLEEP 175
+;	SLEEP 175
 	DLI_DISABLE
 	
 	ZX_PRINT 'B'-32 0 0
@@ -36,7 +36,7 @@
 	ZX_PRINT 'O'-32 11 0
 	ZX_PRINT 'R'-32 12 0
 	ZX_PRINT 'N'-32 13 0
-	SLEEP 100
+;	SLEEP 100
 
 	mwa #image_data_unicorn src
 	mwa #screen_mem_1 dst
@@ -45,7 +45,7 @@
 
 	
 	jsr zx_copy_screen_block
-	SLEEP 50
+;	SLEEP 50
 
 	DLI_DISABLE
 	
