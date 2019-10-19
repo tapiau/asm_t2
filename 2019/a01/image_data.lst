@@ -1,0 +1,13 @@
+mads 2.0.6 build 58 (28 Jan 17)
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\image_data.asm
+     1 					org $7000
+     2 = 7000			image_data_unicorn = $7000
+     3 					.local graphics
+     4 FFFF> 7000-87FF> 00 00 + 	ins "..\pic\unicorn2inv.gr8"
+     5 					.endl
+     6 					
+     7 8800				org $9000
+     8 9000			image_data_zx_font:
+     9 9000				.local graphics
+    10 9000-92FF> 00 00 00 00 + 	ins "..\pic\zx_font.fnt"
+    11 					.endl

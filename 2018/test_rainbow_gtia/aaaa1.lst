@@ -1,7 +1,7 @@
 mads 2.0.6 build 58 (28 Jan 17)
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\aaaa1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2018\test_rainbow_gtia\aaaa1.asm
      1 					ICL 'macro.asm'
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\macro.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2018\test_rainbow_gtia\macro.asm
      1 				.MACRO REG_PUSH 
      2 					pha
      3 					txa
@@ -28,7 +28,7 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\macro.asm
      9 					.endp
     10 					
     11 2003				ICL 'part1.asm'
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2018\test_rainbow_gtia\part1.asm
      1 2003 00			part1_x dta 0
      2 2004 00			part1_y dta 0
      3 2005 00			part1_d dta 0
@@ -74,13 +74,13 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\part1.asm
     43
     44
     45 203C				REG_PULL
-Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\macro.asm]
+Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2018\test_rainbow_gtia\macro.asm]
      1 203C 68				pla
      2 203D A8				tay
      3 203E 68				pla
      4 203F AA				tax
      5 2040 68				pla
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2018\test_rainbow_gtia\part1.asm
     46
     47 2041 60				rts
     48 					
@@ -89,13 +89,13 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\part1.asm
     51 					
     52 2043			part1_dli_handler:
     53 2043				REG_PUSH
-Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\macro.asm]
+Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2018\test_rainbow_gtia\macro.asm]
      1 2043 48				pha
      2 2044 8A				txa
      3 2045 48				pha
      4 2046 98				tya
      5 2047 48				pha
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2018\test_rainbow_gtia\part1.asm
     54
     55 2048 AD 6F 02			lda GPRIOR
     56 204B 8D 42 20			sta part1_gtia_prior
@@ -138,19 +138,19 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\part1.asm
     93 2091 8D 1A D0			sta DLI_FRAME
     94
     95 2094				REG_PULL
-Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\macro.asm]
+Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2018\test_rainbow_gtia\macro.asm]
      1 2094 68				pla
      2 2095 A8				tay
      3 2096 68				pla
      4 2097 AA				tax
      5 2098 68				pla
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\part1.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2018\test_rainbow_gtia\part1.asm
     96 2099 40				rti
     97 					
     98 					
     99 					
     12 209A				ICL 'screen_mem.asm'
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\screen_mem.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2018\test_rainbow_gtia\screen_mem.asm
      1 209A				org $4000
      2
      3 4000			screen_mem_1
@@ -172,13 +172,13 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\screen_mem.asm
     19
     20 7002			screen_clear:
     21 7002				REG_PUSH
-Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\macro.asm]
+Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2018\test_rainbow_gtia\macro.asm]
      1 7002 48				pha
      2 7003 8A				txa
      3 7004 48				pha
      4 7005 98				tya
      5 7006 48				pha
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\screen_mem.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2018\test_rainbow_gtia\screen_mem.asm
     22 7007 AD 00 70 8D 1A 70 + 	mwa screen_adr screen_clear_loop_2+1
     23 7013 A9 00			lda #0
     24 7015 A2 18			ldx #24
@@ -192,24 +192,24 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\screen_mem.asm
     32 7022 CA				dex
     33 7023 D0 F4			bne screen_clear_loop_2
     34 7025				REG_PULL
-Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\macro.asm]
+Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2018\test_rainbow_gtia\macro.asm]
      1 7025 68				pla
      2 7026 A8				tay
      3 7027 68				pla
      4 7028 AA				tax
      5 7029 68				pla
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\screen_mem.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2018\test_rainbow_gtia\screen_mem.asm
     35 702A 60				rts	
     36
     37 702B			screen_fill:
     38 702B				REG_PUSH
-Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\macro.asm]
+Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2018\test_rainbow_gtia\macro.asm]
      1 702B 48				pha
      2 702C 8A				txa
      3 702D 48				pha
      4 702E 98				tya
      5 702F 48				pha
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\screen_mem.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2018\test_rainbow_gtia\screen_mem.asm
     39 7030 AD 00 70 8D 43 70 + 	mwa screen_adr screen_fill_loop_2+1
     40 703C A9 FF			lda #255
     41 703E A2 08			ldx #8
@@ -223,24 +223,24 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\screen_mem.asm
     49 704B CA				dex
     50 704C D0 F4			bne screen_fill_loop_2
     51 704E				REG_PULL
-Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\macro.asm]
+Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2018\test_rainbow_gtia\macro.asm]
      1 704E 68				pla
      2 704F A8				tay
      3 7050 68				pla
      4 7051 AA				tax
      5 7052 68				pla
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\screen_mem.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2018\test_rainbow_gtia\screen_mem.asm
     52 7053 60				rts	
     53
     54 7054			screen_fill_raster:
     55 7054				REG_PUSH
-Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\macro.asm]
+Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2018\test_rainbow_gtia\macro.asm]
      1 7054 48				pha
      2 7055 8A				txa
      3 7056 48				pha
      4 7057 98				tya
      5 7058 48				pha
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\screen_mem.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2018\test_rainbow_gtia\screen_mem.asm
     56 7059 AD 00 70 8D 6C 70 + 	mwa screen_adr screen_fill_raster_loop_2+1
     57 7065 A9 AA			lda #$AA
     58 7067 A2 18			ldx #24
@@ -254,13 +254,13 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\screen_mem.asm
     66 7074 CA				dex
     67 7075 D0 F4			bne screen_fill_raster_loop_2
     68 7077				REG_PULL
-Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\macro.asm]
+Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2018\test_rainbow_gtia\macro.asm]
      1 7077 68				pla
      2 7078 A8				tay
      3 7079 68				pla
      4 707A AA				tax
      5 707B 68				pla
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\screen_mem.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2018\test_rainbow_gtia\screen_mem.asm
     69 707C 60				rts	
     70
     71 					
@@ -283,9 +283,9 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\screen_mem.asm
     88 70A8 60				rts
     89 					
     13 70A9				ICL 'display_list.asm'
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\display_list.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2018\test_rainbow_gtia\display_list.asm
      1 70A9				ICL 'display_list_const.asm'
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\display_list_const.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2018\test_rainbow_gtia\display_list_const.asm
      1 = 0230			DLIST   = $230
      2 = 0230			DLISTL  = $230 ; display list pointer low byte
      3 = 0231			DLISTH  = $231 ;                      high byte
@@ -388,7 +388,7 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\display_list_co
     44
     45 						
     14 39B6				ICL 'wait_vsync.asm'
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\wait_vsync.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2018\test_rainbow_gtia\wait_vsync.asm
      1
      2
      3 39B6			wait_hsync:
@@ -413,7 +413,7 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\wait_vsync.asm
     22 39C7 60				rts
     23 					
     15 39C8				ICL 'math.asm'
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\test_rainbow_gtia\math.asm
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2018\test_rainbow_gtia\math.asm
      1 39C8				org $1F00
      2 					
      3 1F00			math_sin	
