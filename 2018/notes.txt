@@ -9,3 +9,5 @@ http://raster.infos.cz/atari/rmt/rmt.htm
 https://user.xmission.com/~trevin/atari/antic_regs.html#NMIST
 
 
+https://www.atarimagazines.com/v3n5/allmodes.html
+https://www.atarimagazines.com/compute/issue26/Atari_Video_Graphics_And_The_New_GTIA.php
