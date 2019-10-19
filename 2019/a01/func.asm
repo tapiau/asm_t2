@@ -23,7 +23,7 @@ memcopy_block_loop:
 memcopy_screen_func:
 	REG_PUSH
 	
-	ldx #24
+	ldx #30
 memcopy_screen_func_loop:
 	jsr memcopy_block_func
 	lda memcopy_block_src+1
@@ -49,7 +49,7 @@ screen_clear:
 	REG_PUSH
 	mwa screen_adr screen_clear_loop_2+1
 	lda #0
-	ldx #24
+	ldx #30
 screen_clear_loop_1
 	ldy #0	
 screen_clear_loop_2	
@@ -66,7 +66,7 @@ screen_fill:
 	REG_PUSH
 	mwa screen_adr screen_fill_loop_2+1
 	lda #255
-	ldx #24
+	ldx #30
 screen_fill_loop_1
 	ldy #0	
 screen_fill_loop_2	

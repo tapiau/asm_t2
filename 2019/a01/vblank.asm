@@ -7,24 +7,19 @@ vvblkd equ $0224
 nmi_set:
 
 	lda RTCLOCK_0
-czekaj:
+nmi_wait:
 	cmp RTCLOCK_0
-	beq czekaj 
+	beq nmi_wait 
        
 	sei ; interrupt off
 	mva #$00 NMIEN
 	sta DMACTL
 	mva #$fe PORTB ; wy³¹czenie basica?
 
-;	mwa $fffa nmi_old_vector	
 	mwa #NMI NMIVECT ; nowa procedura przerwania
-
-;	mwa vvblkd nmi_old_vector	
-;	mwa #NMI vvblkd ; nowa procedura przerwania
-
-	mva #$c0 NMIEN
+	mva #(NMIEN_DLI+NMIEN_VBI) NMIEN
 		
-	MUSIC_INIT
+;	MUSIC_INIT
 	
 	rts
 	
@@ -41,7 +36,7 @@ VBL:
 	clc
 	adc #1
 	sta RTCLOCK_0
-	jsr rmt_play
+;	jsr rmt_play ; uncomment when music enabled
 	REG_PULL
 ;	jmp (nmi_old_vector)
 	

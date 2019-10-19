@@ -3,7 +3,7 @@
 screen_mem_1 = $4000
 screen_mem_1_1 = $4800
 screen_mem_1_2 = $5000
-	:6144 dta 0
+	:6144 dta $00
 	
 	org $5800
 screen_mem_2 = $5800

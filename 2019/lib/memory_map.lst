@@ -1,0 +1,124 @@
+mads 2.0.6 build 58 (28 Jan 17)
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\lib\memory_map.asm
+     1 = 0012			RTCLOCK_2 = $12
+     2 = 0013			RTCLOCK_1 = $13
+     3 = 0014			RTCLOCK_0 = $14
+     4
+     5 				;DLIST   = $230
+     6 				;DLISTL  = $230 ; display list pointer low byte
+     7 				;DLISTH  = $231 ;                      high byte
+     8
+     9 = D402			DLIST	= $D402
+    10 = D402			DLISTL	= $D402
+    11 = D403			DLISTH	= $D403
+    12
+    13
+    14 = 02C8			COLRBK  = $2C8
+    15
+    16 = D016			COLPF0	= $D016  
+    17 = D017			COLPF1	= $D017  
+    18 = D018			COLPF2	= $D018  
+    19 = D019			COLPF3	= $D019
+    20 = D01A			COLBG	= $D01A 
+    21
+    22 = 02C4			COLOR0	= $02C4
+    23 = 02C5			COLOR1	= $02C5
+    24 = 02C6			COLOR2	= $02C6
+    25 = 02C7			COLOR3	= $02C7
+    26 = 02C8			COLOR4 	= $02C8
+    27
+    28 				;SDMCTL  = $022F
+    29 				;DMACTLS = $022F
+    30
+    31 = 0001			DMACTL_PLAYFIELD_NARROW = 1
+    32 = 0002			DMACTL_PLAYFIELD_NORMAL = 2
+    33 = 0003			DMACTL_PLAYFIELD_WIDE   = 3
+    34 = 0004			DMACTL_DMA_MISSLE       = 4
+    35 = 0008			DMACTL_DMA_PLAYER       = 8
+    36 = 0010			DMACTL_SINGLE_LINE_RES  = 16
+    37 = 0020			DMACTL_DMA_DLI          = 32
+    38 = 0080			NMIEN_DLI   = 128
+    39 = 0040			NMIEN_VBI   = 64
+    40 = 0020			NMIEN_RESET = 32
+    41
+    42
+    43 = D400			DMACTL  = $D400
+    44 = 0200			VDSLST  = $0200 ; display list interrupt vector
+    45 = D40E			NMEN	= $D40E
+    46 = D40E			NMIEN	= $D40E ; bit 7
+    47 = FFFA			NMIVECT = $FFFA
+    48 = D40A			WSYNC   = $D40A
+    49 = D40B			VCOUNT  = $D40B
+    50 = D40F			NMIST 	= $D40F ; read
+    51 = D40F			NMIRES  = $D40F ; write
+    52 = D301			PORTB	= $D301
+    53
+    54 = 02C5			GR8_PEN   = COLOR1
+    55 = 02C6			GR8_PAPER = COLOR2
+    56 = 02C8			GR8_FRAME = COLOR4 
+    57
+    58 = D017			DLI_PEN   = COLPF1
+    59 = D018			DLI_PAPER = COLPF2
+    60 = D01A			DLI_FRAME = COLBG 
+    61
+    62 = 0000			COLOR_BLACK = $00
+    63 = 000E			COLOR_WHITE = $0E
+    64 = 00AC			COLOR_CYAN  = $AC
+    65 = 0070			COLOR_RED   = $70
+    66 = 00DE			COLOR_GREEN = $DE
+    67 = 0098			COLOR_BLUE  = $98
+    68
+    69 = D012			COLPM0	= $D012
+    70 = D013			COLPM1	= $D013
+    71 = D014			COLPM2	= $D014
+    72 = D015			COLPM3	= $D015
+    73
+    74 				;COLPM0S	= $02C0
+    75 				;COLPM1S	= $02C1
+    76 				;COLPM2S	= $02C2
+    77 				;COLPM3S	= $02C3
+    78
+    79
+    80 = D008			SIZEP0	= $D008
+    81 = D009			SIZEP1	= $D009
+    82 = D00A			SIZEP2	= $D00A
+    83 = D00B			SIZEP3	= $D00B
+    84
+    85 = D00C			SIZEM	= $D00C
+    86
+    87 = D000			HPOSP0	= $D000
+    88 = D001			HPOSP1	= $D001
+    89 = D002			HPOSP2	= $D002
+    90 = D003			HPOSP3	= $D003
+    91
+    92 = D004			HPOSM0	= $D004
+    93 = D005			HPOSM1	= $D005
+    94 = D006			HPOSM2	= $D006
+    95 = D007			HPOSM3	= $D007
+    96
+    97 = D01C			VDELAY	= $D01C
+    98
+    99 = D01B			GTIACTL	= $D01B
+   100 = 026F			GTIACTLS = $026F
+   101
+   102 = D01D			GRACTL  = $D01D
+   103 = D01D			PMCTL	= $D01D
+   104
+   105 = D407			PMBASE = $D407
+   106
+   107 				;     SAVMSC $0058,2       (88): pointer to current screen for CIO commands
+   108 				;     RAMTOP $006A        (106): start-of-ROM pointer (MSB only)
+   109 				;     VDSLST $0200,2      (512): DLI vector
+   110 				;     RAMSIZ $02E4        (740): permanent start-of-ROM pointer (MSB only)
+   111 				;     DLISTL $D402      (54274): display list pointer low byte
+   112 				;     DLISTH $D403      (54275):     "    high byte
+   113 				;     HSCROL $D404      (54276): horizontal scroll register
+   114 				;     VSCROL $D405      (54277): vertical scroll register
+   115 				;     NMIEN  $D40E      (54286): NMI enable (DLIs)
+   116 				;     
+   117 				;     
+   118 				;                               Shadow registers
+   119 				;     
+   120 				;     
+   121 				;     SDLSTL $0230        (560): DLISTL
+   122 				;     SDLSTH $0231        (561): DLISTH

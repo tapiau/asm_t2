@@ -51,7 +51,7 @@ SLEEP_LOOP:
 .ENDM
 
 .MACRO LINE_COLOR_CALC
-	dex
+	inx
 	dey
 .ENDM
 
@@ -76,8 +76,8 @@ SLEEP_LOOP:
 	LINE_COLOR_CALC
 	sty COLPM0
 	sty COLPM1
-	stx COLPM2
-	stx COLPM3
+	sty COLPM2
+	sty COLPM3
 	stx DLI_PAPER	; 4 cycles
 	LINE_SPACE_10_CYCLES
 	nop
@@ -89,8 +89,8 @@ SLEEP_LOOP:
 	LINE_COLOR_CALC
 	sty COLPM0
 	sty COLPM1
-	stx COLPM2
-	stx COLPM3
+	sty COLPM2
+	sty COLPM3
 	stx DLI_PAPER	; 4 cycles
 	LINE_SPACE_10_CYCLES
 	sty DLI_PAPER	; 4 cycles
