@@ -71,9 +71,9 @@ part_test1_dli_handler:
 	sty HPOSP0
 	ldy #64+32
 	sty HPOSP1
-	ldy #64+40
+	ldy #64+64
 	sty HPOSP2
-	ldy #64+48
+	ldy #64+96
 	sty HPOSP3
 	LINE_WAIT
 	lda #COLOR_BLACK
@@ -89,8 +89,8 @@ part_test1_dli_handler:
 	
 	lda #COLOR_WHITE
 	sta DLI_FRAME
-	lda #COLOR_BLACK
-	sta DLI_PAPER
+	lda #COLOR_WHITE
+	sta DLI_PEN
 	LINE_WAIT
 ;	lda #COLOR_RED
 ;	sta COLPM0
@@ -115,6 +115,7 @@ part_test1_dli_handler:
 	sta SIZEP0	; SIZEP0
 	sta SIZEP1	; SIZEP0
 	sta SIZEP2	; SIZEP0
+	lda #1
 	sta SIZEP3      ; SIZEP0
 
 	LINE_WAIT
@@ -124,7 +125,7 @@ part_test1_dli_handler:
 
 	:14 nop
 	; enable PMG
-	lda #0
+	lda #2
 	sta PMCTL	; PMCTL
 
 	nop

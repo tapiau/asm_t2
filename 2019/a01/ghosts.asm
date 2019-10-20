@@ -5,17 +5,29 @@ pm_base:
 pm_missle:
 	:256 dta $FF
 pm_player0:
-	:24  dta $00
-	:232 dta $FF
+	:32  dta $00
+	:96  dta $FF
+	:48  dta $55
+	:48  dta $AA
+	:32  dta $00
 pm_player1:
-	:24  dta $00
-	:232 dta $FF
+	:32  dta $00
+	:96  dta $FF
+	:48  dta $55
+	:48  dta $AA
+	:32  dta $00
 pm_player2:
-	:24  dta $00
-	:232 dta $FF
+	:32  dta $00
+	:96  dta $FF
+	:48  dta $55
+	:48  dta $AA
+	:32  dta $00
 pm_player3:
-	:24  dta $00
-	:232 dta $FF
+	:32  dta $00
+	:96  dta $FF
+	:48  dta $55
+	:48  dta $AA
+	:32  dta $00
 	
 .MACRO PM_SHOW
 
