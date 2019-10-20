@@ -258,10 +258,10 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\..\lib\memory_map.asm
      5
      6 					.proc main
      7 					
-     8 FFFF> 2000-22B8> 20 7A + 	jsr nmi_set
+     8 FFFF> 2000-22AF> 20 71 + 	jsr nmi_set
      9
     10 2003 20 98 39			jsr dl_set_mode
-    11 2006 20 CD 20			jsr part_test1
+    11 2006 20 CE 20			jsr part_test1
     12 					
     13 2009 60				rts
     14
@@ -459,349 +459,375 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\part_test1.asm
      5
      6 20C9 00			part_test1_tmpx dta 0
      7 20CA 00			part_test1_tmpy dta 0
-     8 20CB 00			part_test1_sync: dta 0
-     9 20CC 00			part_test1_line: dta 0
-    10
+     8 20CB 00			part_test1_tmpa dta 0
+     9 20CC 00			part_test1_sync: dta 0
+    10 20CD 00			part_test1_line: dta 0
     11
-    12 20CD			part_test1:
-    13 20CD				DLI_ENABLE part_test1_dli_handler
-Macro: DLI_ENABLE [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\macro.asm]
-     1 20CD A9 B6 8D 00 02 A9 + 	mwa #PART_TEST1_DLI_HANDLER VDSLST
-     2 20D7 A9 B6 8D A4 22 A9 + 	mwa #PART_TEST1_DLI_HANDLER nmi_dli_handler_vector
-     3 20E1 A9 C0			lda #$c0
-     4 20E3 8D 0E D4			sta NMIEN
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\part_test1.asm
+    12
+    13 20CE			part_test1:
     14
-    15 20E6 A9 00			lda #COLOR_BLACK     
-    16 20E8 8D C5 02			sta GR8_PEN
-    17 20EB A9 00			lda #COLOR_BLACK     
-    18 20ED 8D C6 02			sta GR8_PAPER
-    19 20F0 A9 00			lda #COLOR_BLACK     
-    20 20F2 8D C8 02			sta GR8_FRAME
+    15 20CE A9 00			lda #0     
+    16 20D0 8D 17 D0			sta DLI_PEN
+    17 20D3 A9 00			lda #COLOR_BLACK     
+    18 20D5 8D 18 D0			sta DLI_PAPER
+    19 20D8 A9 00			lda #COLOR_BLACK     
+    20 20DA 8D 1A D0			sta DLI_FRAME
     21 					
-    22 20F5 A9 0E			lda #COLOR_WHITE
-    23 20F7 8D C5 02			sta COLOR1
-    24 20FA A9 00			lda #COLOR_BLACK
-    25 20FC 8D C6 02			sta COLOR2
-    26
-    27 20FF 20 A8 20			jsr screen_set_write_1
-    28 2102 20 9D 20			jsr screen_set_read_1
-    29 					
-    30 				;	MEMCOPY_SCREEN image_data_unicorn screen_mem_1
-    31 					
-    32 2105				PM_SHOW
+    22 20DD 20 A8 20			jsr screen_set_write_1
+    23 20E0 20 9D 20			jsr screen_set_read_1
+    24
+    25 20E3				MEMCOPY_SCREEN image_data_unicorn screen_mem_1
+Macro: MEMCOPY_SCREEN [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\func.asm]
+     1 20E3 A9 00 85 EC A9 70 + 	mwa #IMAGE_DATA_UNICORN memcopy_block_src
+     2 20EB A9 00 85 EE A9 40 + 	mwa #SCREEN_MEM_1 memcopy_block_dst
+     4 20F3 20 30 20			jsr memcopy_screen_func	
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\part_test1.asm
+    26 					
+    27 20F6				PM_SHOW
 Macro: PM_SHOW [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\ghosts.asm]
-     2 2105 A9 60			lda #$60
-     3 2107 8D 07 D4			sta PMBASE	; PMBASE
-     5 210A A9 01			lda #1
-     6 210C 8D 1B D0			sta GTIACTL		; GTIACTLS
-     9 210F A9 00			lda #0
-    10 2111 8D 08 D0			sta SIZEP0	; SIZEP0
-    11 2114 A9 00			lda #0
-    12 2116 8D 09 D0			sta SIZEP1	; SIZEP1
-    13 2119 A9 00			lda #0
-    14 211B 8D 0A D0			sta SIZEP2	; SIZEP2
-    15 211E A9 00			lda #0
-    16 2120 8D 0B D0			sta SIZEP3	; SIZEP3
-    19 2123 A9 02			lda #2
-    20 2125 8D 1D D0			sta PMCTL	; PMCTL
-    22 2128 A9 39			lda #57
-    23 212A 8D 00 D4			sta DMACTL		; DMACTLS
-    27 212D A9 44			lda #68
-    28 212F 8D 00 D0			sta HPOSP0 
-    30 2132 A9 58			lda #88
-    31 2134 8D 01 D0			sta HPOSP1 
-    33 2137 A9 6C			lda #108
-    34 2139 8D 02 D0			sta HPOSP2 
-    36 213C A9 B4			lda #180
-    37 213E 8D 03 D0			sta HPOSP3 
-    39 2141 A9 0E			lda #14
-    40 2143 8D 12 D0			sta COLPM0
-    41 2146 8D 13 D0			sta COLPM1
-    42 2149 8D 14 D0			sta COLPM2
-    43 214C 8D 15 D0			sta COLPM3
+     2 20F6 A9 60			lda #$60
+     3 20F8 8D 07 D4			sta PMBASE	; PMBASE
+     5 20FB A9 01			lda #$01
+     6 20FD 8D 1B D0			sta GTIACTL		; GTIACTLS
+     8 2100 A9 00			lda #0
+    10 2102 8D 08 D0			sta SIZEP0	; SIZEP0
+    11 2105 8D 09 D0			sta SIZEP1	; SIZEP1
+    12 2108 8D 0A D0			sta SIZEP2	; SIZEP2
+    13 210B 8D 0B D0			sta SIZEP3	; SIZEP3
+    15 210E 8D 00 D0			sta HPOSP0 
+    16 2111 8D 01 D0			sta HPOSP1 
+    17 2114 8D 02 D0			sta HPOSP2 
+    18 2117 8D 03 D0			sta HPOSP3
+    20 211A 8D 12 D0			sta COLPM0
+    21 211D 8D 13 D0			sta COLPM1
+    22 2120 8D 14 D0			sta COLPM2
+    23 2123 8D 15 D0			sta COLPM3
+    26 2126 A9 02			lda #2
+    27 2128 8D 1D D0			sta PMCTL	; PMCTL
+    29 212B A9 39			lda #57
+    30 212D 8D 00 D4			sta DMACTL		; DMACTLS
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\part_test1.asm
-    33
-    34
-    35 214F			part_test1_0:
-    36
-    37 					
-    38 214F			part_test1_0_idle:
-    39 					
-    40 					;PM_MOVE
-    41 					
-    42 214F 4C 4F 21			jmp part_test1_0_idle
-    43
-    44 2152				SLEEP 250
+    28
+    29 2130 A9 04			lda #$04
+    30 2132 8D 1B D0			sta GTIACTL		; GTIACTLS
+    31
+    32 2135 A9 02			lda #2
+    33 2137 8D 1D D0			sta PMCTL	; PMCTL
+    34 					
+    35 					; szerokoœæ
+    36 213A A9 02			lda #2
+    37 213C 8D 08 D0			sta SIZEP0	; SIZEP0
+    38 					; pozycja
+    39 213F A9 5A			lda #90
+    40 2141 8D 00 D0			sta HPOSP0 
+    41 					; kolor 
+    42 2144 A9 CA			lda #$CA
+    43 2146 8D 12 D0			sta COLPM0
+    44 					
+    45 2149				DLI_ENABLE part_test1_dli_handler
+Macro: DLI_ENABLE [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\macro.asm]
+     1 2149 A9 C9 8D 00 02 A9 + 	mwa #PART_TEST1_DLI_HANDLER VDSLST
+     2 2153 A9 C9 8D 9B 22 A9 + 	mwa #PART_TEST1_DLI_HANDLER nmi_dli_handler_vector
+     3 215D A9 C0			lda #$c0
+     4 215F 8D 0E D4			sta NMIEN
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\part_test1.asm
+    46 					
+    47 					
+    48
+    49
+    50 2162			part_test1_0:
+    51
+    52 					
+    53 2162			part_test1_0_idle:
+    54 					
+    55 					;PM_MOVE
+    56 					
+    57 2162 4C 62 21			jmp part_test1_0_idle
+    58
+    59 2165				SLEEP 250
 Macro: SLEEP [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\macro.asm]
-     1 2152 A5 14			lda RTCLOCK_0
-     2 2154 18 69 FA			add #250
-     3 2157			SLEEP_LOOP:
-     4 2157 C5 14			cmp RTCLOCK_0
-     5 2159 D0 FC			bne SLEEP_LOOP
-     6 215B EA				nop
+     1 2165 A5 14			lda RTCLOCK_0
+     2 2167 18 69 FA			add #250
+     3 216A			SLEEP_LOOP:
+     4 216A C5 14			cmp RTCLOCK_0
+     5 216C D0 FC			bne SLEEP_LOOP
+     6 216E EA				nop
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\part_test1.asm
-    45 215C				SLEEP 250
+    60 216F				SLEEP 250
 Macro: SLEEP [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\macro.asm]
-     1 215C A5 14			lda RTCLOCK_0
-     2 215E 18 69 FA			add #250
-     3 2161			SLEEP_LOOP:
-     4 2161 C5 14			cmp RTCLOCK_0
-     5 2163 D0 FC			bne SLEEP_LOOP
-     6 2165 EA				nop
+     1 216F A5 14			lda RTCLOCK_0
+     2 2171 18 69 FA			add #250
+     3 2174			SLEEP_LOOP:
+     4 2174 C5 14			cmp RTCLOCK_0
+     5 2176 D0 FC			bne SLEEP_LOOP
+     6 2178 EA				nop
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\part_test1.asm
-    46 2166				SLEEP 250
+    61 2179				SLEEP 250
 Macro: SLEEP [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\macro.asm]
-     1 2166 A5 14			lda RTCLOCK_0
-     2 2168 18 69 FA			add #250
-     3 216B			SLEEP_LOOP:
-     4 216B C5 14			cmp RTCLOCK_0
-     5 216D D0 FC			bne SLEEP_LOOP
-     6 216F EA				nop
+     1 2179 A5 14			lda RTCLOCK_0
+     2 217B 18 69 FA			add #250
+     3 217E			SLEEP_LOOP:
+     4 217E C5 14			cmp RTCLOCK_0
+     5 2180 D0 FC			bne SLEEP_LOOP
+     6 2182 EA				nop
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\part_test1.asm
-    47 2170				SLEEP 250
+    62 2183				SLEEP 250
 Macro: SLEEP [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\macro.asm]
-     1 2170 A5 14			lda RTCLOCK_0
-     2 2172 18 69 FA			add #250
-     3 2175			SLEEP_LOOP:
-     4 2175 C5 14			cmp RTCLOCK_0
-     5 2177 D0 FC			bne SLEEP_LOOP
-     6 2179 EA				nop
+     1 2183 A5 14			lda RTCLOCK_0
+     2 2185 18 69 FA			add #250
+     3 2188			SLEEP_LOOP:
+     4 2188 C5 14			cmp RTCLOCK_0
+     5 218A D0 FC			bne SLEEP_LOOP
+     6 218C EA				nop
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\part_test1.asm
-    48 217A				SLEEP 250
+    63 218D				SLEEP 250
 Macro: SLEEP [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\macro.asm]
-     1 217A A5 14			lda RTCLOCK_0
-     2 217C 18 69 FA			add #250
-     3 217F			SLEEP_LOOP:
-     4 217F C5 14			cmp RTCLOCK_0
-     5 2181 D0 FC			bne SLEEP_LOOP
-     6 2183 EA				nop
+     1 218D A5 14			lda RTCLOCK_0
+     2 218F 18 69 FA			add #250
+     3 2192			SLEEP_LOOP:
+     4 2192 C5 14			cmp RTCLOCK_0
+     5 2194 D0 FC			bne SLEEP_LOOP
+     6 2196 EA				nop
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\part_test1.asm
-    49 2184				SLEEP 250
+    64 2197				SLEEP 250
 Macro: SLEEP [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\macro.asm]
-     1 2184 A5 14			lda RTCLOCK_0
-     2 2186 18 69 FA			add #250
-     3 2189			SLEEP_LOOP:
-     4 2189 C5 14			cmp RTCLOCK_0
-     5 218B D0 FC			bne SLEEP_LOOP
-     6 218D EA				nop
+     1 2197 A5 14			lda RTCLOCK_0
+     2 2199 18 69 FA			add #250
+     3 219C			SLEEP_LOOP:
+     4 219C C5 14			cmp RTCLOCK_0
+     5 219E D0 FC			bne SLEEP_LOOP
+     6 21A0 EA				nop
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\part_test1.asm
-    50 					
-    51 218E				DLI_DISABLE
+    65 					
+    66 21A1				DLI_DISABLE
 Macro: DLI_DISABLE [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\macro.asm]
-     1 218E A9 B8 8D 00 02 A9 + 	mwa #dli_pass VDSLST
-     2 2198 A9 B8 8D A4 22 A9 + 	mwa #dli_pass nmi_dli_handler_vector
-     4 21A2 A9 40			lda #$40
-     5 21A4 8D 0E D4			sta NMIEN
+     1 21A1 A9 AF 8D 00 02 A9 + 	mwa #dli_pass VDSLST
+     2 21AB A9 AF 8D 9B 22 A9 + 	mwa #dli_pass nmi_dli_handler_vector
+     4 21B5 A9 40			lda #$40
+     5 21B7 8D 0E D4			sta NMIEN
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\part_test1.asm
-    52 21A7				PM_HIDE
+    67 21BA				PM_HIDE
 Macro: PM_HIDE [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\ghosts.asm]
-     1 21A7 A9 00			lda #0
-     2 21A9 8D 00 D0			sta HPOSP0 
-     3 21AC 8D 01 D0			sta HPOSP1 
-     4 21AF 8D 02 D0			sta HPOSP2 
-     5 21B2 8D 03 D0			sta HPOSP3 
+     1 21BA A9 00			lda #0
+     2 21BC 8D 00 D0			sta HPOSP0 
+     3 21BF 8D 01 D0			sta HPOSP1 
+     4 21C2 8D 02 D0			sta HPOSP2 
+     5 21C5 8D 03 D0			sta HPOSP3 
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\part_test1.asm
-    53
-    54 21B5 60				rts
-    55
-    56 21B6			part_test1_dli_handler:
-    57
-    58 				; line:
-    59 				; 32 cycles - frame (2+26+4)
-    60 				; 28 cycles - screen
-    61
-    62 21B6				REG_PUSH
+    68
+    69 21C8 60				rts
+    70
+    71 21C9			part_test1_dli_handler:
+    72
+    73 				; line:
+    74 				; 32 cycles - frame (2+26+4)
+    75 				; 28 cycles - screen
+    76
+    77 21C9				REG_PUSH
 Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\macro.asm]
-     1 21B6 48				pha
-     2 21B7 8A				txa
-     3 21B8 48				pha
-     4 21B9 98				tya
-     5 21BA 48				pha
+     1 21C9 48				pha
+     2 21CA 8A				txa
+     3 21CB 48				pha
+     4 21CC 98				tya
+     5 21CD 48				pha
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\part_test1.asm
-    63 					
-    64 					; disable PMG
-    65 21BB A9 00			lda #0
-    66 21BD 8D 1D D0			sta PMCTL	; PMCTL
-    67 					
-    68 21C0 A9 00			lda #0
-    69 21C2				LINE_WAIT
+    78 					
+    79 					; disable PMG
+    80
+    81 21CE A9 00			lda #0
+    82 21D0				LINE_WAIT
 Macro: LINE_WAIT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\macro.asm]
-     1 21C2 8D 0A D4			sta WSYNC	;WAIT
+     1 21D0 8D 0A D4			sta WSYNC	;WAIT
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\part_test1.asm
-    70 21C5 A0 40			ldy #64+0
-    71 21C7 8C 00 D0			sty HPOSP0
-    72 21CA A0 60			ldy #64+32
-    73 21CC 8C 01 D0			sty HPOSP1
-    74 21CF A0 80			ldy #64+64
-    75 21D1 8C 02 D0			sty HPOSP2
-    76 21D4 A0 A0			ldy #64+96
-    77 21D6 8C 03 D0			sty HPOSP3
-    78 21D9				LINE_WAIT
+    83 21D3 A0 00			ldy #0
+    84 				;	ldy #64+0
+    85 				;	sty HPOSP0
+    86 				;	ldy #64+32
+    87 				;	sty HPOSP1
+    88 				;	ldy #64+64
+    89 				;	sty HPOSP2
+    90 				;	ldy #64+96
+    91 				;	sty HPOSP3
+    92 21D5				LINE_WAIT
 Macro: LINE_WAIT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\macro.asm]
-     1 21D9 8D 0A D4			sta WSYNC	;WAIT
+     1 21D5 8D 0A D4			sta WSYNC	;WAIT
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\part_test1.asm
-    79 21DC A9 00			lda #COLOR_BLACK
-    80 21DE 8D 12 D0			sta COLPM0
-    81 21E1 A9 C4			lda #COLOR_GREEN
-    82 21E3 8D 13 D0			sta COLPM1
-    83 21E6 A9 94			lda #COLOR_BLUE
-    84 21E8 8D 14 D0			sta COLPM2
-    85 21EB A9 1F			lda #COLOR_YELLOW
-    86 21ED 8D 15 D0			sta COLPM3
-    87
-    88 21F0 8D 0A D4 8D 0A D4 + 	:11 LINE_WAIT
-    89 					
-    90 2211 A9 0E			lda #COLOR_WHITE
-    91 2213 8D 1A D0			sta DLI_FRAME
-    92 2216 A9 0E			lda #COLOR_WHITE
-    93 2218 8D 17 D0			sta DLI_PEN
-    94 221B				LINE_WAIT
+    93 				;	lda #COLOR_RED
+    94 				;	sta COLPM0
+    95 				;	lda #COLOR_GREEN
+    96 				;	sta COLPM1
+    97 				;	lda #COLOR_BLUE
+    98 				;	sta COLPM2
+    99 				;	lda #COLOR_YELLOW
+   100 				;	sta COLPM3
+   101
+   102 21D8 8D 0A D4 8D 0A D4 + 	:11 LINE_WAIT
+   103 					
+   104 21F9				LINE_WAIT
 Macro: LINE_WAIT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\macro.asm]
-     1 221B 8D 0A D4			sta WSYNC	;WAIT
+     1 21F9 8D 0A D4			sta WSYNC	;WAIT
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\part_test1.asm
-    95 				;	lda #COLOR_RED
-    96 				;	sta COLPM0
-    97 221E				LINE_WAIT
+   105 				;	lda #COLOR_RED
+   106 				;	sta COLPM0
+   107 21FC				LINE_WAIT
 Macro: LINE_WAIT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\macro.asm]
-     1 221E 8D 0A D4			sta WSYNC	;WAIT
+     1 21FC 8D 0A D4			sta WSYNC	;WAIT
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\part_test1.asm
-    98
-    99 					; init color value
-   100 					; init color value
-   101 					
-   102 				;	ldy RTCLOCK_0
-   103 				;	lda math_sin,y
-   104 				;	sta bar_color1
-   105 				;	tya
-   106 				;	eor #$ff
-   107 				;	tay
-   108 				;	lda math_sin,y
-   109 				;	sta bar_color2	
-   110
-   111 				;	ldx bar_color1
-   112 				;	ldy bar_color2
-   113
-   114 2221 A9 03			lda #3
-   115 2223 8D 08 D0			sta SIZEP0	; SIZEP0
-   116 2226 8D 09 D0			sta SIZEP1	; SIZEP0
-   117 2229 8D 0A D0			sta SIZEP2	; SIZEP0
-   118 222C A9 01			lda #1
-   119 222E 8D 0B D0			sta SIZEP3      ; SIZEP0
+   108
+   109 					; init color value
+   110 					; init color value
+   111 					
+   112 				;	ldy RTCLOCK_0
+   113 				;	lda math_sin,y
+   114 				;	sta bar_color1
+   115 				;	tya
+   116 				;	eor #$ff
+   117 				;	tay
+   118 				;	lda math_sin,y
+   119 				;	sta bar_color2	
    120
-   121 2231				LINE_WAIT
-Macro: LINE_WAIT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\macro.asm]
-     1 2231 8D 0A D4			sta WSYNC	;WAIT
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\part_test1.asm
-   122
-   123 2234 A2 F0			ldx #240 
-   124
-   125
-   126 2236 EA EA EA EA EA EA + 	:14 nop
-   127 					; enable PMG
-   128 2244 A9 02			lda #2
-   129 2246 8D 1D D0			sta PMCTL	; PMCTL
+   121 				;	ldx bar_color1
+   122 				;	ldy bar_color2
+   123
+   124 				;	lda #3
+   125 				;	sta SIZEP0	; SIZEP0
+   126 				;	sta SIZEP1	; SIZEP0
+   127 				;	sta SIZEP2	; SIZEP0
+   128 				;	lda #1
+   129 				;	sta SIZEP3      ; SIZEP0
    130
-   131 2249 EA				nop
-   132 224A EA				nop
-   133
-   134 224B				LINE_WAIT
+   131 21FF				LINE_WAIT
 Macro: LINE_WAIT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\macro.asm]
-     1 224B 8D 0A D4			sta WSYNC	;WAIT
+     1 21FF 8D 0A D4			sta WSYNC	;WAIT
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\part_test1.asm
-   135 					
-   136 224E			part_test1_p1:	 ; 67 cycles
-   137 224E EA EA EA EA EA EA + 	:11 nop
-   138 				 
-   139 2259 8D 18 D0			sta DLI_PAPER   ; 4
-   140 225C EA EA EA EA EA EA + 	:17 nop		; 56
-   141
-   142 					
-   143 226D 69 01			adc #1          ; 2
-   144 226F CA				dex             ; 2  
-   145 					; stx WSYNC       ; 4
-   146 2270 D0 DC			bne part_test1_p1 ; 3
-   147 					
-   148
-   149 2272				REG_PULL
+   132
+   133 2202 EA EA EA EA EA EA + 	:14 nop
+   134 					; enable PMG
+   135
+   136 2210 EA				nop
+   137 2211 EA				nop
+   138
+   139 2212 A9 00			lda #0;
+   140 2214 A2 80			ldx #128 
+   141 2216				LINE_WAIT
+Macro: LINE_WAIT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\macro.asm]
+     1 2216 8D 0A D4			sta WSYNC	;WAIT
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\part_test1.asm
+   142 					    
+   143 2219			part_test1_p1:	 ; 67 cycles
+   144 2219 EA EA			:2 nop
+   145 221B 8D CB 20			sta part_test1_tmpa	; 2
+   146 221E 4A				lsr			; 1
+   147 221F 4A				lsr			; 1
+   148 2220 4A				lsr			; 1
+   149 2221 69 10			adc #$10		; 1
+   150 2223 8D 18 D0		 	sta DLI_PAPER   	; 2
+   151 2226 EA EA EA			:3 nop
+   152 					;adc #1			; 1
+   153 				 	;sta DLI_PEN   	; 2
+   154 2229 AD CB 20			lda part_test1_tmpa	
+   155 222C EA EA EA EA EA EA + 	:15 nop		; 56
+   156 223B 69 01			adc #1          ; 2
+   157 223D CA				dex             ; 2  
+   158 					; stx WSYNC       ; 4
+   159 223E D0 D9			bne part_test1_p1 ; 3
+   160
+   161
+   162 2240 A2 B0			ldx #176 
+   163 2242				LINE_WAIT
+Macro: LINE_WAIT [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\macro.asm]
+     1 2242 8D 0A D4			sta WSYNC	;WAIT
+Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\part_test1.asm
+   164 					
+   165 2245			part_test1_p2:	 ; 67 cycles
+   166 2245 EA EA EA EA EA EA + 	:11 nop
+   167 2250 8D 18 D0		 	sta DLI_PAPER   ; 4
+   168 2253 EA EA EA EA EA EA + 	:17 nop		; 56
+   169 2264 69 01			adc #1          ; 2
+   170 2266 CA				dex             ; 2  
+   171 					; stx WSYNC       ; 4
+   172 2267 D0 DC			bne part_test1_p2 ; 3
+   173 					
+   174
+   175 2269				REG_PULL
 Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\macro.asm]
-     1 2272 68				pla
-     2 2273 A8				tay
-     3 2274 68				pla
-     4 2275 AA				tax
-     5 2276 68				pla
+     1 2269 68				pla
+     2 226A A8				tay
+     3 226B 68				pla
+     4 226C AA				tax
+     5 226D 68				pla
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\part_test1.asm
-   150 2277 40				rti
-   151 					
-   152 					
-   153 					
-    20 2278				ICL 'vblank.asm'
+   176 226E 40				rti
+   177 					
+   178 					
+   179 					
+    20 226F				ICL 'vblank.asm'
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\vblank.asm
      1 					
-     2 2278			nmi_old_vector:
-     3 2278 00 00			dta 0,0
+     2 226F			nmi_old_vector:
+     3 226F 00 00			dta 0,0
      4 					
      5 = 0224			vvblkd equ $0224
      6 					
-     7 227A			nmi_set:
+     7 2271			nmi_set:
      8
-     9 227A A5 14			lda RTCLOCK_0
-    10 227C			nmi_wait:
-    11 227C C5 14			cmp RTCLOCK_0
-    12 227E F0 FC			beq nmi_wait 
+     9 2271 A5 14			lda RTCLOCK_0
+    10 2273			nmi_wait:
+    11 2273 C5 14			cmp RTCLOCK_0
+    12 2275 F0 FC			beq nmi_wait 
     13 				       
-    14 2280 78				sei ; interrupt off
-    15 2281 A9 00 8D 0E D4		mva #$00 NMIEN
-    16 2286 8D 00 D4			sta DMACTL
-    17 2289 A9 FE 8D 01 D3		mva #$fe PORTB ; wy³¹czenie basica?
+    14 2277 78				sei ; interrupt off
+    15 2278 A9 00 8D 0E D4		mva #$00 NMIEN
+    16 227D 8D 00 D4			sta DMACTL
+    17 2280 A9 FE 8D 01 D3		mva #$fe PORTB ; wy³¹czenie basica?
     18
-    19 228E A9 9E 8D FA FF A9 + 	mwa #NMI NMIVECT ; nowa procedura przerwania
-    20 2298 A9 C0 8D 0E D4		mva #(NMIEN_DLI+NMIEN_VBI) NMIEN
+    19 2285 A9 95 8D FA FF A9 + 	mwa #NMI NMIVECT ; nowa procedura przerwania
+    20 228F A9 C0 8D 0E D4		mva #(NMIEN_DLI+NMIEN_VBI) NMIEN
     21 						
     22 				;	MUSIC_INIT
     23 					
-    24 229D 60				rts
+    24 2294 60				rts
     25 					
-    26 229E			NMI:
-    27 229E 2C 0F D4			bit NMIST
-    28 22A1 10 03			bpl VBL
+    26 2295			NMI:
+    27 2295 2C 0F D4			bit NMIST
+    28 2298 10 03			bpl VBL
     29 						
-    30 22A3 4C B8 22			jmp dli_pass
-    31 = 22A4			nmi_dli_handler_vector equ *-2
+    30 229A 4C AF 22			jmp dli_pass
+    31 = 229B			nmi_dli_handler_vector equ *-2
     32 					
-    33 22A6			VBL:
-    34 22A6				REG_PUSH
+    33 229D			VBL:
+    34 229D				REG_PUSH
 Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\macro.asm]
-     1 22A6 48				pha
-     2 22A7 8A				txa
-     3 22A8 48				pha
-     4 22A9 98				tya
-     5 22AA 48				pha
+     1 229D 48				pha
+     2 229E 8A				txa
+     3 229F 48				pha
+     4 22A0 98				tya
+     5 22A1 48				pha
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\vblank.asm
-    35 22AB A5 14			lda RTCLOCK_0
-    36 22AD 18				clc
-    37 22AE 69 01			adc #1
-    38 22B0 85 14			sta RTCLOCK_0
+    35 22A2 A5 14			lda RTCLOCK_0
+    36 22A4 18				clc
+    37 22A5 69 01			adc #1
+    38 22A7 85 14			sta RTCLOCK_0
     39 				;	jsr rmt_play ; uncomment when music enabled
-    40 22B2				REG_PULL
+    40 22A9				REG_PULL
 Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\macro.asm]
-     1 22B2 68				pla
-     2 22B3 A8				tay
-     3 22B4 68				pla
-     4 22B5 AA				tax
-     5 22B6 68				pla
+     1 22A9 68				pla
+     2 22AA A8				tay
+     3 22AB 68				pla
+     4 22AC AA				tax
+     5 22AD 68				pla
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\vblank.asm
     41 				;	jmp (nmi_old_vector)
     42 					
-    43 22B7 40				rti
+    43 22AE 40				rti
     44
-    45 22B8			dli_pass:
-    46 22B8 40				rti
+    45 22AF			dli_pass:
+    46 22AF 40				rti
     47 					
-    21 22B9				ICL 'display_list.asm'
+    21 22B0				ICL 'display_list.asm'
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\display_list.asm
      1
-     2 22B9				org $3800
+     2 22B0				org $3800
      3 				; DL for first buffer	
      4 3800-39BF> F0 70 70	dl_antic_1	dta $F0,$70,$70              ; 3x8 empty scanlines + interrupt
      5 3803 4F 00 40				dta b($4f),a(screen_mem_1)   ; $0f - mode, $40 - addr of 1/3 screen bitmap 
@@ -850,18 +876,20 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\screen_mem.asm
      1 39C0				org $4000
      2
      3 = 4000			screen_mem_1 = $4000
-     4 = 4800			screen_mem_1_1 = $4800
-     5 = 5000			screen_mem_1_2 = $5000
-     6 4000-87FF> F0 F0 F0 F0 + 	:6144 dta $f0
-     7 					
-     8 5800				org $5800
-     9 = 5800			screen_mem_2 = $5800
-    10 = 6000			screen_mem_2_1 = $6000
-    11 = 6800			screen_mem_2_2 = $6800
-    12 5800 00 00 00 00 00 00 + 	:6144 dta 0
-    13
-    14
+     4 4000-87FF> AA AA AA AA + 	:2048 dta $AA
+     5 = 4800			screen_mem_1_1 = $4800
+     6 4800 AA AA AA AA AA AA + 	:2048 dta $AA
+     7 = 5000			screen_mem_1_2 = $5000
+     8 5000 F0 F0 F0 F0 F0 F0 + 	:2048 dta $f0
+     9 					
+    10 5800				org $5800
+    11 = 5800			screen_mem_2 = $5800
+    12 = 6000			screen_mem_2_1 = $6000
+    13 = 6800			screen_mem_2_2 = $6800
+    14 5800 00 00 00 00 00 00 + 	:6144 dta 0
     15
+    16
+    17
     23 7000				ICL 'image_data.asm'
 Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\image_data.asm
      1 7000				org $7000
@@ -967,60 +995,49 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\2019\a01\ghosts.asm
     34 					lda #$60
     35 					sta PMBASE	; PMBASE
     36 				
-    37 					lda #1
+    37 					lda #$01
     38 					sta GTIACTL		; GTIACTLS
     39 				
-    40 					; szerokoœæ
-    41 					lda #0
+    40 					lda #0
+    41 					; szerokoœæ
     42 					sta SIZEP0	; SIZEP0
-    43 					lda #0
-    44 					sta SIZEP1	; SIZEP1
-    45 					lda #0
-    46 					sta SIZEP2	; SIZEP2
-    47 					lda #0
-    48 					sta SIZEP3	; SIZEP3
-    49 				
-    50 					; enable PMG
-    51 					lda #2
-    52 					sta PMCTL	; PMCTL
-    53 				
-    54 					lda #57
-    55 					sta DMACTL		; DMACTLS
+    43 					sta SIZEP1	; SIZEP1
+    44 					sta SIZEP2	; SIZEP2
+    45 					sta SIZEP3	; SIZEP3
+    46 					; pozycja
+    47 					sta HPOSP0 
+    48 					sta HPOSP1 
+    49 					sta HPOSP2 
+    50 					sta HPOSP3
+    51 					; kolor 
+    52 					sta COLPM0
+    53 					sta COLPM1
+    54 					sta COLPM2
+    55 					sta COLPM3
     56 				
-    57 					; 64 - begin
-    58 					; 4,8,12,16
-    59 					lda #68
-    60 					sta HPOSP0 
-    61 				
-    62 					lda #88
-    63 					sta HPOSP1 
-    64 				
-    65 					lda #108
-    66 					sta HPOSP2 
-    67 				
-    68 					lda #180
-    69 					sta HPOSP3 
-    70 				
-    71 					lda #14
-    72 					sta COLPM0
-    73 					sta COLPM1
-    74 					sta COLPM2
-    75 					sta COLPM3
-    76 				
-    77 				.ENDM
-    78
-    79 				.MACRO PM_HIDE
-    80 					lda #0
-    81 					sta HPOSP0 
-    82 					sta HPOSP1 
-    83 					sta HPOSP2 
-    84 					sta HPOSP3 
-    85 				.ENDM
-    86
-    87
-    88 				.MACRO PM_MOVE
-    89 					lda RTCLOCK_0
-    90 					sta 53248
-    91 				.ENDM
-    92
+    57 					; enable PMG
+    58 					lda #2
+    59 					sta PMCTL	; PMCTL
+    60 				
+    61 					lda #57
+    62 					sta DMACTL		; DMACTLS
+    63 				
+    64 					; 64 - begin
+    65 					; 4,8,12,16
+    66 				.ENDM
+    67
+    68 				.MACRO PM_HIDE
+    69 					lda #0
+    70 					sta HPOSP0 
+    71 					sta HPOSP1 
+    72 					sta HPOSP2 
+    73 					sta HPOSP3 
+    74 				.ENDM
+    75
+    76
+    77 				.MACRO PM_MOVE
+    78 					lda RTCLOCK_0
+    79 					sta 53248
+    80 				.ENDM
+    81
     27

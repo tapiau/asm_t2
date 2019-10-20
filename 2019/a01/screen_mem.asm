@@ -1,9 +1,11 @@
 	org $4000
 
 screen_mem_1 = $4000
+	:2048 dta $AA
 screen_mem_1_1 = $4800
+	:2048 dta $AA
 screen_mem_1_2 = $5000
-	:6144 dta $f0
+	:2048 dta $f0
 	
 	org $5800
 screen_mem_2 = $5800
