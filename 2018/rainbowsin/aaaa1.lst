@@ -1,7 +1,7 @@
 mads 2.0.6 build 58 (28 Jan 17)
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin\aaaa1.asm
+Source: C:\jac\wudsn\Workspace\asm_t2\2018\rainbowsin\aaaa1.asm
      1 					ICL 'macro.asm'
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin\macro.asm
+Source: C:\jac\wudsn\Workspace\asm_t2\2018\rainbowsin\macro.asm
      1 				.MACRO REG_PUSH 
      2 					pha
      3 					txa
@@ -28,7 +28,7 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin\macro.asm
      9 					.endp
     10 					
     11 2003				ICL 'part1.asm'
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin\part1.asm
+Source: C:\jac\wudsn\Workspace\asm_t2\2018\rainbowsin\part1.asm
      1 2003 00			part1_x dta 0
      2 2004 00			part1_y dta 0
      3 2005 00			part1_d dta 0
@@ -56,13 +56,13 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin\part1.asm
     25
     26
     27 2026				REG_PULL
-Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin\macro.asm]
+Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\asm_t2\2018\rainbowsin\macro.asm]
      1 2026 68				pla
      2 2027 A8				tay
      3 2028 68				pla
      4 2029 AA				tax
      5 202A 68				pla
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin\part1.asm
+Source: C:\jac\wudsn\Workspace\asm_t2\2018\rainbowsin\part1.asm
     28
     29 202B 60				rts
     30
@@ -74,13 +74,13 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin\part1.asm
     36 				; 12+1+1
     37
     38 202C				REG_PUSH
-Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin\macro.asm]
+Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\asm_t2\2018\rainbowsin\macro.asm]
      1 202C 48				pha
      2 202D 8A				txa
      3 202E 48				pha
      4 202F 98				tya
      5 2030 48				pha
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin\part1.asm
+Source: C:\jac\wudsn\Workspace\asm_t2\2018\rainbowsin\part1.asm
     39 2031 A9 00			lda #COLOR_black
     40 2033 8D 18 D0			sta DLI_PAPER ; black
     41
@@ -136,19 +136,19 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin\part1.asm
     91 211E 8D 1A D0			sta DLI_FRAME
     92
     93 2121				REG_PULL
-Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin\macro.asm]
+Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\asm_t2\2018\rainbowsin\macro.asm]
      1 2121 68				pla
      2 2122 A8				tay
      3 2123 68				pla
      4 2124 AA				tax
      5 2125 68				pla
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin\part1.asm
+Source: C:\jac\wudsn\Workspace\asm_t2\2018\rainbowsin\part1.asm
     94 2126 40				rti
     95 					
     96 					
     97 					
     12 2127				ICL 'screen_mem.asm'
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin\screen_mem.asm
+Source: C:\jac\wudsn\Workspace\asm_t2\2018\rainbowsin\screen_mem.asm
      1 2127				org $4000
      2
      3 4000			screen_mem_1
@@ -170,13 +170,13 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin\screen_mem.asm
     19
     20 7002			screen_clear:
     21 7002				REG_PUSH
-Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin\macro.asm]
+Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\asm_t2\2018\rainbowsin\macro.asm]
      1 7002 48				pha
      2 7003 8A				txa
      3 7004 48				pha
      4 7005 98				tya
      5 7006 48				pha
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin\screen_mem.asm
+Source: C:\jac\wudsn\Workspace\asm_t2\2018\rainbowsin\screen_mem.asm
     22 7007 AD 00 70 8D 1A 70 + 	mwa screen_adr screen_clear_loop_2+1
     23 7013 A9 00			lda #0
     24 7015 A2 18			ldx #24
@@ -190,24 +190,24 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin\screen_mem.asm
     32 7022 CA				dex
     33 7023 D0 F4			bne screen_clear_loop_2
     34 7025				REG_PULL
-Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin\macro.asm]
+Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\asm_t2\2018\rainbowsin\macro.asm]
      1 7025 68				pla
      2 7026 A8				tay
      3 7027 68				pla
      4 7028 AA				tax
      5 7029 68				pla
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin\screen_mem.asm
+Source: C:\jac\wudsn\Workspace\asm_t2\2018\rainbowsin\screen_mem.asm
     35 702A 60				rts	
     36
     37 702B			screen_fill:
     38 702B				REG_PUSH
-Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin\macro.asm]
+Macro: REG_PUSH [Source: C:\jac\wudsn\Workspace\asm_t2\2018\rainbowsin\macro.asm]
      1 702B 48				pha
      2 702C 8A				txa
      3 702D 48				pha
      4 702E 98				tya
      5 702F 48				pha
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin\screen_mem.asm
+Source: C:\jac\wudsn\Workspace\asm_t2\2018\rainbowsin\screen_mem.asm
     39 7030 AD 00 70 8D 43 70 + 	mwa screen_adr screen_fill_loop_2+1
     40 703C A9 FF			lda #255
     41 703E A2 08			ldx #8
@@ -221,13 +221,13 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin\screen_mem.asm
     49 704B CA				dex
     50 704C D0 F4			bne screen_fill_loop_2
     51 704E				REG_PULL
-Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin\macro.asm]
+Macro: REG_PULL [Source: C:\jac\wudsn\Workspace\asm_t2\2018\rainbowsin\macro.asm]
      1 704E 68				pla
      2 704F A8				tay
      3 7050 68				pla
      4 7051 AA				tax
      5 7052 68				pla
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin\screen_mem.asm
+Source: C:\jac\wudsn\Workspace\asm_t2\2018\rainbowsin\screen_mem.asm
     52 7053 60				rts	
     53
     54 					
@@ -250,9 +250,9 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin\screen_mem.asm
     71 707F 60				rts
     72 					
     13 7080				ICL 'display_list.asm'
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin\display_list.asm
+Source: C:\jac\wudsn\Workspace\asm_t2\2018\rainbowsin\display_list.asm
      1 7080				ICL 'display_list_const.asm'
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin\display_list_const.asm
+Source: C:\jac\wudsn\Workspace\asm_t2\2018\rainbowsin\display_list_const.asm
      1 = 0230			DLIST   = $230
      2 = 0230			DLISTL  = $230 ; display list pointer low byte
      3 = 0231			DLISTH  = $231 ;                      high byte
@@ -352,7 +352,7 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin\display_list_const.asm
     44
     45 						
     14 39B6				ICL 'wait_vsync.asm'
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin\wait_vsync.asm
+Source: C:\jac\wudsn\Workspace\asm_t2\2018\rainbowsin\wait_vsync.asm
      1
      2
      3 39B6			wait_hsync:
@@ -377,7 +377,7 @@ Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin\wait_vsync.asm
     22 39C7 60				rts
     23 					
     15 39C8				ICL 'math.asm'
-Source: C:\jac\wudsn\Workspace\Atari800\asm_t2\rainbowsin\math.asm
+Source: C:\jac\wudsn\Workspace\asm_t2\2018\rainbowsin\math.asm
      1 39C8				org $1F00
      2 					
      3 				;MATH_SIN_LEN = 16
